@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тип 8: Перебор слов и системы счисления</title>
+    <style>
+        /* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: #000;
+            background-color: #fff;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .problem_container {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+        .prob_header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .prob_num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #4a6baf;
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .prob_nums {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .prob_nums a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .prob_nums a:hover {
+            text-decoration: underline;
+        }
+
+        /* ★ ТЕКСТ ЗАДАНИЯ ★ */
+        .problem_text {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .left_margin {
+            margin-left: 0;
+        }
+
+        /* ★ РЕШЕНИЕ ★ */
+        .solution {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #4a6baf;
+            font-size: 14px;
+            display: none;
+        }
+
+        .solution_text {
+            line-height: 1.6;
+        }
+
+        .solution_text center {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .code_block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px;
+            border-radius: 3px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .code_block pre {
+            margin: 0;
+            color: #ecf0f1;
+            white-space: pre-wrap;
+        }
+
+        hr {
+            margin: 15px 0;
+            border: none;
+            border-top: 1px dashed #999;
+        }
+
+        /* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+        .btn_show_solution {
+            padding: 8px 16px;
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .btn_show_solution:hover {
+            background-color: #e67e22;
+        }
+
+        /* ★ ИСТОЧНИК ★ */
+        .source_info {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+
+        .source_info span, .source_info a {
+            color: #666;
+        }
+
+        .source_info a:hover {
+            color: #0066cc;
+        }
+
+        /* ★ ОТВЕТ ★ */
+        .answer {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f4ff;
+            border-left: 3px solid #4a6baf;
+            font-weight: bold;
+        }
+
+        /* ★ АДАПТИВНОСТЬ ★ */
+        @media (max-width: 768px) {
+            .btn_show_solution {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        .new_header {
+            padding-top: 3px;
+            vertical-align: middle;
+            width: 100%;
+            line-height: 25px;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #006;
+            font-weight: bold;
+        }
+        
+        .flex-img {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .flex-img img {
+            max-width: 100%;
+        }
+        
+        .tex {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="new_header">
+        <b>Тип 8. Перебор слов и системы счисления. Подсчёт количества разных последовательностей</b>
+    </div>
+
+    <div class="container">
+        <!-- Задача 1 (10473) -->
+        <div class="problem_container" id="problem_10473">
+            <div class="prob_header">
+                <div class="prob_num">1</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 10473</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Шифр кодового замка представляет собой последовательность из пяти символов, каждый из которых является цифрой от 1 до 4. Сколько различных вариантов шифра можно задать, если известно, что цифра 1 встречается ровно два раза, а каждая из других допустимых цифр может встречаться в шифре любое количество раз или не встречаться совсем?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('10473')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock10473">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Количество способов поставить две 1 на пять позиций — C(5,2) = 10. После того, как определили позиции двух 1, на оставшиеся позиции можем поставить любое из трёх чисел (2,3,4), это можно сделать 3³ = 27 способами. Итого всего 10·27 = 270 кодов.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = '1234'
+count = 0
+for p in product(alphabet, repeat=5):
+    if p.count('1') == 2:
+        count += 1
+print(count)  # 270</pre>
+                    </div>
+                    <p><b>Ответ:</b> 270.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 2 (58235) -->
+        <div class="problem_container" id="problem_58235">
+            <div class="prob_header">
+                <div class="prob_num">2</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 58235</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько существует различных трёхзначных чисел, записанных в четверичной системе счисления, в записи которых сумма первой и последней цифры строго больше цифры стоящей по середине?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('58235')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock58235">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Переберём все возможные комбинации цифр в четверичной системе (цифры 0,1,2,3). Первая цифра не может быть 0. Условие: a + c > b. Подсчёт даёт 38 чисел.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = '0123'
+count = 0
+for p in product(alphabet, repeat=3):
+    if p[0] != '0' and int(p[0]) + int(p[2]) > int(p[1]):
+        count += 1
+print(count)  # 38</pre>
+                    </div>
+                    <p><b>Ответ:</b> 38.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 3 (58237) -->
+        <div class="problem_container" id="problem_58237">
+            <div class="prob_header">
+                <div class="prob_num">3</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 58237</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько существует различных четырёхзначных чисел, записанных в семеричной системе счисления, в записи которых цифры следуют слева направо в строго убывающем порядке?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('58237')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock58237">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Нам нужно выбрать 4 различные цифры из 7 (цифры 0-6) и расположить их в порядке убывания (только один способ). Количество способов выбора равно C(7,4) = 35. Однако первая цифра не может быть 0, но при выборе 4 цифр из 7, 0 может попасть в число. Нужно вычесть варианты, где 0 — первая цифра. При фиксированном 0 на первом месте, нужно выбрать 3 цифры из оставшихся 6: C(6,3) = 20. Итого: 35 - 20 = 15? Проверим через Python.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = '0123456'
+count = 0
+for p in product(alphabet, repeat=4):
+    if p[0] > p[1] > p[2] > p[3]:
+        count += 1
+print(count)  # 35</pre>
+                    </div>
+                    <p>На самом деле, так как все цифры различны и строго убывают, первая цифра автоматически не может быть 0 (так как 0 — наименьшая). Поэтому все 35 комбинаций подходят.</p>
+                    <p><b>Ответ:</b> 35.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 4 (59713) -->
+        <div class="problem_container" id="problem_59713">
+            <div class="prob_header">
+                <div class="prob_num">4</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 59713</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Составляют 5-буквенные слова из букв слова ПЯТНИЦА. Найти количество слов, которые не начинаются с Н и в которых есть только одна буква Я. Буквы в слове могут повторяться.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('59713')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock59713">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Всего букв: П, Я, Т, Н, И, Ц, А — 7 букв. Нужно составить 5-буквенные слова. Условия: первая буква не Н, ровно одна буква Я.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+count = 0
+for p in product("ПЯТНИЦА", repeat=5):
+    if p.count("Я") == 1 and p[0] != "Н":
+        count += 1
+print(count)  # 5616</pre>
+                    </div>
+                    <p><b>Ответ:</b> 5616.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 5 (59741) -->
+        <div class="problem_container" id="problem_59741">
+            <div class="prob_header">
+                <div class="prob_num">5</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 59741</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько существует чисел, восьмеричная запись которых содержит 5 цифр, причём в записи нет цифры 1. Также все цифры записи различны и никакие две чётные и две нечётные цифры не стоят рядом.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('59741')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock59741">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Используем перебор с помощью Python.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import permutations
+alphabet = '0234567'  # без 1
+count = 0
+for p in permutations(alphabet, 5):
+    if p[0] != '0':
+        # проверка на чередование чётности
+        ok = True
+        for i in range(4):
+            if (int(p[i]) % 2) == (int(p[i+1]) % 2):
+                ok = False
+                break
+        if ok:
+            count += 1
+print(count)  # 180</pre>
+                    </div>
+                    <p><b>Ответ:</b> 180.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 6 (59742) -->
+        <div class="problem_container" id="problem_59742">
+            <div class="prob_header">
+                <div class="prob_num">6</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 59742</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Определите количество четырёхзначных чисел, записанных в десятичной системе счисления, в записи которых все цифры различны и никакие две чётные и две нечётные цифры не стоят рядом.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('59742')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock59742">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Аналитическое решение: число может быть вида ЧНЧН или НЧНЧ. Для ЧНЧН: первая цифра из 4 (2,4,6,8) — 4 варианта, вторая из 5 нечётных — 5, третья из 4 чётных (кроме выбранной первой) — 4, четвёртая из 4 нечётных (кроме выбранной второй) — 4. Итого: 4·5·4·4 = 320. Для НЧНЧ: первая из 5 нечётных, вторая из 5 чётных, третья из 4 нечётных, четвёртая из 4 чётных: 5·5·4·4 = 400. Всего: 320 + 400 = 720.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import permutations
+count = 0
+for p in permutations('0123456789', 4):
+    if p[0] != '0':
+        ok = True
+        for i in range(3):
+            if (int(p[i]) % 2) == (int(p[i+1]) % 2):
+                ok = False
+                break
+        if ok:
+            count += 1
+print(count)  # 720</pre>
+                    </div>
+                    <p><b>Ответ:</b> 720.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 7 (59743) -->
+        <div class="problem_container" id="problem_59743">
+            <div class="prob_header">
+                <div class="prob_num">7</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 59743</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Алиса составляет 6-буквенные слова из букв М, А, Н, Г, У, С, Т. Каждая из букв может встречаться сколько угодно раз, причём первой буквой не может быть А, буква У должна встречаться не менее 1 раза. Также в записи должны быть ровно две буквы М. Сколько различных слов может составить Алиса?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('59743')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock59743">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Перебираем все 6-буквенные слова из 7 букв с повторениями и проверяем условия.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+count = 0
+for p in product("МАНГУСТ", repeat=6):
+    if p.count("М") == 2 and p[0] != "А" and p.count("У") >= 1:
+        count += 1
+print(count)  # 9155</pre>
+                    </div>
+                    <p><b>Ответ:</b> 9155.</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <hr>
+
+        <!-- Задача 8 (59746) -->
+        <div class="problem_container" id="problem_59746">
+            <div class="prob_header">
+                <div class="prob_num">8</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 59746</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько существует десятичных чисел, которые делятся на 5, при условии что все цифры числа различные?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('59746')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock59746">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Число делится на 5, если оканчивается на 0 или 5. Рассмотрим все возможные длины чисел от 1 до 10.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import permutations
+word = '0123456789'
+c = 0
+for j in range(1, 11):
+    for i in permutations(word, j):
+        x = ''.join(i)
+        if x[0] != '0' and (x[-1] == '5' or x[-1] == '0'):
+            c += 1
+print(c + 1)  # +1 случай когда число равно 0</pre>
+                    </div>
+                    <p><b>Ответ:</b> 1863219.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 9 (59801) -->
+        <div class="problem_container" id="problem_59801">
+            <div class="prob_header">
+                <div class="prob_num">9</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 59801</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Игорь составляет таблицу кодовых слов для передачи сообщений, каждому сообщению соответствует своё кодовое слово. В качестве кодовых слов Игорь использует пятибуквенные слова, в которых могут быть только буквы К, О, Н, Ф, Е, Т, А, причём буква Е появляется ровно 2 раза. Каждая из других допустимых букв может встречаться в кодовом слове любое количество раз или не встречаться совсем. На втором месте НЕ может стоять буква Ф. Сколько различных кодовых слов может использовать Игорь?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('59801')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock59801">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Перебираем все 5-буквенные слова из 7 букв с повторениями и проверяем условия.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+count = 0
+for p in product("КОНФЕТА", repeat=5):
+    if p.count("Е") == 2 and p[1] != "Ф":
+        count += 1
+print(count)  # 1944</pre>
+                    </div>
+                    <p><b>Ответ:</b> 1944.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 10 (59831) -->
+        <div class="problem_container" id="problem_59831">
+            <div class="prob_header">
+                <div class="prob_num">10</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 59831</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Игорь составляет пятизначные числа, используя цифры девятеричной системы счисления. Сколько различных чисел может составить Игорь, в которых только одна цифра 5 и рядом с ней НЕ стоят нечётные цифры?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('59831')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock59831">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Цифры девятеричной системы: 0-8. Нечётные цифры: 1,3,5,7. Но цифра 5 — сама по себе, поэтому рядом с ней не могут стоять 1,3,7. Рассмотрим все позиции для цифры 5.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+count = 0
+for p in product("012345678", repeat=5):
+    if p[0] != "0" and p.count("5") == 1:
+        i = p.index('5')
+        if i == 0:
+            if p[1] not in '137':
+                count += 1
+        elif i == 4:
+            if p[3] not in '137':
+                count += 1
+        else:
+            if p[i-1] not in '137' and p[i+1] not in '137':
+                count += 1
+print(count)  # 8880</pre>
+                    </div>
+                    <p><b>Ответ:</b> 8880.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 11 (59832) -->
+        <div class="problem_container" id="problem_59832">
+            <div class="prob_header">
+                <div class="prob_num">11</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 59832</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Игорь составляет пятизначные числа, используя цифры девятеричной системы счисления. Сколько различных чисел может составить Игорь, в которых ровно две цифры 3 и нечётные цифры не стоят рядом с цифрой 2?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('59832')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock59832">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Нечётные цифры: 1,3,5,7. Рядом с цифрой 2 не могут стоять эти цифры.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+count = 0
+bad = ['12','32','52','72','21','23','25','27']
+for p in product("012345678", repeat=5):
+    s = ''.join(p)
+    if s[0] != '0' and s.count('3') == 2:
+        ok = True
+        for b in bad:
+            if b in s:
+                ok = False
+                break
+        if ok:
+            count += 1
+print(count)  # 3352</pre>
+                    </div>
+                    <p><b>Ответ:</b> 3352.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 12 (64893) -->
+        <div class="problem_container" id="problem_64893">
+            <div class="prob_header">
+                <div class="prob_num">12</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 64893</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Назовём ряд из двух цифр подходящим, если выполняется любое из двух условий: 1) сумма цифр чётна и вторая цифра больше первой; 2) сумма цифр нечётна и вторая цифра меньше первой. Назовём многозначное число подходящим, если любые две соседние цифры в его записи образуют подходящий ряд. Сколько существует подходящих 12-значных 9-ричных чисел?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('64893')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock64893">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Для каждой цифры можно определить, какие цифры могут следовать за ней. Первую цифру можно выбрать 8 способами (1-8), каждую следующую — 4 способами. Итого: 8·4¹¹ = 33554432.</p>
+                    <p><b>Решение на Python (динамическое программирование):</b></p>
+                    <div class="code_block">
+                        <pre>dp = [1]*9
+dp[0] = 0
+for _ in range(11):
+    new = [0]*9
+    for d in range(9):
+        for n in range(9):
+            if ((d+n)%2==0 and n>d) or ((d+n)%2==1 and n<d):
+                new[n] += dp[d]
+    dp = new
+print(sum(dp))  # 33554432</pre>
+                    </div>
+                    <p><b>Ответ:</b> 33554432.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 13 (72566) -->
+        <div class="problem_container" id="problem_72566">
+            <div class="prob_header">
+                <div class="prob_num">13</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 72566</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Определите количество восьмизначных 15-ричных чисел, в записи которых ровно два нуля и не более четырёх цифр, для записи которых используются буквы.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('72566')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock72566">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>15-ричная система: цифры 0-9 и A,B,C,D,E (5 букв). Нужно разместить 2 нуля на 7 позициях (кроме первой) — C(7,2)=21 способ. Остальные 6 позиций заполняются остальными 14 цифрами (1-9 и A-E). Нужно, чтобы букв было не более 4. Вычитаем случаи, где все 6 — буквы (5⁶) и где 5 букв (6·9·5⁵).</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>import math
+print(math.comb(7,2)*(14**6 - 5**6 - 6*9*5**5))  # 154248381</pre>
+                    </div>
+                    <p><b>Ответ:</b> 154248381.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 14 (73863) -->
+        <div class="problem_container" id="problem_73863">
+            <div class="prob_header">
+                <div class="prob_num">14</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 73863</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Джон составляет список всех возможных кодов, составленных из заглавных латинских букв. Сначала он выписывает в алфавитном порядке все коды, состоящие из одного символа (A, B, …, Z), затем — тоже в алфавитном порядке — коды из двух символов (AA, AB, …, AZ, BA, BB, … ZZ), далее идут трёхсимвольные коды (AAA, AAB, …, ZZZ) и так далее. Под каким номером окажется в этом списке код FDECBA?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('73863')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock73863">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Код FDECBA — 6-буквенный. Сначала идут все коды длины 1 (26), длины 2 (26²), ..., длины 5 (26⁵). Сумма = (26⁶-26)/25. Затем нужно найти порядковый номер среди 6-буквенных кодов. Рассматриваем слово как 26-ричное число: F=5, D=3, E=4, C=2, B=1, A=0 → число 534210 в 26-ричной системе = 5·26⁵+3·26⁴+4·26³+2·26²+1·26+0. Прибавляем 1 (нумерация с 1).</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>print(int('534210',26) + 1 + sum(26**p for p in range(1,6)))  # 73206121</pre>
+                    </div>
+                    <p><b>Ответ:</b> 73206121.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 15 (76111) -->
+        <div class="problem_container" id="problem_76111">
+            <div class="prob_header">
+                <div class="prob_num">15</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 76111</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Определите количество семеричных пятизначных чисел, которые начинаются с чётных цифр, не оканчивается цифрами 2 и 3 и содержит не менее двух цифр 1.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('76111')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock76111">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Семеричная система: цифры 0-6. Чётные цифры: 0,2,4,6. Первая цифра не может быть 0, поэтому выбираем из 2,4,6 — 3 варианта. Последняя цифра не 2 и не 3. Условие: не менее двух цифр 1.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+count = 0
+for p in product("0123456", repeat=5):
+    if p[0] in '246' and p[-1] not in '23' and p.count('1') >= 2:
+        count += 1
+print(count)  # 609</pre>
+                    </div>
+                    <p><b>Ответ:</b> 609.</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <hr>
+
+        <!-- Задача 16 (76223) -->
+        <div class="problem_container" id="problem_76223">
+            <div class="prob_header">
+                <div class="prob_num">16</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 76223</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Определите количество шестеричных пятизначных чисел, в записи которых не менее двух цифр 5 и не более трёх нечётных цифр, меньших 4.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('76223')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock76223">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Шестеричная система: цифры 0-5. Нечётные цифры, меньшие 4: 1 и 3. Условие: не менее двух цифр 5 и не более трёх цифр 1 и 3.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+count = 0
+for p in product("012345", repeat=5):
+    if p[0] != '0' and p.count('5') >= 2 and p.count('1') + p.count('3') <= 3:
+        count += 1
+print(count)  # 1355</pre>
+                    </div>
+                    <p><b>Ответ:</b> 1355.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 17 (76676) -->
+        <div class="problem_container" id="problem_76676">
+            <div class="prob_header">
+                <div class="prob_num">17</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 76676</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько существует натуральных чисел, запись которых в системе счисления с основанием 12 содержит не менее двух цифр, и при чтении числа слева направо каждая следующая цифра оказывается строго больше предыдущей?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('76676')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock76676">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Цифры 12-ричной системы: 0-9 и A,B. Нам нужны строго возрастающие последовательности цифр (без повторений). Это сочетания из 12 цифр по k, где k≥2. Сумма C(12,2)+C(12,3)+...+C(12,12) = 2¹² - C(12,0) - C(12,1) = 4096 - 1 - 12 = 4083.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>import math
+total = 0
+for i in range(2, 13):
+    total += math.comb(12, i)
+print(total)  # 4083</pre>
+                    </div>
+                    <p><b>Ответ:</b> 4083.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 18 (76705) -->
+        <div class="problem_container" id="problem_76705">
+            <div class="prob_header">
+                <div class="prob_num">18</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 76705</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько существует натуральных чисел, запись которых в системе счисления с основанием 13 содержит не менее двух цифр, и при чтении числа слева направо каждая следующая цифра оказывается строго больше предыдущей?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('76705')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock76705">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Цифры 13-ричной системы: 0-9 и A,B,C. Строго возрастающие последовательности — сочетания из 13 цифр по k, где k≥2. Сумма = 2¹³ - C(13,0) - C(13,1) = 8192 - 1 - 13 = 8178.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>import math
+total = 0
+for i in range(2, 14):
+    total += math.comb(13, i)
+print(total)  # 8178</pre>
+                    </div>
+                    <p><b>Ответ:</b> 8178.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 19 (79721) -->
+        <div class="problem_container" id="problem_79721">
+            <div class="prob_header">
+                <div class="prob_num">19</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 79721</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько существует десятичных четырёхзначных чисел, в которых все цифры различны и никакие две чётные или две нечётные цифры не стоят рядом?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('79721')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock79721">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Число может быть вида ЧНЧН или НЧНЧ. Для ЧНЧН: первая цифра из 4 (2,4,6,8) — 4 варианта, вторая из 5 нечётных — 5, третья из 4 чётных (кроме выбранной первой) — 4, четвёртая из 4 нечётных (кроме выбранной второй) — 4. Итого: 4·5·4·4 = 320. Для НЧНЧ: первая из 5 нечётных, вторая из 5 чётных, третья из 4 нечётных, четвёртая из 4 чётных: 5·5·4·4 = 400. Всего: 720.</p>
+                    <p><b>Ответ:</b> 720.</p>
+                </div>
+            </div>
+           
+        </div>
+
+        <hr>
+
+        <!-- Задача 20 (83138) -->
+        <div class="problem_container" id="problem_83138">
+            <div class="prob_header">
+                <div class="prob_num">20</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 83138</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько существует пятнадцатеричных четырёхзначных чисел, содержащих в своей записи ровно одну цифру 8, в которых никакие две одинаковые цифры не стоят рядом?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('83138')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock83138">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Перебираем все возможные комбинации.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+count = 0
+for p in product("0123456789abcde", repeat=4):
+    if p[0] != '0' and p.count('8') == 1:
+        ok = True
+        for i in range(3):
+            if p[i] == p[i+1]:
+                ok = False
+                break
+        if ok:
+            count += 1
+print(count)  # 9295</pre>
+                    </div>
+                    <p><b>Ответ:</b> 9295.</p>
+                </div>
+            </div>
+            
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 21 (83166) -->
+        <div class="problem_container" id="problem_83166">
+            <div class="prob_header">
+                <div class="prob_num">21</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 83166</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько существует шестнадцатеричных четырёхзначных чисел, содержащих в своей записи ровно одну цифру 3, в которых никакие две одинаковые цифры не стоят рядом?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('83166')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock83166">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Перебираем все возможные комбинации.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+count = 0
+for p in product("0123456789abcdef", repeat=4):
+    if p[0] != '0' and p.count('3') == 1:
+        ok = True
+        for i in range(3):
+            if p[i] == p[i+1]:
+                ok = False
+                break
+        if ok:
+            count += 1
+print(count)  # 11564</pre>
+                    </div>
+                    <p><b>Ответ:</b> 11564.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 22 (84670) -->
+        <div class="problem_container" id="problem_84670">
+            <div class="prob_header">
+                <div class="prob_num">22</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 84670</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Определите количество 16-ричных шестизначных чисел, в записи которых содержится не менее одной цифры 5 и ровно две цифры с числовым значением, превышающим 12, причём стоящие рядом.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('84670')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock84670">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>16-ричная система: цифры 0-9 и A,B,C,D,E,F. Цифры со значением >12: D(13), E(14), F(15). Обозначим их как X. Нужно ровно две такие цифры, стоящие рядом.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+count = 0
+alphabet = "0123456789ABCDEF"
+big = "DEF"
+for p in product(alphabet, repeat=6):
+    s = ''.join(p)
+    if s[0] != '0' and s.count('5') >= 1:
+        big_count = sum(1 for c in s if c in big)
+        if big_count == 2:
+            # проверяем, что две большие цифры стоят рядом
+            for i in range(5):
+                if s[i] in big and s[i+1] in big:
+                    count += 1
+                    break
+print(count)  # 335241</pre>
+                    </div>
+                    <p><b>Ответ:</b> 335241.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+        function toggleSolution(problemNumber) {
+            const solution = document.getElementById('solutionBlock' + problemNumber);
+            const btn = event.target;
+            
+            if (solution.style.display === 'none' || solution.style.display === '') {
+                solution.style.display = 'block';
+                btn.textContent = 'Скрыть решение';
+            } else {
+                solution.style.display = 'none';
+                btn.textContent = 'Показать решение';
+            }
+        }
+    </script>
+</body>
+</html>

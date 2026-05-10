@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 8: Перебор слов и системы счисления</title>
+    <style>
+        /* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: #000;
+            background-color: #fff;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .problem_container {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+        .prob_header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .prob_num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #4a6baf;
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .prob_nums {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .prob_nums a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .prob_nums a:hover {
+            text-decoration: underline;
+        }
+
+        .problem_actions {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .action_btn {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin: 0 3px;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        /* ★ ТЕКСТ ЗАДАНИЯ ★ */
+        .problem_text {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .left_margin {
+            margin-left: 0;
+        }
+
+        /* ★ ТАБЛИЦА ИСТИННОСТИ ★ */
+        .table_container {
+            margin: 20px 0;
+        }
+
+        .wrap_scroll_table {
+            overflow-x: auto;
+        }
+
+        .truth_table, .example_table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-size: 14px;
+        }
+
+        .truth_table th, .example_table th {
+            background-color: #f0f0f0;
+            border: 1px solid #999;
+            padding: 8px 12px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .truth_table td, .example_table td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+            text-align: center;
+        }
+
+        .truth_table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* ★ ИНСТРУКЦИЯ ★ */
+        .instruction_box {
+            background-color: #f5f5f5;
+            padding: 12px;
+            margin: 15px 0;
+            border-left: 4px solid #4a6baf;
+            font-size: 14px;
+        }
+
+        /* ★ ПРИМЕР ★ */
+        .example_box {
+            background-color: #f5f5f5;
+            padding: 12px;
+            margin: 15px 0;
+            border-left: 4px solid #ffc107;
+            font-size: 14px;
+        }
+
+        .example_table {
+            margin: 10px auto;
+        }
+
+        .example_table th,
+        .example_table td {
+            padding: 5px 10px;
+        }
+
+        /* ★ БЛОК ОТВЕТА ★ */
+        .answer_block {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 3px;
+        }
+
+        .answer_block h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .answer_form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .answer_input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+            font-family: monospace;
+        }
+
+        .answer_input:focus {
+            border-color: #4a6baf;
+            outline: none;
+        }
+
+        .btn_check {
+            padding: 8px 20px;
+            background-color: #4a6baf;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn_check:hover {
+            background-color: #3a5a9f;
+        }
+
+        .result_message {
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .result_message.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .result_message.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* ★ РЕШЕНИЕ ★ */
+        .solution {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #4a6baf;
+            font-size: 14px;
+        }
+
+        .solution_text {
+            line-height: 1.6;
+        }
+
+        .solution_tables {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .solution_table {
+            border-collapse: collapse;
+        }
+
+        .solution_table th,
+        .solution_table td {
+            border: 1px solid #999;
+            padding: 5px 10px;
+            text-align: center;
+        }
+
+        .code_block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px;
+            border-radius: 3px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .code_block pre {
+            margin: 0;
+            color: #ecf0f1;
+            white-space: pre-wrap;
+        }
+
+        hr {
+            margin: 15px 0;
+            border: none;
+            border-top: 1px dashed #999;
+        }
+
+        /* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+        .task_controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ccc;
+        }
+
+        .btn_show_solution {
+            padding: 8px 16px;
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn_show_solution:hover {
+            background-color: #e67e22;
+        }
+
+        .btn_secondary {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #95a5a6;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        .btn_secondary:hover {
+            background-color: #7f8c8d;
+        }
+
+        /* ★ ИСТОЧНИК ★ */
+        .source_info {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+
+        .source_info span {
+            color: #666;
+        }
+
+        /* ★ АДАПТИВНОСТЬ ★ */
+        @media (max-width: 768px) {
+            .answer_form {
+                flex-direction: column;
+            }
+            
+            .task_controls {
+                flex-direction: column;
+            }
+            
+            .btn_check,
+            .btn_show_solution,
+            .btn_secondary {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .solution_tables {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 8. Перебор слов и системы счисления</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 8 № 3193 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв А, О, У, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ААААА</p>
+            <p>2. ААААО</p>
+            <p>3. ААААУ</p>
+            <p>4. АААОА</p>
+            <p>……</p>
+            <p>Запишите слово, которое стоит на 210-м месте от начала списка.</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('АОУ', repeat=5))
+print(''.join(words[209]))  # Ответ: УОУАУ</pre>
+            </div>
+            <p><b>Ответ:</b> УОУАУ</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 8 № 7457 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 4-буквенные слова, составленные из букв К, Л, Р, Т, записаны в алфавитном порядке и пронумерованы. Вот начало списка:</p>
+            <p>1. КККК</p>
+            <p>2. КККЛ</p>
+            <p>3. КККР</p>
+            <p>4. КККТ</p>
+            <p>...</p>
+            <p>Запишите слово, которое стоит под номером 67.</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('КЛРТ', repeat=4))
+print(''.join(words[66]))  # Ответ: ЛККР</pre>
+            </div>
+            <p><b>Ответ:</b> ЛККР</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 8 № 7755 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв Л, Н, Р, Т, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ЛЛЛЛЛ</p>
+            <p>2. ЛЛЛЛН</p>
+            <p>3. ЛЛЛЛР</p>
+            <p>4. ЛЛЛЛТ</p>
+            <p>5. ЛЛЛНЛ</p>
+            <p>Запишите слово, которое стоит на 150-м месте от начала списка.</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('ЛНРТ', repeat=5))
+print(''.join(words[149]))  # Ответ: ЛРННН</pre>
+            </div>
+            <p><b>Ответ:</b> ЛРННН</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 8 № 7782 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 4-буквенные слова, составленные из букв Н, Р, Т, У, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. НННН</p>
+            <p>2. НННР</p>
+            <p>3. НННТ</p>
+            <p>4. НННУ</p>
+            <p>5. ННРН</p>
+            <p>Запишите слово, которое стоит на 215-м месте от начала списка.</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('НРТУ', repeat=4))
+print(''.join(words[214]))  # Ответ: УРРТ</pre>
+            </div>
+            <p><b>Ответ:</b> УРРТ</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 8 № 8658 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв А, Н, П, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ААААА</p>
+            <p>2. ААААН</p>
+            <p>3. ААААП</p>
+            <p>4. АААНА</p>
+            <p>5. АААНН</p>
+            <p>Запишите слово, которое стоит на 201-м месте от начала списка.</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('АНП', repeat=5))
+print(''.join(words[200]))  # Ответ: ПННАП</pre>
+            </div>
+            <p><b>Ответ:</b> ПННАП</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 8 № 9162 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 4-буквенные слова, составленные из букв М, С, Т, Ф, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ММММ</p>
+            <p>2. МММС</p>
+            <p>3. МММТ</p>
+            <p>4. МММФ</p>
+            <p>5. ММСМ</p>
+            <p>Запишите слово, которое стоит на 138-м месте от начала списка.</p>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('МСТФ', repeat=4))
+print(''.join(words[137]))  # Ответ: ТМТС</pre>
+            </div>
+            <p><b>Ответ:</b> ТМТС</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 8 № 9645 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 4-буквенные слова, составленные из букв В, Л, Т, У, записаны в алфавитном порядке и пронумерованы. Вот начало списка:</p>
+            <p>1. ВВВВ</p>
+            <p>2. ВВВЛ</p>
+            <p>3. ВВВТ</p>
+            <p>4. ВВВУ</p>
+            <p>Запишите слово, которое стоит под номером 98.</p>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('ВЛТУ', repeat=4))
+print(''.join(words[97]))  # Ответ: ЛТВЛ</pre>
+            </div>
+            <p><b>Ответ:</b> ЛТВЛ</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 8 № 3195 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв А, К, Р, У, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ААААА</p>
+            <p>2. ААААК</p>
+            <p>3. ААААР</p>
+            <p>4. ААААУ</p>
+            <p>5. АААКА</p>
+            <p>Запишите слово, которое стоит на 350-м месте от начала списка.</p>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('АКРУ', repeat=5))
+print(''.join(words[349]))  # Ответ: КККУК</pre>
+            </div>
+            <p><b>Ответ:</b> КККУК</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 8 № 3200 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв А, О, У, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ААААА</p>
+            <p>2. ААААО</p>
+            <p>3. ААААУ</p>
+            <p>4. АААОА</p>
+            <p>Укажите номер первого слова, которое начинается с буквы У.</p>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+count = 0
+for word in product('АОУ', repeat=5):
+    count += 1
+    if word[0] == 'У':
+        print(count)  # Ответ: 163
+        break</pre>
+            </div>
+            <p><b>Ответ:</b> 163</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 8 № 3206 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв А, К, Р, У, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ААААА</p>
+            <p>2. ААААК</p>
+            <p>3. ААААР</p>
+            <p>4. ААААУ</p>
+            <p>5. АААКА</p>
+            <p>Укажите номер первого слова, которое начинается с буквы К.</p>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+count = 0
+for word in product('АКРУ', repeat=5):
+    count += 1
+    if word[0] == 'К':
+        print(count)  # Ответ: 257
+        break</pre>
+            </div>
+            <p><b>Ответ:</b> 257</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 8 № 3207 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв К, О, Р, записаны в алфавитном порядке и пронумерованы. Вот начало списка:</p>
+            <p>1. ККККК</p>
+            <p>2. ККККО</p>
+            <p>3. ККККР</p>
+            <p>4. КККОК</p>
+            <p>Запишите слово, которое стоит под номером 238.</p>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('КОР', repeat=5))
+print(''.join(words[237]))  # Ответ: РРРОК</pre>
+            </div>
+            <p><b>Ответ:</b> РРРОК</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 12 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 8 № 3227 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв И, О, У, записаны в алфавитном порядке и пронумерованы. Вот начало списка:</p>
+            <p>1. ИИИИИ</p>
+            <p>2. ИИИИО</p>
+            <p>3. ИИИИУ</p>
+            <p>4. ИИИОИ</p>
+            <p>Запишите слово, которое стоит под номером 240.</p>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('ИОУ', repeat=5))
+print(''.join(words[239]))  # Ответ: УУУОУ</pre>
+            </div>
+            <p><b>Ответ:</b> УУУОУ</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 13 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 8 № 3228 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв А, О, У, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ААААА</p>
+            <p>2. ААААО</p>
+            <p>3. ААААУ</p>
+            <p>4. АААОА</p>
+            <p>Укажите номер слова УАУАУ.</p>
+        </div>
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('АОУ', repeat=5))
+print(words.index(('У','А','У','А','У')) + 1)  # Ответ: 183</pre>
+            </div>
+            <p><b>Ответ:</b> 183</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 14 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 8 № 3230 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв А, К, Р, У, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ААААА</p>
+            <p>2. ААААК</p>
+            <p>3. ААААР</p>
+            <p>4. ААААУ</p>
+            <p>5. АААКА</p>
+            <p>Укажите номер слова УКАРА.</p>
+        </div>
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('АКРУ', repeat=5))
+print(words.index(('У','К','А','Р','А')) + 1)  # Ответ: 841</pre>
+            </div>
+            <p><b>Ответ:</b> 841</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 15 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 8 № 3515 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв А, О, У, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ААААА</p>
+            <p>2. ААААО</p>
+            <p>3. ААААУ</p>
+            <p>4. АААОА</p>
+            <p>Сколько букв А встречается в слове, стоящем на 101-м месте от начала списка.</p>
+        </div>
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('АОУ', repeat=5))
+word = ''.join(words[100])
+print(word.count('А'))  # Ответ: 2</pre>
+            </div>
+            <p><b>Ответ:</b> 2</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 16 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">16</div>
+            <div class="prob_nums">Тип 8 № 3517 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 4-буквенные слова, составленные из букв В, И, Р, Т, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ВВВВ</p>
+            <p>2. ВВВИ</p>
+            <p>3. ВВВР</p>
+            <p>4. ВВВТ</p>
+            <p>5. ВВИВ</p>
+            <p>Запишите слово, которое стоит на 249-м месте от начала списка.</p>
+        </div>
+        <div class="solution" id="solutionBlock16" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('ВИРТ', repeat=4))
+print(''.join(words[248]))  # Ответ: ТТРВ</pre>
+            </div>
+            <p><b>Ответ:</b> ТТРВ</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(16)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 17 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">17</div>
+            <div class="prob_nums">Тип 8 № 3567 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв Е, Ж, И, записаны в алфавитном порядке и пронумерованы. Вот начало списка:</p>
+            <p>1. ЕЕЕЕЕ</p>
+            <p>2. ЕЕЕЕЖ</p>
+            <p>3. ЕЕЕЕИ</p>
+            <p>4. ЕЕЕЖЕ</p>
+            <p>Запишите слово, которое стоит под номером 238.</p>
+        </div>
+        <div class="solution" id="solutionBlock17" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('ЕЖИ', repeat=5))
+print(''.join(words[237]))  # Ответ: ИИИЖЕ</pre>
+            </div>
+            <p><b>Ответ:</b> ИИИЖЕ</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(17)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 18 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">18</div>
+            <div class="prob_nums">Тип 8 № 3569 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 4-буквенные слова, составленные из букв М, У, Х, А записаны в алфавитном порядке и пронумерованы. Вот начало списка:</p>
+            <p>1. АААА</p>
+            <p>2. АААМ</p>
+            <p>3. АААУ</p>
+            <p>4. АААХ</p>
+            <p>5. ААМА</p>
+            <p>Запишите слово, которое стоит под номером 254.</p>
+        </div>
+        <div class="solution" id="solutionBlock18" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('АМУХ', repeat=4))
+print(''.join(words[253]))  # Ответ: ХХХМ</pre>
+            </div>
+            <p><b>Ответ:</b> ХХХМ</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(18)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 19 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">19</div>
+            <div class="prob_nums">Тип 8 № 3693 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из 5 букв А, К, Л, О, Ш, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ААААА</p>
+            <p>2. ААААК</p>
+            <p>3. ААААЛ</p>
+            <p>4. ААААО</p>
+            <p>5. ААААШ</p>
+            <p>6. АААКА</p>
+            <p>На каком месте от начала списка стоит слово ШКОЛА?</p>
+        </div>
+        <div class="solution" id="solutionBlock19" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('АКЛОШ', repeat=5))
+print(words.index(('Ш','К','О','Л','А')) + 1)  # Ответ: 2711</pre>
+            </div>
+            <p><b>Ответ:</b> 2711</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(19)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 20 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">20</div>
+            <div class="prob_nums">Тип 8 № 3694 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв А, О, У, записаны в обратном алфавитном порядке. Вот начало списка:</p>
+            <p>1. УУУУУ</p>
+            <p>2. УУУУО</p>
+            <p>3. УУУУА</p>
+            <p>4. УУУОУ</p>
+            <p>Запишите слово, которое стоит на 240-м месте от начала списка.</p>
+        </div>
+        <div class="solution" id="solutionBlock20" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('УОА', repeat=5))
+print(''.join(words[239]))  # Ответ: АААОА</pre>
+            </div>
+            <p><b>Ответ:</b> АААОА</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(20)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 21 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">21</div>
+            <div class="prob_nums">Тип 8 № 3696 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв В, И, Н, Т, записаны в алфавитном порядке. Вот начало списка:</p>
+            <p>1. ВВВВВ</p>
+            <p>2. ВВВВИ</p>
+            <p>3. ВВВВН</p>
+            <p>4. ВВВВТ</p>
+            <p>5. ВВВИВ</p>
+            <p>Запишите слово, которое стоит под номером 1020.</p>
+        </div>
+        <div class="solution" id="solutionBlock21" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('ВИНТ', repeat=5))
+print(''.join(words[1019]))  # Ответ: ТТТНТ</pre>
+            </div>
+            <p><b>Ответ:</b> ТТТНТ</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(21)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 22 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">22</div>
+            <div class="prob_nums">Тип 8 № 3698 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 6-буквенные слова, составленные из букв Б, К, Ф, записаны в алфавитном порядке и пронумерованы. Вот начало списка:</p>
+            <p>1. ББББББ</p>
+            <p>2. БББББК</p>
+            <p>3. БББББФ</p>
+            <p>4. ББББКБ</p>
+            <p>Запишите слово, которое стоит на 345-м месте от начала списка.</p>
+        </div>
+        <div class="solution" id="solutionBlock22" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('БКФ', repeat=6))
+print(''.join(words[344]))  # Ответ: ККБФБФ</pre>
+            </div>
+            <p><b>Ответ:</b> ККБФБФ</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(22)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 23 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">23</div>
+            <div class="prob_nums">Тип 8 № 3699 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Все 5-буквенные слова, составленные из букв Б, К, Ф, Ц, записаны в алфавитном порядке и пронумерованы. Вот начало списка:</p>
+            <p>1. БББББ</p>
+            <p>2. ББББК</p>
+            <p>3. ББББФ</p>
+            <p>4. ББББЦ</p>
+            <p>5. БББКБ</p>
+            <p>Запишите слово, которое стоит на 239-м месте от начала списка.</p>
+        </div>
+        <div class="solution" id="solutionBlock23" style="display: none;">
+            <p><b>Решение на Python:</b></p>
+            <div class="code_block">
+                <pre>from itertools import product
+words = list(product('БКФЦ', repeat=5))
+print(''.join(words[238]))  # Ответ: БЦФЦФ</pre>
+            </div>
+            <p><b>Ответ:</b> БЦФЦФ</p>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(23)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

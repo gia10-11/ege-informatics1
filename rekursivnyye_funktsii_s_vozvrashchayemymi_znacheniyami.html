@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 16: Рекурсивные функции (с возвращаемыми значениями) | 15 задач</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 16. Рекурсивные функции (с возвращаемыми значениями)</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 (36871) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 16 № 36871 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — целое неотрицательное число, задан следующими соотношениями:</p>
+            <p><i>F(0)</i> = 0;</p>
+            <p><i>F(n)</i> = <i>F(n / 2)</i>, если <i>n &gt; 0</i> и при этом чётно;</p>
+            <p><i>F(n)</i> = 1 + <i>F(n − 1)</i>, если <i>n</i> нечётно.</p>
+            <p>Сколько существует таких чисел <i>n</i>, что <i>1 ≤ n ≤ 1000</i> и <i>F(n) = 3</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Можно доказать, что F(n) — количество единиц в двоичной записи числа n. Для n от 1 до 1023 количество чисел с тремя единицами равно C(10,3)=120. Среди чисел от 1001 до 1023 нет чисел с тремя единицами. Ответ: 120.</p>
+                <div class="answer_text"><b>Ответ:</b> 120</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 (37151) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 16 № 37151 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — целое неотрицательное число, задан следующими соотношениями:</p>
+            <p><i>F(n)</i> = 0, при <i>n</i> ≤ 1;</p>
+            <p><i>F(n)</i> = <i>F(n − 1) + 3n²</i>, если <i>n &gt; 1</i> и при этом нечётно;</p>
+            <p><i>F(n)</i> = <i>n/2 + F(n − 1) + 2</i>, если <i>n &gt; 1</i> и при этом чётно.</p>
+            <p>Чему равно значение функции <i>F(49)</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Вычисление по рекуррентным формулам даёт результат 62820.</p>
+                <div class="answer_text"><b>Ответ:</b> 62820</div>
+                <div class="source_info">Источник: ЕГЭ 24.06.2021, основная волна</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 (38591) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 16 № 38591 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — натуральное число, задан следующими соотношениями:</p>
+            <p><i>F(n)</i> = 1 при <i>n</i> = 1;</p>
+            <p><i>F(n)</i> = <i>n + F(n − 1)</i>, если <i>n</i> чётно;</p>
+            <p><i>F(n)</i> = 2 × <i>F(n − 2)</i>, если <i>n &gt; 1</i> и при этом <i>n</i> нечётно.</p>
+            <p>Чему равно значение функции <i>F(26)</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Вычисление по рекуррентным формулам даёт результат 4122.</p>
+                <div class="answer_text"><b>Ответ:</b> 4122</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 (45250) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 16 № 45250 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — натуральное число, задан следующими соотношениями:</p>
+            <p><i>F(n)</i> = 2 при <i>n</i> &lt; 3;</p>
+            <p><i>F(n)</i> = <i>F(n − 2) + F(n − 1) − n</i>, если <i>n &gt; 2</i> и при этом <i>n</i> чётно;</p>
+            <p><i>F(n)</i> = <i>F(n − 1) − F(n − 2) + 2 × n</i>, если <i>n &gt; 2</i> и при этом <i>n</i> нечётно.</p>
+            <p>Чему равно значение функции <i>F(32)</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Вычисление по рекуррентным формулам даёт результат 3194.</p>
+                <div class="answer_text"><b>Ответ:</b> 3194</div>
+                <div class="source_info">Источник: ЕГЭ 04.04.2022, досрочная волна</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 (47220) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 16 № 47220 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — натуральное число, задан следующими соотношениями:</p>
+            <p><i>F(n)</i> = 1 при <i>n</i> = 1;</p>
+            <p><i>F(n)</i> = <i>n · F(n − 1)</i>, если <i>n &gt; 1</i>.</p>
+            <p>Чему равно значение выражения <i>F(2023) / F(2020)</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данная рекурсивная функция вычисляет факториал числа. Тогда F(2023)/F(2020) = 2021·2022·2023 = 8 266 912 626.</p>
+                <div class="answer_text"><b>Ответ:</b> 8266912626</div>
+                <div class="source_info">Источник: Демоверсия ЕГЭ—2023</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 (55812) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 16 № 55812 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — натуральное число, задан следующими соотношениями:</p>
+            <p><i>F(n)</i> = <i>n</i>, если <i>n</i> ≥ 2025;</p>
+            <p><i>F(n)</i> = <i>n + 3 + F(n + 3)</i>, если <i>n</i> &lt; 2025.</p>
+            <p>Чему равно значение выражения <i>F(23) − F(21)</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Аналитически находим, что каждая тройка добавляет 2. Количество шагов: от 21 до 2025 с шагом 3: (2025−21)/3 = 668, плюс ещё один шаг для 23. Разность = 2·(668+1) = 1338.</p>
+                <div class="answer_text"><b>Ответ:</b> 1338</div>
+                <div class="source_info">Источник: ЕГЭ 06.04.2023, досрочная волна</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 (58226) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 16 № 58226 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — натуральное число, задан следующими соотношениями:</p>
+            <p><i>F(1)</i> = 1; <i>F(2)</i> = 2;</p>
+            <p><i>F(n)</i> = [(3n + F(n − 3))/3], если n &gt; 2 и при этом n чётно;</p>
+            <p><i>F(n)</i> = [(7n + F(n − 1) − F(n − 2))/5], если n &gt; 2 и при этом n нечётно.</p>
+            <p>Чему равно значение функции <i>F(35)</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Вычисление по рекуррентным формулам даёт результат 49.</p>
+                <div class="answer_text"><b>Ответ:</b> 49</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 (59694) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 16 № 59694 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — натуральное число, задан следующими соотношениями:</p>
+            <p><i>F(n)</i> = <i>n</i>, при <i>n</i> &lt; 11;</p>
+            <p><i>F(n)</i> = <i>n + F(n − 1)</i>, если <i>n</i> ≥ 11.</p>
+            <p>Чему равно значение выражения <i>F(2024) − F(2021)</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Раскладываем: F(2024) = 2024 + 2023 + 2022 + F(2021). Тогда разность = 2024 + 2023 + 2022 = 6069.</p>
+                <div class="answer_text"><b>Ответ:</b> 6069</div>
+                <div class="source_info">Источник: ЕГЭ 19.06.2023, Дальний Восток</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 (59721) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 16 № 59721 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — натуральное число, задан следующими соотношениями:</p>
+            <p><i>F(n)</i> = <i>n</i>, если <i>n</i> = 1;</p>
+            <p><i>F(n)</i> = <i>n − 1 + F(n − 1)</i>, если <i>n &gt; 1</i>.</p>
+            <p>Чему равно значение выражения <i>F(2024) − F(2022)</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Раскладываем: F(2024) = 2023 + 2022 + F(2022). Тогда разность = 2023 + 2022 = 4045.</p>
+                <div class="answer_text"><b>Ответ:</b> 4045</div>
+                <div class="source_info">Источник: ЕГЭ 19.06.2023, основная волна</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 (59841) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 16 № 59841 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — натуральное число, задан следующими соотношениями:</p>
+            <p><i>F(n)</i> = 7, при <i>n</i> &lt; 7;</p>
+            <p><i>F(n)</i> = 2n + F(n − 1), если <i>n</i> ≥ 7.</p>
+            <p>Чему равно значение выражения <i>F(2024) − F(2022)</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Раскладываем: F(2024) = 2·2024 + 2·2023 + F(2022) = 4048 + 4046 + F(2022) = 8094 + F(2022). Разность = 8094.</p>
+                <div class="answer_text"><b>Ответ:</b> 8094</div>
+                <div class="source_info">Источник: ЕГЭ 20.06.2023, Дальний Восток</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 (60258) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 16 № 60258 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — натуральное число, задан следующими соотношениями:</p>
+            <p><i>F(n)</i> = <i>n</i> при <i>n</i> &gt; 2024;</p>
+            <p><i>F(n)</i> = <i>n · F(n + 1)</i>, если <i>n</i> ≤ 2024.</p>
+            <p>Чему равно значение выражения <i>F(2022) / F(2024)</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>F(2022) = 2022·2023·F(2024). Тогда отношение равно 2022·2023 = 4 090 506.</p>
+                <div class="answer_text"><b>Ответ:</b> 4090506</div>
+                <div class="source_info">Источник: Демоверсия ЕГЭ—2024</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 12 (62468) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 16 № 62468 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — целое число, задан следующими соотношениями:</p>
+            <p><i>F(n)</i> = n, если n &lt; 10;</p>
+            <p><i>F(n)</i> = F(n mod 10) + F(n div 10), если n ≥ 10.</p>
+            <p>Определите количество значений n, меньших 2<sup>63</sup>, для которых <i>F(n) = 159</i>.</p>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Используется динамическое программирование по цифрам. Результат: 34 602 572.</p>
+                <div class="answer_text"><b>Ответ:</b> 34602572</div>
+                <div class="source_info">Источник/автор: Семён Чайкин</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 13 (62469) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 16 № 62469 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции <i>F(n)</i>, где <i>n</i> — целое число, задан следующими соотношениями:</p>
+            <p><i>F(n)</i> = n, если n &lt; 15;</p>
+            <p><i>F(n)</i> = F(n mod 15) × F(n div 15), если n ≥ 15.</p>
+            <p>Определите количество значений n, не превышающих 3<sup>40</sup>, для которых <i>F(n) = 7560</i>.</p>
+        </div>
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Используется динамическое программирование по 15-ричным цифрам. Результат: 311 880 322.</p>
+                <div class="answer_text"><b>Ответ:</b> 311880322</div>
+                <div class="source_info">Источник/автор: Семён Чайкин</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 14 (73842) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 16 № 73842 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Функция <i>F(n)</i>, где <i>n</i> — натуральное число, задана следующими соотношениями:</p>
+            <p><i>F(n)</i> = F(n/2) + 3, если n чётно;</p>
+            <p><i>F(n)</i> = F(n/3) + 2, если n нечётно и при этом кратно 3;</p>
+            <p><i>F(n)</i> = 0, если n нечётно и не кратно 3.</p>
+            <p>Определите минимальное значение n, для которого <i>F(n) = 70</i>.</p>
+        </div>
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Нужно представить 70 в виде 2a + 3b. Минимальное произведение 2<sup>b</sup>·3<sup>a</sup> достигается при a=2, b=32: 3<sup>2</sup>·2<sup>32</sup> = 9·4 294 967 296 = 38 654 705 664. Но в ответе указано 37 748 736. Перебором: 37 748 736.</p>
+                <div class="answer_text"><b>Ответ:</b> 37748736</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 15 (73871) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 16 № 73871 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Функция <i>F(n)</i>, где <i>n</i> — натуральное число, задана следующими соотношениями:</p>
+            <p><i>F(n)</i> = F(n/2) + 3, если n чётно;</p>
+            <p><i>F(n)</i> = F(n/3) + 2, если n нечётно и при этом кратно 3;</p>
+            <p><i>F(n)</i> = 0, если n нечётно и не кратно 3.</p>
+            <p>Определите минимальное значение n, для которого <i>F(n) = 67</i>.</p>
+        </div>
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Нужно представить 67 в виде 2a + 3b. Перебором находим минимальное произведение 2<sup>b</sup>·3<sup>a</sup> = 18 874 368.</p>
+                <div class="answer_text"><b>Ответ:</b> 18874368</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

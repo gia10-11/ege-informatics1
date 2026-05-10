@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 14: Системы счисления (прямое сложение, подсчет цифр) | 34 задачи</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ ИНСТРУКЦИЯ ★ */
+.instruction_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 14. Системы счисления (прямое сложение, подсчет цифр)</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 (7761) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 14 № 7761 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Сколько единиц содержится в двоичной записи значения выражения: <b>4<sup>2020</sup> + 2<sup>2017</sup> – 15</b>?</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Преобразуем: 4<sup>2020</sup> = 2<sup>4040</sup>. Выражение: 2<sup>4040</sup> + 2<sup>2017</sup> − 15 = 2<sup>4040</sup> + 2<sup>2017</sup> − 2<sup>4</sup> + 1. В двоичной записи 2<sup>4040</sup> — единица и 4040 нулей. Добавление 2<sup>2017</sup> даёт единицу на позиции 2017. Вычитание 16 (2<sup>4</sup>) и прибавление 1 даёт в итоге 2015 единиц.</p>
+                <div class="answer_text"><b>Ответ:</b> 2015</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 (9367) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 14 № 9367 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение арифметического выражения <b>9<sup>8</sup> + 3<sup>5</sup> − 9</b> записали в системе счисления с основанием 3. Сколько цифр 2 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>9<sup>8</sup> = 3<sup>16</sup>, 9 = 3<sup>2</sup>. Выражение: 3<sup>16</sup> + 3<sup>5</sup> − 3<sup>2</sup>. В троичной системе 3<sup>16</sup> — единица и 16 нулей, 3<sup>5</sup> — единица и 5 нулей. После вычитания 3<sup>2</sup> получим три двойки.</p>
+                <div class="answer_text"><b>Ответ:</b> 3</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 (13362) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 14 № 13362 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение арифметического выражения <b>125 + 25<sup>3</sup> + 5<sup>9</sup></b> записали в системе счисления с основанием 5. Сколько значащих нулей содержит эта запись?</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>125 = 5<sup>3</sup>, 25<sup>3</sup> = 5<sup>6</sup>, 5<sup>9</sup> = 5<sup>9</sup>. Сложение даёт число 1001001000<sub>5</sub> — всего 7 значащих нулей.</p>
+                <div class="answer_text"><b>Ответ:</b> 7</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 (13600) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 14 № 13600 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Сколько единиц содержится в двоичной записи значения выражения: <b>4<sup>255</sup> + 2<sup>255</sup> − 255</b>?</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>4<sup>255</sup> = 2<sup>510</sup>, 255 = 2<sup>8</sup> − 1. Выражение: 2<sup>510</sup> + 2<sup>255</sup> − 2<sup>8</sup> + 1. Количество единиц: 1 + 1 + (255 − 8) = 249.</p>
+                <div class="answer_text"><b>Ответ:</b> 249</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 (13743) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 14 № 13743 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение арифметического выражения <b>49<sup>10</sup> + 7<sup>30</sup> − 49</b> записали в системе счисления с основанием 7. Сколько цифр 6 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>49<sup>10</sup> = 7<sup>20</sup>, 49 = 7<sup>2</sup>. Выражение: 7<sup>30</sup> + 7<sup>20</sup> − 7<sup>2</sup>. В результате получается 18 шестёрок.</p>
+                <div class="answer_text"><b>Ответ:</b> 18</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 (15111) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 14 № 15111 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>25<sup>5</sup> + 5<sup>14</sup> − 5</b> записали в системе счисления с основанием 5. Сколько цифр 4 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>25<sup>5</sup> = 5<sup>10</sup>. Выражение: 5<sup>10</sup> + 5<sup>14</sup> − 5 = 5<sup>14</sup> + (5<sup>10</sup> − 5). В пятеричной системе 5<sup>10</sup> − 5 даёт 9 четвёрок. Итого 9 четвёрок.</p>
+                <div class="answer_text"><b>Ответ:</b> 9</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 (15632) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 14 № 15632 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Сколько единиц в двоичной записи числа, являющегося результатом следующего выражения? <b>4<sup>14</sup> + 2<sup>32</sup> − 4</b></p>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>4<sup>14</sup> = 2<sup>28</sup>. Выражение: 2<sup>32</sup> + 2<sup>28</sup> − 2<sup>2</sup>. 2<sup>28</sup> − 2<sup>2</sup> даёт 26 единиц, плюс одна единица от 2<sup>32</sup> — итого 27.</p>
+                <div class="answer_text"><b>Ответ:</b> 27</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 (15801) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 14 № 15801 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>36<sup>7</sup> + 6<sup>19</sup> − 18</b> записали в системе счисления с основанием 6. Сколько цифр 5 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>36<sup>7</sup> = 6<sup>14</sup>, 18 = 6·3. Выражение: 6<sup>19</sup> + 6<sup>14</sup> − 6·3. 6<sup>14</sup> − 6·3 даёт 12 пятёрок. Итого 12 пятёрок.</p>
+                <div class="answer_text"><b>Ответ:</b> 12</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 (15926) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 14 № 15926 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>36<sup>7</sup> + 6<sup>19</sup> − 18</b> записали в системе счисления с основанием 6. Сколько цифр 0 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>36<sup>7</sup> = 6<sup>14</sup>, 18 = 6·3. Выражение: 6<sup>19</sup> + (6<sup>14</sup> − 6·3). 6<sup>14</sup> − 6·3 даёт 12 пятёрок и один ноль, а 6<sup>19</sup> даёт 19 нулей. После сложения нулей остаётся 6.</p>
+                <div class="answer_text"><b>Ответ:</b> 6</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 (15984) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 14 № 15984 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>9<sup>12</sup> + 3<sup>8</sup> − 3</b> записали в системе счисления с основанием 3. Сколько цифр 2 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>9<sup>12</sup> = 3<sup>24</sup>. Выражение: 3<sup>24</sup> + 3<sup>8</sup> − 3. 3<sup>8</sup> − 3 даёт 7 двоек. Итого 7 двоек.</p>
+                <div class="answer_text"><b>Ответ:</b> 7</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 (16445) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 14 № 16445 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>49<sup>6</sup> + 7<sup>18</sup> − 21</b> записали в системе счисления с основанием 7. Сколько цифр 6 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>49<sup>6</sup> = 7<sup>12</sup>, 21 = 7·3. Выражение: 7<sup>18</sup> + 7<sup>12</sup> − 7·3. 7<sup>12</sup> − 7·3 даёт 10 шестёрок.</p>
+                <div class="answer_text"><b>Ответ:</b> 10</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 12 (16819) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 14 № 16819 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>125<sup>5</sup> + 25<sup>9</sup> − 30</b> записали в системе счисления с основанием 5. Сколько цифр 4 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>125<sup>5</sup> = 5<sup>15</sup>, 25<sup>9</sup> = 5<sup>18</sup>, 30 = 5·6. Выражение: 5<sup>18</sup> + (5<sup>15</sup> − 5·6). 5<sup>15</sup> − 5·6 даёт 12 четвёрок, затем ещё одна четвёрка — всего 13.</p>
+                <div class="answer_text"><b>Ответ:</b> 13</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 13 (17334) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 14 № 17334 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>2·216<sup>6</sup> + 3·36<sup>9</sup> − 432</b> записали в системе счисления с основанием 6. Сколько цифр 5 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>216<sup>6</sup> = 6<sup>18</sup>, 36<sup>9</sup> = 6<sup>18</sup>, 432 = 2·6<sup>3</sup>. Выражение: 5·6<sup>18</sup> − 2·6<sup>3</sup>. В результате 14 пятёрок.</p>
+                <div class="answer_text"><b>Ответ:</b> 14</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 14 (18085) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 14 № 18085 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>4<sup>16</sup> + 2<sup>34</sup> − 8</b> записали в системе счисления с основанием 2. Сколько цифр 1 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>4<sup>16</sup> = 2<sup>32</sup>. Выражение: 2<sup>32</sup> + 2<sup>34</sup> − 2<sup>3</sup>. 2<sup>32</sup> − 2<sup>3</sup> даёт 29 единиц, плюс единица от 2<sup>34</sup> — итого 30.</p>
+                <div class="answer_text"><b>Ответ:</b> 30</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 15 (18444) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 14 № 18444 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Сколько единиц содержится в двоичной записи значения выражения: <b>4<sup>16</sup> + 2<sup>36</sup> − 8</b>?</p>
+        </div>
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>4<sup>16</sup> = 2<sup>32</sup>. Выражение: 2<sup>32</sup> + 2<sup>36</sup> − 2<sup>3</sup>. 2<sup>32</sup> − 2<sup>3</sup> даёт 29 единиц, плюс единица от 2<sup>36</sup> — итого 30.</p>
+                <div class="answer_text"><b>Ответ:</b> 30</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 16 (18497) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">16</div>
+            <div class="prob_nums">Тип 14 № 18497 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>6·343<sup>5</sup> + 5·49<sup>7</sup> − 50</b> записали в системе счисления с основанием 7. Сколько цифр 6 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock16" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>343<sup>5</sup> = 7<sup>15</sup>, 49<sup>7</sup> = 7<sup>14</sup>, 50 = 7·7 + 1. После преобразований получается 14 шестёрок.</p>
+                <div class="answer_text"><b>Ответ:</b> 14</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(16)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 17 (18718) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">17</div>
+            <div class="prob_nums">Тип 14 № 18718 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>4<sup>1014</sup> + 2<sup>1012</sup> − 7</b> записали в системе счисления с основанием 2. Сколько цифр 1 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock17" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>4<sup>1014</sup> = 2<sup>2028</sup>. Выражение: 2<sup>2028</sup> + 2<sup>1012</sup> − 7 = 2<sup>2028</sup> + 2<sup>1012</sup> − 2<sup>3</sup> + 1. Количество единиц: 1011.</p>
+                <div class="answer_text"><b>Ответ:</b> 1011</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(17)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 18 (18795) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">18</div>
+            <div class="prob_nums">Тип 14 № 18795 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>5<sup>36</sup> + 5<sup>24</sup> − 25</b> записали в системе счисления с основанием 5. Сколько цифр 4 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock18" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>5<sup>36</sup> + 5<sup>24</sup> − 5<sup>2</sup>. 5<sup>24</sup> − 5<sup>2</sup> даёт 22 четвёрки. Итого 22.</p>
+                <div class="answer_text"><b>Ответ:</b> 22</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(18)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 19 (18822) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">19</div>
+            <div class="prob_nums">Тип 14 № 18822 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>49<sup>8</sup> + 7<sup>24</sup> − 7</b> записали в системе счисления с основанием 7. Сколько нулей в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock19" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>49<sup>8</sup> = 7<sup>16</sup>. Выражение: 7<sup>24</sup> + 7<sup>16</sup> − 7. 7<sup>16</sup> − 7 даёт 15 шестёрок и один ноль, 7<sup>24</sup> даёт 24 нуля. После сложения нулей остаётся 9.</p>
+                <div class="answer_text"><b>Ответ:</b> 9</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(19)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 20 (19065) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">20</div>
+            <div class="prob_nums">Тип 14 № 19065 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Сколько единиц содержится в двоичной записи значения выражения: <b>4<sup>8</sup> + 2<sup>8</sup> − 8</b>?</p>
+        </div>
+        <div class="solution" id="solutionBlock20" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>4<sup>8</sup> = 2<sup>16</sup>. Выражение: 2<sup>16</sup> + 2<sup>8</sup> − 2<sup>3</sup>. 2<sup>8</sup> − 2<sup>3</sup> даёт 5 единиц, плюс единица от 2<sup>16</sup> — итого 6.</p>
+                <div class="answer_text"><b>Ответ:</b> 6</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(20)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 21 (23914) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">21</div>
+            <div class="prob_nums">Тип 14 № 23914 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение арифметического выражения <b>9<sup>11</sup>·3<sup>20</sup> − 3<sup>9</sup> − 27</b> записали в системе счисления с основанием 3. Сколько цифр 2 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock21" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>9<sup>11</sup>·3<sup>20</sup> = 3<sup>42</sup>. Выражение: 3<sup>42</sup> − 3<sup>9</sup> − 27. В результате 38 двоек.</p>
+                <div class="answer_text"><b>Ответ:</b> 38</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(21)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 22 (26959) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">22</div>
+            <div class="prob_nums">Тип 14 № 26959 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение арифметического выражения <b>16<sup>18</sup>·4<sup>10</sup> − 4<sup>6</sup> − 16</b> записали в системе счисления с основанием 4. Сколько цифр 3 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock22" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>16<sup>18</sup>·4<sup>10</sup> = 4<sup>46</sup>. Выражение: 4<sup>46</sup> − 4<sup>6</sup> − 4<sup>2</sup>. В результате 43 тройки.</p>
+                <div class="answer_text"><b>Ответ:</b> 43</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(22)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 23 (27015) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">23</div>
+            <div class="prob_nums">Тип 14 № 27015 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение арифметического выражения <b>49<sup>7</sup> + 7<sup>20</sup> − 28</b> записали в системе счисления с основанием 7. Сколько цифр 0 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock23" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>49<sup>7</sup> = 7<sup>14</sup>. Выражение: 7<sup>20</sup> + 7<sup>14</sup> − 4·7. В результате 7 нулей.</p>
+                <div class="answer_text"><b>Ответ:</b> 7</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(23)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 24 (27301) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">24</div>
+            <div class="prob_nums">Тип 14 № 27301 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Сколько единиц содержится в двоичной записи значения выражения <b>16<sup>4</sup> + 8<sup>4</sup> + 4<sup>6</sup> − 64</b>?</p>
+        </div>
+        <div class="solution" id="solutionBlock24" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>16<sup>4</sup> = 2<sup>16</sup>, 8<sup>4</sup> = 2<sup>12</sup>, 4<sup>6</sup> = 2<sup>12</sup>, 64 = 2<sup>6</sup>. Выражение: 2<sup>16</sup> + 2·2<sup>12</sup> − 2<sup>6</sup>. В результате 8 единиц.</p>
+                <div class="answer_text"><b>Ответ:</b> 8</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(24)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 25 (27385) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">25</div>
+            <div class="prob_nums">Тип 14 № 27385 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>343<sup>5</sup> + 343<sup>4</sup> + 49<sup>6</sup> − 7<sup>13</sup> − 21</b> записали в системе счисления с основанием 7. Сколько различных цифр содержит эта запись?</p>
+        </div>
+        <div class="solution" id="solutionBlock25" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>После преобразований в записи встречаются цифры 0,1,4,6 — всего 4 различных цифры.</p>
+                <div class="answer_text"><b>Ответ:</b> 4</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(25)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 26 (27411) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">26</div>
+            <div class="prob_nums">Тип 14 № 27411 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>49<sup>7</sup> + 7<sup>21</sup> − 7</b> записали в системе счисления с основанием 7. Сколько цифр 6 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock26" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>49<sup>7</sup> = 7<sup>14</sup>. Выражение: 7<sup>21</sup> + 7<sup>14</sup> − 7. 7<sup>14</sup> − 7 даёт 13 шестёрок. Итого 13.</p>
+                <div class="answer_text"><b>Ответ:</b> 13</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(26)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 27 (27545) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">27</div>
+            <div class="prob_nums">Тип 14 № 27545 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>49<sup>7</sup>·7<sup>20</sup> − 7<sup>8</sup> − 28</b> записали в системе счисления с основанием 7. Сколько цифр 6 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock27" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>49<sup>7</sup>·7<sup>20</sup> = 7<sup>34</sup>. Выражение: 7<sup>34</sup> − 7<sup>8</sup> − 4·7. В результате 31 шестёрка.</p>
+                <div class="answer_text"><b>Ответ:</b> 31</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(27)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 28 (28691) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">28</div>
+            <div class="prob_nums">Тип 14 № 28691 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Сколько единиц содержится в двоичной записи значения выражения <b>8<sup>7</sup> + 4<sup>5</sup> + 2<sup>10</sup> − 32</b>?</p>
+        </div>
+        <div class="solution" id="solutionBlock28" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>8<sup>7</sup> = 2<sup>21</sup>, 4<sup>5</sup> = 2<sup>10</sup>. Выражение: 2<sup>21</sup> + 2·2<sup>10</sup> − 2<sup>5</sup>. В результате 7 единиц.</p>
+                <div class="answer_text"><b>Ответ:</b> 7</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(28)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 29 (29662) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">29</div>
+            <div class="prob_nums">Тип 14 № 29662 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>81<sup>17</sup> + 3<sup>24</sup> − 45</b> записали в системе счисления с основанием 9. Сколько цифр 8 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock29" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>81<sup>17</sup> = 9<sup>34</sup>, 3<sup>24</sup> = 9<sup>12</sup>, 45 = 5·9. В результате 10 восьмёрок.</p>
+                <div class="answer_text"><b>Ответ:</b> 10</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(29)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 30 (35472) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">30</div>
+            <div class="prob_nums">Тип 14 № 35472 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>729<sup>7</sup> + 3<sup>16</sup> − 18</b> записали в системе счисления с основанием 9. Сколько раз в этой записи встречается цифра 0?</p>
+        </div>
+        <div class="solution" id="solutionBlock30" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>729<sup>7</sup> = 9<sup>21</sup>, 3<sup>16</sup> = 9<sup>8</sup>, 18 = 2·9. В результате 14 нулей.</p>
+                <div class="answer_text"><b>Ответ:</b> 14</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(30)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 31 (36027) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">31</div>
+            <div class="prob_nums">Тип 14 № 36027 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение арифметического выражения <b>7·512<sup>120</sup> − 6·64<sup>100</sup> + 8<sup>210</sup> − 255</b> записали в системе счисления с основанием 8. Сколько цифр 0 содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock31" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>512<sup>120</sup> = 8<sup>360</sup>, 64<sup>100</sup> = 8<sup>200</sup>, 255 = 4·8<sup>2</sup> − 1. После преобразований получается 151 ноль.</p>
+                <div class="answer_text"><b>Ответ:</b> 151</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(31)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 32 (36869) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">32</div>
+            <div class="prob_nums">Тип 14 № 36869 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>729<sup>8</sup> − 3<sup>18</sup> + 85</b> записали в системе счисления с основанием 9. Сколько раз в этой записи встречается цифра 0?</p>
+        </div>
+        <div class="solution" id="solutionBlock32" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>729<sup>8</sup> = 9<sup>24</sup>, 3<sup>18</sup> = 9<sup>9</sup>, 85 = 9·9 + 4. В результате 7 нулей.</p>
+                <div class="answer_text"><b>Ответ:</b> 7</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(32)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 33 (37149) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">33</div>
+            <div class="prob_nums">Тип 14 № 37149 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение выражения <b>4·625<sup>9</sup> − 25<sup>15</sup> + 2·5<sup>11</sup> − 7</b> записали в системе счисления с основанием 5. Сколько цифр 4 в получившейся записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock33" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>4·625<sup>9</sup> = 4·5<sup>36</sup>, 25<sup>15</sup> = 5<sup>30</sup>, 2·5<sup>11</sup> = 2·5<sup>11</sup>. В результате 15 четвёрок.</p>
+                <div class="answer_text"><b>Ответ:</b> 15</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(33)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 34 (38589) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">34</div>
+            <div class="prob_nums">Тип 14 № 38589 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение арифметического выражения <b>3·4<sup>38</sup> + 2·4<sup>23</sup> + 4<sup>20</sup> + 3·4<sup>5</sup> + 2·4<sup>4</sup> + 1</b> записали в системе счисления с основанием 16. Сколько значащих нулей содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock34" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>После преобразования в 16-ричную систему: 3·16<sup>19</sup> + 8·16<sup>11</sup> + 16<sup>10</sup> + 14·16<sup>2</sup> + 1. В записи 15 значащих нулей.</p>
+                <div class="answer_text"><b>Ответ:</b> 15</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(34)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

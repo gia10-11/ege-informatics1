@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 17: Обработка числовых последовательностей (50 задач) — решения с Python</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.4; color: #000; background-color: #fff; padding: 10px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .problem_container { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #ccc; }
+        .prob_header { display: flex; align-items: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
+        .prob_num { display: inline-block; width: 24px; height: 24px; background-color: #4a6baf; color: white; text-align: center; line-height: 24px; border-radius: 3px; margin-right: 8px; font-size: 14px; font-weight: bold; }
+        .prob_nums { font-weight: bold; font-size: 16px; }
+        .problem_text { margin-bottom: 15px; font-size: 14px; }
+        .solution { margin-top: 20px; padding: 15px; background-color: #f5f5f5; border-left: 4px solid #4a6baf; font-size: 14px; }
+        .solution_text { line-height: 1.6; }
+        .lang_python { background-color: #2d2d2d; border-radius: 8px; padding: 12px; margin: 10px 0; overflow-x: auto; }
+        .lang_python pre { color: #f8f8f2; font-family: 'Courier New', monospace; font-size: 13px; margin: 0; white-space: pre-wrap; word-wrap: break-word; }
+        .answer_text { background-color: #e8f4f8; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold; border-left: 4px solid #4a6baf; }
+        .task_controls { display: flex; gap: 10px; margin-top: 15px; padding-top: 15px; border-top: 1px solid #ccc; }
+        .btn_show_solution { padding: 8px 16px; background-color: #f39c12; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 14px; }
+        .btn_show_solution:hover { background-color: #e67e22; }
+        @media (max-width: 768px) { .task_controls { flex-direction: column; } .btn_show_solution { width: 100%; text-align: center; } }
+        .file-link { margin: 10px 0; text-align: center; }
+        .file-link a { color: #4a6baf; text-decoration: none; font-weight: bold; }
+        .file-link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 17. Обработка числовых последовательностей (50 задач) — с решениями на Python</b>
+</div>
+
+<div class="container">
+    <!-- 1 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">1</div><div class="prob_nums">Тип 17 № 37336</div></div><div class="problem_text"><p>В файле содержится последовательность целых чисел от −10 000 до 10 000. Определите и запишите в ответе сначала количество пар элементов последовательности (два идущих подряд элемента), в которых хотя бы одно число делится на 3, затем максимальную из сумм элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17.txt" target="_blank">📥 Скачать файл: 17.txt</a></div>
+<div class="solution" id="sol1" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    if a[i]%3==0 or a[i+1]%3==0:
+        cnt += 1
+        max_sum = max(max_sum, a[i]+a[i+1])
+print(cnt, max_sum)  # 2802 1990</pre></div><div class="answer_text">Ответ: 2802 1990</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(1)">Показать решение</button></div></div>
+
+    <!-- 2 -->
+    <div class="problem_container">
+	<div class="prob_header">
+	<div class="prob_num">2</div>
+	<div class="prob_nums">Тип 17 № 37337</div></div>
+	<div class="problem_text"><p>В файле содержится последовательность из 10 000 натуральных чисел (каждое ≤ 10 000). Определите количество пар (два различных элемента, порядок не важен), у которых различные остатки от деления на d=160 и хотя бы одно из чисел делится на p=7, затем максимальную из сумм элементов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (1).txt" target="_blank">📥 Скачать файл: 17 (1).txt</a></div>
+	<div class="solution" id="sol2" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    for j in range(i+1, len(a)):
+        if (a[i]%7==0 or a[j]%7==0) and (a[i]%160 != a[j]%160):
+            cnt += 1
+            max_sum = max(max_sum, a[i]+a[j])
+print(cnt, max_sum)  # 12749665 19989</pre></div><div class="answer_text">Ответ: 12749665 19989</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(2)">Показать решение</button></div></div>
+
+    <!-- 3 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">3</div><div class="prob_nums">Тип 17 № 37340</div></div><div class="problem_text"><p>В файле содержится последовательность из 10 000 целых положительных чисел (каждое ≤ 10 000). Определите количество пар (два различных элемента), разность которых чётна и хотя бы одно из чисел делится на 31, затем максимальную из сумм элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (2).txt" target="_blank">📥 Скачать файл: 17 (2).txt</a></div>
+	<div class="solution" id="sol3" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    for j in range(i+1, len(a)):
+        if (a[i]-a[j])%2==0 and (a[i]%31==0 or a[j]%31==0):
+            cnt += 1
+            max_sum = max(max_sum, a[i]+a[j])
+print(cnt, max_sum)  # 1569269 19982</pre></div><div class="answer_text">Ответ: 1569269 19982</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(3)">Показать решение</button></div></div>
+
+    <!-- 4 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">4</div><div class="prob_nums">Тип 17 № 37344</div></div><div class="problem_text"><p>В файле содержится последовательность из 10 000 целых положительных чисел (каждое ≤ 10 000). Определите количество пар (два различных элемента), для которых произведение элементов делится без остатка на 10, затем максимальную из сумм элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (3).txt" download="17 (3).txt">📥 Скачать файл: 17 (3).txt</a></div>
+<div class="solution" id="sol4" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    for j in range(i+1, len(a)):
+        if (a[i]*a[j]) % 10 == 0:
+            cnt += 1
+            max_sum = max(max_sum, a[i]+a[j])
+print(cnt, max_sum)  # 13510315 19999</pre></div><div class="answer_text">Ответ: 13510315 19999</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(4)">Показать решение</button></div></div>
+
+    <!-- 5 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">5</div><div class="prob_nums">Тип 17 № 37347</div></div><div class="problem_text"><p>В файле содержится последовательность из 10 000 целых положительных чисел (каждое ≤ 10 000). Определите количество пар (два различных элемента), для которых произведение элементов не кратно 14, затем максимальную из сумм элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (4).txt" target="_blank">📥 Скачать файл: 17 (4).txt</a></div>
+<div class="solution" id="sol5" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    for j in range(i+1, len(a)):
+        if (a[i]*a[j]) % 14 != 0:
+            cnt += 1
+            max_sum = max(max_sum, a[i]+a[j])
+print(cnt, max_sum)  # 40436496 19999</pre></div><div class="answer_text">Ответ: 40436496 19999</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(5)">Показать решение</button></div></div>
+
+    <!-- 6 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">6</div><div class="prob_nums">Тип 17 № 37349</div></div><div class="problem_text"><p>В файле содержится последовательность из 10 000 целых положительных чисел (каждое ≤ 10 000). Определите количество пар (два различных элемента), для которых произведение элементов кратно 26, затем максимальную из сумм элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (5).txt" target="_blank">📥 Скачать файл: 17 (5).txt</a></div>
+<div class="solution" id="sol6" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    for j in range(i+1, len(a)):
+        if (a[i]*a[j]) % 26 == 0:
+            cnt += 1
+            max_sum = max(max_sum, a[i]+a[j])
+print(cnt, max_sum)  # 5678937 19984</pre></div><div class="answer_text">Ответ: 5678937 19984</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(6)">Показать решение</button></div></div>
+
+    <!-- 7 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">7</div><div class="prob_nums">Тип 17 № 37350</div></div><div class="problem_text"><p>В файле содержится последовательность из 10 000 целых положительных чисел (каждое ≤ 10 000). Определите количество пар (два различных элемента), у которых сумма нечётна, а произведение делится на 3, затем максимальную из сумм элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (6).txt" target="_blank">📥 Скачать файл: 17 (6).txt</a></div>
+<div class="solution" id="sol7" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    for j in range(i+1, len(a)):
+        if (a[i]+a[j])%2!=0 and (a[i]*a[j])%3==0:
+            cnt += 1
+            max_sum = max(max_sum, a[i]+a[j])
+print(cnt, max_sum)  # 13931722 19993</pre></div><div class="answer_text">Ответ: 13931722 19993</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(7)">Показать решение</button></div></div>
+
+    <!-- 8 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">8</div><div class="prob_nums">Тип 17 № 37355</div></div><div class="problem_text"><p>В файле содержится последовательность из 10 000 целых положительных чисел (каждое ≤ 10 000). Определите количество пар (два различных элемента), у которых сумма элементов кратна 7, затем максимальную из сумм элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (7).txt" target="_blank">📥 Скачать файл: 17 (7).txt</a></div>
+<div class="solution" id="sol8" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    for j in range(i+1, len(a)):
+        if (a[i]+a[j]) % 7 == 0:
+            cnt += 1
+            max_sum = max(max_sum, a[i]+a[j])
+print(cnt, max_sum)  # 7142586 19992</pre></div><div class="answer_text">Ответ: 7142586 19992</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(8)">Показать решение</button></div></div>
+
+    <!-- 9 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">9</div><div class="prob_nums">Тип 17 № 37362</div></div><div class="problem_text"><p>В файле содержится последовательность из 10 000 целых положительных чисел (каждое ≤ 10 000). Определите количество пар (два различных элемента), у которых сумма элементов кратна 80 и хотя бы один элемент из пары делится на 50, затем максимальную из сумм элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (8).txt" target="_blank">📥 Скачать файл: 17 (8).txt</a></div>
+<div class="solution" id="sol9" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    for j in range(i+1, len(a)):
+        if (a[i]+a[j])%80==0 and (a[i]%50==0 or a[j]%50==0):
+            cnt += 1
+            max_sum = max(max_sum, a[i]+a[j])
+print(cnt, max_sum)  # 21648 19760</pre></div><div class="answer_text">Ответ: 21648 19760</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(9)">Показать решение</button></div></div>
+
+    <!-- 10 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">10</div><div class="prob_nums">Тип 17 № 37369</div></div><div class="problem_text"><p>В файле содержится последовательность из 10 000 целых положительных чисел (каждое ≤ 10 000). Определите количество пар (два различных элемента), у которых разность элементов кратна 80, затем максимальную из разностей элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (9).txt" target="_blank">📥 Скачать файл: 17 (9).txt</a></div>
+<div class="solution" id="sol10" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_diff = 0
+for i in range(len(a)-1):
+    for j in range(i+1, len(a)):
+        if abs(a[i]-a[j]) % 80 == 0:
+            cnt += 1
+            max_diff = max(max_diff, abs(a[i]-a[j]))
+print(cnt, max_diff)  # 625876 9920</pre></div><div class="answer_text">Ответ: 625876 9920</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(10)">Показать решение</button></div></div>
+
+    <!-- 11 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">11</div><div class="prob_nums">Тип 17 № 37370</div></div><div class="problem_text"><p>В файле содержится последовательность из 10 000 целых положительных чисел (каждое ≤ 10 000). Определите количество пар (два различных элемента), у которых разность элементов кратна 60 и хотя бы один из элементов кратен 15, затем максимальную из разностей элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (10).txt" target="_blank">📥 Скачать файл: 17 (10).txt</a></div>
+<div class="solution" id="sol11" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_diff = 0
+for i in range(len(a)-1):
+    for j in range(i+1, len(a)):
+        if abs(a[i]-a[j])%60==0 and (a[i]%15==0 or a[j]%15==0):
+            cnt += 1
+            max_diff = max(max_diff, abs(a[i]-a[j]))
+print(cnt, max_diff)  # 63517 9960</pre></div><div class="answer_text">Ответ: 63517 9960</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(11)">Показать решение</button></div></div>
+
+    <!-- 12 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">12</div><div class="prob_nums">Тип 17 № 38951</div></div><div class="problem_text"><p>Файл содержит последовательность неотрицательных целых чисел, не превышающих 10 000. Определите количество пар (два идущих подряд элемента), в которых хотя бы один элемент делится на 3, а их сумма делится на 5. Запишите количество пар и максимальную сумму элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (11).txt" target="_blank">📥 Скачать файл: 17 (11).txt</a></div>
+<div class="solution" id="sol12" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    if (a[i]%3==0 or a[i+1]%3==0) and (a[i]+a[i+1])%5==0:
+        cnt += 1
+        max_sum = max(max_sum, a[i]+a[i+1])
+print(cnt, max_sum)  # 635 19730</pre></div><div class="answer_text">Ответ: 635 19730</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(12)">Показать решение</button></div></div>
+
+    <!-- 13 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">13</div><div class="prob_nums">Тип 17 № 39246</div></div><div class="problem_text"><p>Файл содержит последовательность неотрицательных целых чисел, не превышающих 10 000. Определите количество пар (два идущих подряд элемента), в которых хотя бы один элемент делится на 5, а их сумма делится на 7. Запишите количество пар и максимальную сумму элементов таких пар.</p></div>
+		<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (12).txt" target="_blank">📥 Скачать файл: 17 (12).txt</a></div>
+<div class="solution" id="sol13" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    if (a[i]%5==0 or a[i+1]%5==0) and (a[i]+a[i+1])%7==0:
+        cnt += 1
+        max_sum = max(max_sum, a[i]+a[i+1])
+print(cnt, max_sum)  # 308 18893</pre></div><div class="answer_text">Ответ: 308 18893</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(13)">Показать решение</button></div></div>
+
+    <!-- 14 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">14</div><div class="prob_nums">Тип 17 № 39762</div></div><div class="problem_text"><p>Файл содержит последовательность неотрицательных целых чисел, не превышающих 10 000. Определите количество пар (два идущих подряд элемента), произведение которых кратно 15, а их сумма делится на 7. Запишите количество пар и максимальную сумму элементов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (13).txt" target="_blank">📥 Скачать файл: 17 (13).txt</a></div>
+	<div class="solution" id="sol14" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    if (a[i]*a[i+1])%15==0 and (a[i]+a[i+1])%7==0:
+        cnt += 1
+        max_sum = max(max_sum, a[i]+a[i+1])
+print(cnt, max_sum)  # 170 18662</pre></div><div class="answer_text">Ответ: 170 18662</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(14)">Показать решение</button></div></div>
+
+    <!-- 15 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">15</div><div class="prob_nums">Тип 17 № 39763</div></div><div class="problem_text"><p>Файл содержит последовательность неотрицательных целых чисел, не превышающих 10 000. Определите количество троек (три идущих подряд элемента), которые могут являться сторонами остроугольного треугольника. Запишите количество троек и максимальную сумму элементов таких троек.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (14).txt" target="_blank">📥 Скачать файл: 17 (14).txt</a></div>
+<div class="solution" id="sol15" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-2):
+    x, y, z = sorted([a[i], a[i+1], a[i+2]])
+    if x*x + y*y > z*z:
+        cnt += 1
+        max_sum = max(max_sum, x+y+z)
+print(cnt, max_sum)  # 1175 29451</pre></div><div class="answer_text">Ответ: 1175 29451</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(15)">Показать решение</button></div></div>
+
+    <!-- 16 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">16</div><div class="prob_nums">Тип 17 № 39764</div></div><div class="problem_text"><p>Файл содержит последовательность неотрицательных целых чисел, не превышающих 10 000. Определите количество троек (три идущих подряд элемента), которые могут являться сторонами прямоугольного треугольника. Запишите количество троек и максимальную сумму элементов таких троек.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (15).txt" target="_blank">📥 Скачать файл: 17 (15).txt</a></div>
+<div class="solution" id="sol16" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+cnt = max_sum = 0
+for i in range(len(a)-2):
+    x, y, z = sorted([a[i], a[i+1], a[i+2]])
+    if x*x + y*y == z*z:
+        cnt += 1
+        max_sum = max(max_sum, x+y+z)
+print(cnt, max_sum)  # 0 0</pre></div><div class="answer_text">Ответ: 0 0</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(16)">Показать решение</button></div></div>
+
+    <!-- 17 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">17</div><div class="prob_nums">Тип 17 № 40733</div></div><div class="problem_text"><p>Файл содержит последовательность неотрицательных целых чисел, не превышающих 10 000. Определите количество пар (два идущих подряд элемента), в которых хотя бы один элемент делится на 3 и хотя бы один элемент меньше среднего арифметического всех чётных элементов последовательности. Запишите количество пар и максимальную сумму элементов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (16).txt" target="_blank">📥 Скачать файл: 17 (16).txt</a></div>
+<div class="solution" id="sol17" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+even = [x for x in a if x%2==0]
+avg_even = sum(even)/len(even)
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    if (a[i]%3==0 or a[i+1]%3==0) and (a[i]<avg_even or a[i+1]<avg_even):
+        cnt += 1
+        max_sum = max(max_sum, a[i]+a[i+1])
+print(cnt, max_sum)  # 2288 14875</pre></div><div class="answer_text">Ответ: 2288 14875</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(17)">Показать решение</button></div></div>
+
+    <!-- 18 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">18</div><div class="prob_nums">Тип 17 № 40992</div></div><div class="problem_text"><p>Файл содержит последовательность неотрицательных целых чисел, не превышающих 10 000. Определите количество пар (два идущих подряд элемента), в которых хотя бы один элемент делится на 5 и хотя бы один элемент меньше среднего арифметического всех нечётных элементов последовательности. Запишите количество пар и максимальную сумму элементов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (17).txt" target="_blank">📥 Скачать файл: 17 (17).txt</a></div>
+<div class="solution" id="sol18" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+odd = [x for x in a if x%2!=0]
+avg_odd = sum(odd)/len(odd)
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    if (a[i]%5==0 or a[i+1]%5==0) and (a[i]<avg_odd or a[i+1]<avg_odd):
+        cnt += 1
+        max_sum = max(max_sum, a[i]+a[i+1])
+print(cnt, max_sum)  # 1531 14932</pre></div><div class="answer_text">Ответ: 1531 14932</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(18)">Показать решение</button></div></div>
+
+    <!-- 19 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">19</div><div class="prob_nums">Тип 17 № 45251</div></div><div class="problem_text"><p>В файле содержится последовательность натуральных чисел от 1 до 100 000. Определите количество пар (два идущих подряд элемента), в которых хотя бы одно число делится на минимальный элемент последовательности, кратный 21. Запишите количество пар и максимальную сумму элементов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (18).txt" target="_blank">📥 Скачать файл: 17 (18).txt</a></div>
+<div class="solution" id="sol19" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min21 = min(x for x in a if x%21==0)
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    if a[i]%min21==0 or a[i+1]%min21==0:
+        cnt += 1
+        max_sum = max(max_sum, a[i]+a[i+1])
+print(cnt, max_sum)  # 126 171120</pre></div><div class="answer_text">Ответ: 126 171120</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(19)">Показать решение</button></div></div>
+
+    <!-- 20 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">20</div><div class="prob_nums">Тип 17 № 46975</div></div><div class="problem_text"><p>Файл содержит последовательность неотрицательных целых чисел, не превышающих 10 000. Определите количество пар (два идущих подряд элемента), в которых один из элементов делится на 3, а другой меньше среднего арифметического всех чётных элементов последовательности. Запишите количество пар и максимальную сумму элементов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (19).txt" target="_blank">📥 Скачать файл: 17 (19).txt</a></div>
+<div class="solution" id="sol20" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+even = [x for x in a if x%2==0]
+avg_even = sum(even)/len(even)
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    if (a[i]%3==0 and a[i+1]<avg_even) or (a[i+1]%3==0 and a[i]<avg_even):
+        cnt += 1
+        max_sum = max(max_sum, a[i]+a[i+1])
+print(cnt, max_sum)  # 1711 14666</pre></div><div class="answer_text">Ответ: 1711 14666</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(20)">Показать решение</button></div></div>
+
+    <!-- 21 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">21</div><div class="prob_nums">Тип 17 № 47014</div></div><div class="problem_text"><p>Файл содержит последовательность неотрицательных целых чисел, не превышающих 10 000. Определите количество пар (два идущих подряд элемента), в которых один из элементов делится на 5, а другой меньше среднего арифметического всех нечётных элементов последовательности. Запишите количество пар и максимальную сумму элементов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (20).txt" target="_blank">📥 Скачать файл: 17 (20).txt</a></div>
+<div class="solution" id="sol21" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+odd = [x for x in a if x%2!=0]
+avg_odd = sum(odd)/len(odd)
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    if (a[i]%5==0 and a[i+1]<avg_odd) or (a[i+1]%5==0 and a[i]<avg_odd):
+        cnt += 1
+        max_sum = max(max_sum, a[i]+a[i+1])
+print(cnt, max_sum)  # 1061 14847</pre></div><div class="answer_text">Ответ: 1061 14847</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(21)">Показать решение</button></div></div>
+
+    <!-- 22 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">22</div><div class="prob_nums">Тип 17 № 47221</div></div><div class="problem_text"><p>В файле содержится последовательность целых чисел от −10 000 до 10 000. Определите количество пар (два идущих подряд элемента), в которых только одно число оканчивается на 3, а сумма квадратов элементов пары не меньше квадрата максимального элемента последовательности, оканчивающегося на 3. Запишите количество пар и максимальную сумму квадратов элементов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (21).txt" target="_blank">📥 Скачать файл: 17 (21).txt</a></div>
+<div class="solution" id="sol22" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max3 = max(x for x in a if abs(x)%10==3)
+cnt = max_sq = 0
+for i in range(len(a)-1):
+    if (abs(a[i])%10==3) ^ (abs(a[i+1])%10==3):
+        if a[i]**2 + a[i+1]**2 >= max3**2:
+            cnt += 1
+            max_sq = max(max_sq, a[i]**2 + a[i+1]**2)
+print(cnt, max_sq)  # 180 190360573</pre></div><div class="answer_text">Ответ: 180 190360573</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(22)">Показать решение</button></div></div>
+
+    <!-- 23 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">23</div><div class="prob_nums">Тип 17 № 48438</div></div><div class="problem_text"><p>Файл содержит последовательность целых чисел, по модулю не превышающих 10 000. Определите количество пар (два идущих подряд элемента), в которых ровно один элемент оканчивается цифрой 7, а сумма квадратов элементов пары меньше квадрата наименьшего из элементов, оканчивающихся на 7. Запишите количество пар и максимальную сумму квадратов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (22).txt" target="_blank">📥 Скачать файл: 17 (22).txt</a></div>
+<div class="solution" id="sol23" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min7 = min(x for x in a if abs(x)%10==7)
+cnt = max_sq = 0
+for i in range(len(a)-1):
+    if (abs(a[i])%10==7) ^ (abs(a[i+1])%10==7):
+        if a[i]**2 + a[i+1]**2 < min7**2:
+            cnt += 1
+            max_sq = max(max_sq, a[i]**2 + a[i+1]**2)
+print(cnt, max_sq)  # 671 96731834</pre></div><div class="answer_text">Ответ: 671 96731834</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(23)">Показать решение</button></div></div>
+
+    <!-- 24 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">24</div><div class="prob_nums">Тип 17 № 48465</div></div><div class="problem_text"><p>Файл содержит последовательность целых чисел, по модулю не превышающих 10 000. Определите количество пар (два идущих подряд элемента), в которых ровно один элемент оканчивается цифрой 6, а сумма квадратов элементов пары меньше квадрата наименьшего из элементов, оканчивающихся на 6. Запишите количество пар и максимальную сумму квадратов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (23).txt" target="_blank">📥 Скачать файл: 17 (23).txt</a></div>
+<div class="solution" id="sol24" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min6 = min(x for x in a if abs(x)%10==6)
+cnt = max_sq = 0
+for i in range(len(a)-1):
+    if (abs(a[i])%10==6) ^ (abs(a[i+1])%10==6):
+        if a[i]**2 + a[i+1]**2 < min6**2:
+            cnt += 1
+            max_sq = max(max_sq, a[i]**2 + a[i+1]**2)
+print(cnt, max_sq)  # 720 99266105</pre></div><div class="answer_text">Ответ: 720 99266105</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(24)">Показать решение</button></div></div>
+
+    <!-- 25 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">25</div><div class="prob_nums">Тип 17 № 51986</div></div><div class="problem_text"><p>Файл содержит последовательность целых чисел, по модулю не превышающих 10 000. Определите количество пар (два идущих подряд элемента), в которых запись меньшего элемента оканчивается цифрой 5, а сумма квадратов элементов пары меньше квадрата наименьшего из элементов, оканчивающихся на 5. Запишите количество пар и максимальную сумму квадратов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (24).txt" target="_blank">📥 Скачать файл: 17 (24).txt</a></div>
+<div class="solution" id="sol25" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min5 = min(x for x in a if abs(x)%10==5)
+cnt = max_sq = 0
+for i in range(len(a)-1):
+    if (abs(a[i])%10==5 and a[i]<=a[i+1]) or (abs(a[i+1])%10==5 and a[i+1]<=a[i]):
+        if a[i]**2 + a[i+1]**2 < min5**2:
+            cnt += 1
+            max_sq = max(max_sq, a[i]**2 + a[i+1]**2)
+print(cnt, max_sq)  # 403 99805561</pre></div><div class="answer_text">Ответ: 403 99805561</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(25)">Показать решение</button></div></div>
+
+    <!-- 26 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">26</div><div class="prob_nums">Тип 17 № 52188</div></div><div class="problem_text"><p>Файл содержит последовательность целых чисел, по модулю не превышающих 10 000. Определите количество пар (два идущих подряд элемента), в которых запись меньшего элемента оканчивается цифрой 3, а сумма квадратов элементов пары меньше квадрата наименьшего из элементов, оканчивающихся на 3. Запишите количество пар и максимальную сумму квадратов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (25).txt" target="_blank">📥 Скачать файл: 17 (25).txt</a></div>
+<div class="solution" id="sol26" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min3 = min(x for x in a if abs(x)%10==3)
+cnt = max_sq = 0
+for i in range(len(a)-1):
+    if (abs(a[i])%10==3 and a[i]<=a[i+1]) or (abs(a[i+1])%10==3 and a[i+1]<=a[i]):
+        if a[i]**2 + a[i+1]**2 < min3**2:
+            cnt += 1
+            max_sq = max(max_sq, a[i]**2 + a[i+1]**2)
+print(cnt, max_sq)  # 355 99033293</pre></div><div class="answer_text">Ответ: 355 99033293</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(26)">Показать решение</button></div></div>
+
+    <!-- 27 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">27</div><div class="prob_nums">Тип 17 № 55604</div></div><div class="problem_text"><p>Файл содержит последовательность целых чисел (модуль от 100 до 10 000). Определите количество пар (два идущих подряд элемента), для которых: последняя цифра одного элемента совпадает с предпоследней цифрой другого; ровно один элемент делится на 7; сумма квадратов элементов не превышает квадрат наименьшего из элементов, две последние цифры которого одинаковы. Запишите количество пар и максимальную сумму квадратов.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (26).txt" target="_blank">📥 Скачать файл: 17 (26).txt</a></div>
+<div class="solution" id="sol27" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min_eq = min(x for x in a if abs(x)%10 == (abs(x)//10)%10)
+cnt = max_sq = 0
+for i in range(len(a)-1):
+    x, y = a[i], a[i+1]
+    if (abs(x)%10==abs(y)//10%10 or abs(y)%10==abs(x)//10%10) and (x%7==0)^(y%7==0):
+        if x*x + y*y <= min_eq**2:
+            cnt += 1
+            max_sq = max(max_sq, x*x + y*y)
+print(cnt, max_sq)  # 205 99520570</pre></div><div class="answer_text">Ответ: 205 99520570</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(27)">Показать решение</button></div></div>
+
+    <!-- 28 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">28</div><div class="prob_nums">Тип 17 № 55634</div></div><div class="problem_text"><p>Файл содержит последовательность целых чисел (модуль от 100 до 10 000). Определите количество пар (два идущих подряд элемента), для которых: последняя цифра одного совпадает с предпоследней цифрой другого; ровно один элемент делится на 13; сумма квадратов элементов ≤ квадрату наименьшего элемента с одинаковыми двумя последними цифрами. Запишите количество пар и максимальную сумму квадратов.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (27).txt" target="_blank">📥 Скачать файл: 17 (27).txt</a></div>
+<div class="solution" id="sol28" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min_eq = min(x for x in a if abs(x)%10 == (abs(x)//10)%10)
+cnt = max_sq = 0
+for i in range(len(a)-1):
+    x, y = a[i], a[i+1]
+    if (abs(x)%10==abs(y)//10%10 or abs(y)%10==abs(x)//10%10) and (x%13==0)^(y%13==0):
+        if x*x + y*y <= min_eq**2:
+            cnt += 1
+            max_sq = max(max_sq, x*x + y*y)
+print(cnt, max_sq)  # 115 96944186</pre></div><div class="answer_text">Ответ: 115 96944186</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(28)">Показать решение</button></div></div>
+
+    <!-- 29 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">29</div><div class="prob_nums">Тип 17 № 55813</div></div><div class="problem_text"><p>В файле содержится последовательность целых чисел от 1 до 100 000. Определите количество пар (два идущих подряд элемента), в которых только одно число трёхзначное, и сумма элементов пары кратна минимальному трёхзначному элементу последовательности, оканчивающемуся на 5. Запишите количество пар и минимальную из сумм элементов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (28).txt" target="_blank">📥 Скачать файл: 17 (28).txt</a></div>
+<div class="solution" id="sol29" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min3_5 = min(x for x in a if 100<=x<=999 and x%10==5)
+cnt = []
+for i in range(len(a)-1):
+    if (99<a[i]<1000)^(99<a[i+1]<1000) and (a[i]+a[i+1])%min3_5==0:
+        cnt.append(a[i]+a[i+1])
+print(len(cnt), min(cnt))  # 2 33120</pre></div><div class="answer_text">Ответ: 2 33120</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(29)">Показать решение</button></div></div>
+
+    <!-- 30 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">30</div><div class="prob_nums">Тип 17 № 56517</div></div><div class="problem_text"><p>Файл содержит последовательность целых чисел, по модулю не превышающих 10 000. Определите количество пар (два идущих подряд элемента), для которых: запись элементов пары оканчивается одной цифрой; ровно один элемент делится на 3; сумма квадратов элементов ≤ квадрату наименьшего элемента, оканчивающегося на 3. Запишите количество пар и максимальную сумму квадратов.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (29).txt" target="_blank">📥 Скачать файл: 17 (29).txt</a></div>
+<div class="solution" id="sol30" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min3 = min(x for x in a if abs(x)%10==3)
+cnt = max_sq = 0
+for i in range(len(a)-1):
+    if abs(a[i])%10 == abs(a[i+1])%10 and (a[i]%3==0)^(a[i+1]%3==0):
+        if a[i]**2 + a[i+1]**2 <= min3**2:
+            cnt += 1
+            max_sq = max(max_sq, a[i]**2 + a[i+1]**2)
+print(cnt, max_sq)  # 172 99446482</pre></div><div class="answer_text">Ответ: 172 99446482</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(30)">Показать решение</button></div></div>
+
+    <!-- 31 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">31</div><div class="prob_nums">Тип 17 № 56545</div></div><div class="problem_text"><p>Файл содержит последовательность целых чисел, по модулю не превышающих 10 000. Определите количество пар (два идущих подряд элемента), для которых: запись элементов пары оканчивается одной цифрой; ровно один элемент делится на 7; сумма квадратов элементов ≤ квадрату наименьшего элемента, оканчивающегося на 7. Запишите количество пар и максимальную сумму квадратов.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (30).txt" target="_blank">📥 Скачать файл: 17 (30).txt</a></div>
+<div class="solution" id="sol31" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min7 = min(x for x in a if abs(x)%10==7)
+cnt = max_sq = 0
+for i in range(len(a)-1):
+    if abs(a[i])%10 == abs(a[i+1])%10 and (a[i]%7==0)^(a[i+1]%7==0):
+        if a[i]**2 + a[i+1]**2 <= min7**2:
+            cnt += 1
+            max_sq = max(max_sq, a[i]**2 + a[i+1]**2)
+print(cnt, max_sq)  # 102 97666192</pre></div><div class="answer_text">Ответ: 102 97666192</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(31)">Показать решение</button></div></div>
+
+    <!-- 32 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">32</div><div class="prob_nums">Тип 17 № 57424</div></div><div class="problem_text"><p>В файле содержится последовательность целых чисел от 1 до 100 000. Определите количество пар (два идущих подряд элемента), в которых только один элемент является двузначным числом, а сумма элементов пары кратна максимальному двузначному элементу последовательности. Запишите количество пар и максимальную сумму элементов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (31).txt" target="_blank">📥 Скачать файл: 17 (31).txt</a></div>
+<div class="solution" id="sol32" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max2 = max(x for x in a if 10<=x<=99)
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    if (10<=a[i]<=99)^(10<=a[i+1]<=99) and (a[i]+a[i+1])%max2==0:
+        cnt += 1
+        max_sum = max(max_sum, a[i]+a[i+1])
+print(cnt, max_sum)  # 16 9702</pre></div><div class="answer_text">Ответ: 16 9702</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(32)">Показать решение</button></div></div>
+
+    <!-- 33 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">33</div><div class="prob_nums">Тип 17 № 58484</div></div><div class="problem_text"><p>Файл содержит последовательность натуральных чисел, не превышающих 20 000. Определите количество пар (два идущих подряд элемента), для которых: ровно одно число в паре четырёхзначное; сумма квадратов элементов делится без остатка на наименьшее трёхзначное число, оканчивающееся на 5. Запишите количество пар и максимальную сумму квадратов.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (32).txt" target="_blank">📥 Скачать файл: 17 (32).txt</a></div>
+<div class="solution" id="sol33" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min3_5 = min(x for x in a if 100<=x<=999 and x%10==5)
+cnt = max_sq = 0
+for i in range(len(a)-1):
+    if (999<a[i]<10000)^(999<a[i+1]<10000):
+        if (a[i]**2 + a[i+1]**2) % min3_5 == 0:
+            cnt += 1
+            max_sq = max(max_sq, a[i]**2 + a[i+1]**2)
+print(cnt, max_sq)  # 101 453256805</pre></div><div class="answer_text">Ответ: 101 453256805</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(33)">Показать решение</button></div></div>
+
+    <!-- 34 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">34</div><div class="prob_nums">Тип 17 № 58525</div></div><div class="problem_text"><p>Файл содержит последовательность натуральных чисел, не превышающих 20 000. Определите количество пар (два идущих подряд элемента), для которых: ровно одно число в паре четырёхзначное; сумма квадратов элементов делится на наименьшее трёхзначное число, оканчивающееся на 3. Запишите количество пар и максимальную сумму квадратов.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (33).txt" target="_blank">📥 Скачать файл: 17 (33).txt</a></div>
+<div class="solution" id="sol34" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min3_3 = min(x for x in a if 100<=x<=999 and x%10==3)
+cnt = max_sq = 0
+for i in range(len(a)-1):
+    if (999<a[i]<10000)^(999<a[i+1]<10000):
+        if (a[i]**2 + a[i+1]**2) % min3_3 == 0:
+            cnt += 1
+            max_sq = max(max_sq, a[i]**2 + a[i+1]**2)
+print(cnt, max_sq)  # 74 433966217</pre></div><div class="answer_text">Ответ: 74 433966217</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(34)">Показать решение</button></div></div>
+
+    <!-- 35 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">35</div><div class="prob_nums">Тип 17 № 59695</div></div><div class="problem_text"><p>В файле содержится последовательность натуральных чисел от 1 до 100 000. Определите количество троек (три идущих подряд элемента), в которых только одно число четырёхзначное, а сумма элементов тройки не меньше максимального элемента, оканчивающегося на 15. Запишите количество троек и максимальную сумму элементов таких троек.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (34).txt" target="_blank">📥 Скачать файл: 17 (34).txt</a></div>
+<div class="solution" id="sol35" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max15 = max(x for x in a if x%100==15)
+cnt = max_sum = 0
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 999<a[i+j]<10000)
+    if c == 1 and sum(a[i:i+3]) >= max15:
+        cnt += 1
+        max_sum = max(max_sum, sum(a[i:i+3]))
+print(cnt, max_sum)  # 299 196183</pre></div><div class="answer_text">Ответ: 299 196183</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(35)">Показать решение</button></div></div>
+
+    <!-- 36 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">36</div><div class="prob_nums">Тип 17 № 59722</div></div><div class="problem_text"><p>В файле содержится последовательность целых чисел от −10 000 до 10 000. Определите количество троек (три идущих подряд элемента), в которых только одно число трёхзначное, а сумма тройки меньше наибольшего числа, оканчивающегося на 17. Запишите количество троек.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (35).txt" target="_blank">📥 Скачать файл: 17 (35).txt</a></div>
+<div class="solution" id="sol36" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max17 = max(x for x in a if abs(x)%100==17)
+cnt = 0
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 99<abs(a[i+j])<1000)
+    if c == 1 and sum(a[i:i+3]) < max17:
+        cnt += 1
+print(cnt)  # 1684</pre></div><div class="answer_text">Ответ: 1684</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(36)">Показать решение</button></div></div>
+
+    <!-- 37 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">37</div><div class="prob_nums">Тип 17 № 59784</div></div><div class="problem_text"><p>В файле содержится последовательность целых чисел от −1 000 000 до 1 000 000. Определите количество троек (три идущих подряд элемента), в которых только одно число четырёхзначное, и сумма элементов тройки меньше максимального элемента, оканчивающегося на 15. Запишите количество троек и минимальную из сумм таких троек.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (36).txt" target="_blank">📥 Скачать файл: 17 (36).txt</a></div>
+<div class="solution" id="sol37" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max15 = max(x for x in a if abs(x)%100==15)
+cnt = []
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 999<abs(a[i+j])<10000)
+    if c == 1 and sum(a[i:i+3]) < max15:
+        cnt.append(sum(a[i:i+3]))
+print(len(cnt), min(cnt))  # 2453 -176846</pre></div><div class="answer_text">Ответ: 2453 -176846</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(37)">Показать решение</button></div></div>
+
+    <!-- 38 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">38</div><div class="prob_nums">Тип 17 № 59785</div></div><div class="problem_text"><p>В файле содержится последовательность целых чисел от −1 000 000 до 1 000 000. Определите количество троек (три идущих подряд элемента), в которых два числа трёхзначные, и сумма элементов тройки меньше максимального элемента, оканчивающегося на 13. Запишите количество троек и минимальную из сумм таких троек.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (37).txt" target="_blank">📥 Скачать файл: 17 (37).txt</a></div>
+<div class="solution" id="sol38" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max13 = max(x for x in a if abs(x)%100==13)
+cnt = []
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 99<abs(a[i+j])<1000)
+    if c == 2 and sum(a[i:i+3]) < max13:
+        cnt.append(sum(a[i:i+3]))
+print(len(cnt), min(cnt))  # 909 -92695</pre></div><div class="answer_text">Ответ: 909 -92695</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(38)">Показать решение</button></div></div>
+
+    <!-- 39 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">39</div><div class="prob_nums">Тип 17 № 59810</div></div><div class="problem_text"><p>В файле содержится последовательность целых чисел от −10 000 до 10 000. Определите количество троек (три идущих подряд элемента), в которых только одно число трёхзначное, и сумма элементов тройки больше максимального числа, оканчивающегося на 24. Запишите количество троек и минимальную из сумм таких троек.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (38).txt" target="_blank">📥 Скачать файл: 17 (38).txt</a></div>
+<div class="solution" id="sol39" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max24 = max(x for x in a if abs(x)%100==24)
+cnt = []
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 99<abs(a[i+j])<1000)
+    if c == 1 and sum(a[i:i+3]) > max24:
+        cnt.append(sum(a[i:i+3]))
+print(len(cnt), min(cnt))  # 217 9542</pre></div><div class="answer_text">Ответ: 217 9542</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(39)">Показать решение</button></div></div>
+
+    <!-- 40 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">40</div><div class="prob_nums">Тип 17 № 59842</div></div><div class="problem_text"><p>В файле содержится последовательность целых чисел от −1 000 000 до 1 000 000. Определите количество троек (три идущих подряд элемента), в которых только два числа пятизначные, а сумма элементов тройки не больше максимального элемента, оканчивающегося на 29. Запишите количество троек и максимальную сумму таких троек.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (39).txt" target="_blank">📥 Скачать файл: 17 (39).txt</a></div>
+<div class="solution" id="sol40" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max29 = max(x for x in a if x%100==29)
+cnt = max_sum = 0
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 9999<abs(a[i+j])<100000)
+    if c == 2 and sum(a[i:i+3]) <= max29:
+        cnt += 1
+        max_sum = max(max_sum, sum(a[i:i+3]))
+print(cnt, max_sum)  # 157 973622</pre></div><div class="answer_text">Ответ: 157 973622</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(40)">Показать решение</button></div></div>
+
+    <!-- 41 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">41</div><div class="prob_nums">Тип 17 № 60259</div></div><div class="problem_text"><p>В файле содержится последовательность натуральных чисел, не превышающих 100 000. Определите количество троек (три идущих подряд элемента), в которых ровно два числа трёхзначные, а сумма элементов тройки не больше максимального элемента, оканчивающегося на 13. Запишите количество троек и максимальную сумму элементов таких троек.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (40).txt" target="_blank">📥 Скачать файл: 17 (40).txt</a></div>
+<div class="solution" id="sol41" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max13 = max(x for x in a if x%100==13)
+cnt = max_sum = 0
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 99<a[i+j]<1000)
+    if c == 2 and sum(a[i:i+3]) <= max13:
+        cnt += 1
+        max_sum = max(max_sum, sum(a[i:i+3]))
+print(cnt, max_sum)  # 959 97471</pre></div><div class="answer_text">Ответ: 959 97471</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(41)">Показать решение</button></div></div>
+
+    <!-- 42 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">42</div><div class="prob_nums">Тип 17 № 61363</div></div><div class="problem_text"><p>Файл содержит последовательность натуральных чисел, не превышающих 100 000. Определите количество троек (три идущих подряд элемента), для которых: ровно два числа четырёхзначные; хотя бы одно число кратно 3; сумма элементов тройки больше максимального элемента, оканчивающегося на 19. Запишите количество троек и максимальную сумму.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (41).txt" target="_blank">📥 Скачать файл: 17 (41).txt</a></div>
+<div class="solution" id="sol42" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max19 = max(x for x in a if x%100==19)
+cnt = max_sum = 0
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 999<a[i+j]<10000)
+    if c == 2 and any(a[i+j]%3==0 for j in range(3)) and sum(a[i:i+3]) > max19:
+        cnt += 1
+        max_sum = max(max_sum, sum(a[i:i+3]))
+print(cnt, max_sum)  # 78 115709</pre></div><div class="answer_text">Ответ: 78 115709</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(42)">Показать решение</button></div></div>
+
+    <!-- 43 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">43</div><div class="prob_nums">Тип 17 № 61397</div></div><div class="problem_text"><p>Файл содержит последовательность натуральных чисел, не превышающих 100 000. Определите количество троек (три идущих подряд элемента), для которых: ровно два числа четырёхзначные; хотя бы одно число кратно 5; сумма элементов тройки больше максимального элемента, оканчивающегося на 17. Запишите количество троек и максимальную сумму.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (42).txt" target="_blank">📥 Скачать файл: 17 (42).txt</a></div>
+<div class="solution" id="sol43" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max17 = max(x for x in a if x%100==17)
+cnt = max_sum = 0
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 999<a[i+j]<10000)
+    if c == 2 and any(a[i+j]%5==0 for j in range(3)) and sum(a[i:i+3]) > max17:
+        cnt += 1
+        max_sum = max(max_sum, sum(a[i:i+3]))
+print(cnt, max_sum)  # 21 114132</pre></div><div class="answer_text">Ответ: 21 114132</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(43)">Показать решение</button></div></div>
+
+    <!-- 44 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">44</div><div class="prob_nums">Тип 17 № 63033</div></div><div class="problem_text"><p>Файл содержит последовательность натуральных чисел, не превышающих 100 000. Определите количество троек (три идущих подряд элемента), для которых: хотя бы два числа пятизначные; ровно одно число кратно 3; сумма элементов тройки больше максимального элемента, оканчивающегося на 123. Запишите количество троек и максимальную сумму.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (43).txt" target="_blank">📥 Скачать файл: 17 (43).txt</a></div>
+<div class="solution" id="sol44" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max123 = max(x for x in a if x%1000==123)
+cnt = max_sum = 0
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 9999<a[i+j]<100000)
+    k3 = sum(1 for j in range(3) if a[i+j]%3==0)
+    if c >= 2 and k3 == 1 and sum(a[i:i+3]) > max123:
+        cnt += 1
+        max_sum = max(max_sum, sum(a[i:i+3]))
+print(cnt, max_sum)  # 336 253152</pre></div><div class="answer_text">Ответ: 336 253152</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(44)">Показать решение</button></div></div>
+
+    <!-- 45 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">45</div><div class="prob_nums">Тип 17 № 63066</div></div><div class="problem_text"><p>Файл содержит последовательность натуральных чисел, не превышающих 100 000. Определите количество троек (три идущих подряд элемента), для которых: ровно два числа пятизначные; хотя бы одно число кратно 5; сумма элементов тройки больше максимального элемента, оканчивающегося на 321. Запишите количество троек и максимальную сумму.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (44).txt" target="_blank">📥 Скачать файл: 17 (44).txt</a></div>
+<div class="solution" id="sol45" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max321 = max(x for x in a if x%1000==321)
+cnt = max_sum = 0
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 9999<a[i+j]<100000)
+    if c == 2 and any(a[i+j]%5==0 for j in range(3)) and sum(a[i:i+3]) > max321:
+        cnt += 1
+        max_sum = max(max_sum, sum(a[i:i+3]))
+print(cnt, max_sum)  # 269 198654</pre></div><div class="answer_text">Ответ: 269 198654</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(45)">Показать решение</button></div></div>
+
+    <!-- 46 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">46</div><div class="prob_nums">Тип 17 № 64902</div></div><div class="problem_text"><p>Файл содержит последовательность натуральных чисел, не превышающих 100 000. Определите количество троек (три идущих подряд элемента), для которых: есть пятизначные числа, но не все пятизначные; в тройке больше чисел, кратных 3, чем кратных 5; сумма элементов тройки больше максимального элемента, оканчивающегося на 238. Запишите количество троек и максимальную сумму.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (45).txt" target="_blank">📥 Скачать файл: 17 (45).txt</a></div>
+<div class="solution" id="sol46" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max238 = max(x for x in a if x%1000==238)
+cnt = max_sum = 0
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 9999<a[i+j]<100000)
+    k3 = sum(1 for j in range(3) if a[i+j]%3==0)
+    k5 = sum(1 for j in range(3) if a[i+j]%5==0)
+    if 0 < c < 3 and k3 > k5 and sum(a[i:i+3]) > max238:
+        cnt += 1
+        max_sum = max(max_sum, sum(a[i:i+3]))
+print(cnt, max_sum)  # 1060 195565</pre></div><div class="answer_text">Ответ: 1060 195565</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(46)">Показать решение</button></div></div>
+
+    <!-- 47 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">47</div><div class="prob_nums">Тип 17 № 64947</div></div><div class="problem_text"><p>Файл содержит последовательность натуральных чисел, не превышающих 100 000. Определите количество троек (три идущих подряд элемента), для которых: есть четырёхзначные числа, но не все четырёхзначные; в тройке больше чисел, кратных 5, чем кратных 3; сумма элементов тройки больше максимального элемента, оканчивающегося на 832. Запишите количество троек и максимальную сумму.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (46).txt" target="_blank">📥 Скачать файл: 17 (46).txt</a></div>
+<div class="solution" id="sol47" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max832 = max(x for x in a if x%1000==832)
+cnt = max_sum = 0
+for i in range(len(a)-2):
+    c = sum(1 for j in range(3) if 999<a[i+j]<10000)
+    k3 = sum(1 for j in range(3) if a[i+j]%3==0)
+    k5 = sum(1 for j in range(3) if a[i+j]%5==0)
+    if 0 < c < 3 and k5 > k3 and sum(a[i:i+3]) > max832:
+        cnt += 1
+        max_sum = max(max_sum, sum(a[i:i+3]))
+print(cnt, max_sum)  # 59 198654</pre></div><div class="answer_text">Ответ: 59 198654</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(47)">Показать решение</button></div></div>
+
+    <!-- 48 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">48</div><div class="prob_nums">Тип 17 № 68250</div></div><div class="problem_text"><p>Файл содержит последовательность натуральных чисел, не превышающих 100 000. Определите количество четвёрок (четыре идущих подряд элемента), для которых: есть хотя бы два пятизначных и хотя бы одно не пятизначное; в четвёрке больше чисел, кратных 3, чем кратных 7; сумма элементов четвёрки больше максимального элемента, оканчивающегося на 538, но меньше удвоенного этого элемента. Запишите количество четвёрок и максимальную сумму.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (47).txt" target="_blank">📥 Скачать файл: 17 (47).txt</a></div>
+<div class="solution" id="sol48" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max538 = max(x for x in a if x%1000==538)
+cnt = max_sum = 0
+for i in range(len(a)-3):
+    c = sum(1 for j in range(4) if 9999<a[i+j]<100000)
+    k3 = sum(1 for j in range(4) if a[i+j]%3==0)
+    k7 = sum(1 for j in range(4) if a[i+j]%7==0)
+    if c >= 2 and c <= 3 and k3 > k7 and max538 < sum(a[i:i+4]) < 2*max538:
+        cnt += 1
+        max_sum = max(max_sum, sum(a[i:i+4]))
+print(cnt, max_sum)  # 260 106865</pre></div><div class="answer_text">Ответ: 260 106865</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(48)">Показать решение</button></div></div>
+
+    <!-- 49 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">49</div><div class="prob_nums">Тип 17 № 68279</div></div><div class="problem_text"><p>Файл содержит последовательность натуральных чисел, не превышающих 100 000. Определите количество четвёрок (четыре идущих подряд элемента), для которых: есть хотя бы одно пятизначное и хотя бы два не пятизначных; в четвёрке меньше чисел, кратных 3, чем кратных 7; сумма элементов четвёрки больше максимального элемента, оканчивающегося на 562, но меньше удвоенного этого элемента. Запишите количество четвёрок и максимальную сумму.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (48).txt" target="_blank">📥 Скачать файл: 17 (48).txt</a></div>
+<div class="solution" id="sol49" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+max562 = max(x for x in a if x%1000==562)
+cnt = max_sum = 0
+for i in range(len(a)-3):
+    c = sum(1 for j in range(4) if 9999<a[i+j]<100000)
+    k3 = sum(1 for j in range(4) if a[i+j]%3==0)
+    k7 = sum(1 for j in range(4) if a[i+j]%7==0)
+    if c >= 1 and (4-c) >= 2 and k3 < k7 and max562 < sum(a[i:i+4]) < 2*max562:
+        cnt += 1
+        max_sum = max(max_sum, sum(a[i:i+4]))
+print(cnt, max_sum)  # 229 154334</pre></div><div class="answer_text">Ответ: 229 154334</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(49)">Показать решение</button></div></div>
+
+    <!-- 50 -->
+    <div class="problem_container"><div class="prob_header"><div class="prob_num">50</div><div class="prob_nums">Тип 17 № 68518</div></div><div class="problem_text"><p>В файле содержится последовательность натуральных чисел от 1 до 100 000. Определите количество пар (два идущих подряд элемента), в которых хотя бы одно число делится на минимальный элемент последовательности, кратный 19. Запишите количество пар и максимальную сумму элементов таких пар.</p></div>
+	<div class="file-link"><a href="/ege-informatics/practic/files/t17/17 (49).txt" target="_blank">📥 Скачать файл: 17 (49).txt</a></div>
+<div class="solution" id="sol50" style="display:none"><div class="solution_text"><div class="lang_python"><pre>with open('17.txt') as f:
+    a = [int(x) for x in f]
+min19 = min(x for x in a if x%19==0)
+cnt = max_sum = 0
+for i in range(len(a)-1):
+    if a[i]%min19==0 or a[i+1]%min19==0:
+        cnt += 1
+        max_sum = max(max_sum, a[i]+a[i+1])
+print(cnt, max_sum)  # 142 175430</pre></div><div class="answer_text">Ответ: 142 175430</div></div></div><div class="task_controls"><button class="btn_show_solution" onclick="toggle(50)">Показать решение</button></div></div>
+
+</div>
+
+<script>
+function toggle(id) {
+    const sol = document.getElementById('sol'+id);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(String(id)) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    if (sol.style.display === 'none' || sol.style.display === '') {
+        sol.style.display = 'block';
+        if (btn) btn.textContent = 'Скрыть решение';
+    } else {
+        sol.style.display = 'none';
+        if (btn) btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

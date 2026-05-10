@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тип 7: Кодирование изображений и текста</title>
+    <style>
+        /* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: #000;
+            background-color: #fff;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .problem_container {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+        .prob_header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .prob_num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #4a6baf;
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .prob_nums {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .prob_nums a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .prob_nums a:hover {
+            text-decoration: underline;
+        }
+
+        .problem_actions {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .action_btn {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin: 0 3px;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        /* ★ ТЕКСТ ЗАДАНИЯ ★ */
+        .problem_text {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .left_margin {
+            margin-left: 0;
+        }
+
+        /* ★ РЕШЕНИЕ ★ */
+        .solution {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #4a6baf;
+            font-size: 14px;
+            display: none;
+        }
+
+        .solution_text {
+            line-height: 1.6;
+        }
+
+        .solution_text center {
+            text-align: center;
+        }
+
+        .code_block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px;
+            border-radius: 3px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .code_block pre {
+            margin: 0;
+            color: #ecf0f1;
+            white-space: pre-wrap;
+        }
+
+        hr {
+            margin: 15px 0;
+            border: none;
+            border-top: 1px dashed #999;
+        }
+
+        /* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+        .btn_show_solution {
+            padding: 8px 16px;
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .btn_show_solution:hover {
+            background-color: #e67e22;
+        }
+
+        /* ★ ИСТОЧНИК ★ */
+        .source_info {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+
+        .source_info span {
+            color: #666;
+        }
+
+        /* ★ ОТВЕТ ★ */
+        .answer {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f4ff;
+            border-left: 3px solid #4a6baf;
+            font-weight: bold;
+        }
+
+        /* ★ АДАПТИВНОСТЬ ★ */
+        @media (max-width: 768px) {
+            .btn_show_solution {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        .new_header {
+            padding-top: 3px;
+            vertical-align: middle;
+            width: 100%;
+            line-height: 25px;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #006;
+            font-weight: bold;
+        }
+        
+        .flex-img {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .flex-img img {
+            max-width: 100%;
+        }
+        
+        .tex {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="new_header">
+        <b>Тип 7. Кодирование изображений. Передача информации. Хранение текстовых документов</b>
+    </div>
+
+    <div class="container">
+        <!-- Задача 1 (64892) -->
+        <div class="problem_container" id="problem_64892">
+            <div class="prob_header">
+                <div class="prob_num">1</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 64892</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Запись о документе в информационной системе содержит его текст и отсканированную копию, полученную сканированием с разрешением 150 dpi и сжатием полученного изображения на 20%. При этом текст документа занимает 50% всего объёма записи. Сколько процентов объёма записи будет занимать текст документа, если заменить отсканированную копию на новую, сделанную с разрешением 300 dpi и сжатием изображения на 40%?</p>
+                <p>В ответе запишите только число (количество процентов), без знака %.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('64892')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock64892">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Документ содержит текст и отсканированную копию. Посчитаем объем отсканированной копии:</p>
+                    <p style="text-align: center;">150·x·150·y·0,8,</p>
+                    <p>где x и y — количество пикселей по горизонтали и по вертикали соответственно. Поскольку изображение сжали на 20%, умножаем на 0,8.</p>
+                    <p>Поскольку текст документа занимает 50% всего объёма записи, то размер текста тоже равен:</p>
+                    <p style="text-align: center;">150·x·150·y·0,8.</p>
+                    <p>Посчитаем объем нового изображения:</p>
+                    <p style="text-align: center;">300·x·300·y·0,6.</p>
+                    <p>Поскольку размер текста не изменился, то объем нового документа равен:</p>
+                    <p style="text-align: center;">300·x·300·y·0,6 + 150·x·150·y·0,8.</p>
+                    <p>Найдем отношение объёма текста к объёму нового документа:</p>
+                    <p style="text-align: center;">(150·x·150·y·0,8) / (300·x·300·y·0,6 + 150·x·150·y·0,8) = 0,25 = 25%.</p>
+                    <p><b>Ответ:</b> 25.</p>
+                </div>
+            </div>
+            
+        </div>
+</div>
+    <div class="container">
+
+        <!-- Задача 2 (64937) -->
+        <div class="problem_container" id="problem_64937">
+            <div class="prob_header">
+                <div class="prob_num">2</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 64937</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Запись о документе в информационной системе содержит его текст и отсканированную копию, полученную сканированием с разрешением 200 dpi и сжатием полученного изображения на 40%. При этом текст документа занимает 50% всего объёма записи. Сколько процентов объёма записи будет занимать текст документа, если заменить отсканированную копию на новую, сделанную с разрешением 300 dpi и сжатием изображения на 60%?</p>
+                <p>В ответе запишите только число (количество процентов), без знака %.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('64937')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock64937">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Документ содержит текст и отсканированную копию. Посчитаем объем отсканированной копии:</p>
+                    <p style="text-align: center;">200·x·200·y·0,6,</p>
+                    <p>где x и y — количество пикселей по горизонтали и по вертикали соответственно. Поскольку изображение сжали на 40%, умножаем на 0,6.</p>
+                    <p>Поскольку текст документа занимает 50% всего объёма записи, то размер текста тоже равен:</p>
+                    <p style="text-align: center;">200·x·200·y·0,6.</p>
+                    <p>Посчитаем объем нового изображения:</p>
+                    <p style="text-align: center;">300·x·300·y·0,4.</p>
+                    <p>Поскольку размер текста не изменился, то объем нового документа равен:</p>
+                    <p style="text-align: center;">300·x·300·y·0,4 + 200·x·200·y·0,6.</p>
+                    <p>Найдем отношение объёма текста к объёму нового документа:</p>
+                    <p style="text-align: center;">(200·x·200·y·0,6) / (300·x·300·y·0,4 + 200·x·200·y·0,6) = 0,4 = 40%.</p>
+                    <p><b>Ответ:</b> 40.</p>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+    <script>
+        // ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+        function toggleSolution(problemNumber) {
+            const solution = document.getElementById('solutionBlock' + problemNumber);
+            const btn = event.target;
+            
+            if (solution.style.display === 'none' || solution.style.display === '') {
+                solution.style.display = 'block';
+                btn.textContent = 'Скрыть решение';
+            } else {
+                solution.style.display = 'none';
+                btn.textContent = 'Показать решение';
+            }
+        }
+    </script>
+</body>
+</html>

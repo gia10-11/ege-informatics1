@@ -1,0 +1,2924 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Строки с пропущенными значениями</title>
+</head>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+.problem_actions {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.action_btn {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 3px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ ТАБЛИЦА ИСТИННОСТИ ★ */
+.table_container {
+    margin: 20px 0;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+}
+
+.truth_table, .example_table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+.truth_table th, .example_table th {
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+    padding: 8px 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.truth_table td, .example_table td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+.truth_table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* ★ ИНСТРУКЦИЯ ★ */
+.instruction_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+/* ★ ПРИМЕР ★ */
+.example_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #ffc107;
+    font-size: 14px;
+}
+
+.example_table {
+    margin: 10px auto;
+}
+
+.example_table th,
+.example_table td {
+    padding: 5px 10px;
+}
+
+/* ★ БЛОК ОТВЕТА ★ */
+.answer_block {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 3px;
+}
+
+.answer_block h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.answer_form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.answer_input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.answer_input:focus {
+    border-color: #4a6baf;
+    outline: none;
+}
+
+.btn_check {
+    padding: 8px 20px;
+    background-color: #4a6baf;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_check:hover {
+    background-color: #3a5a9f;
+}
+
+.result_message {
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.result_message.correct {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.result_message.incorrect {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_tables {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.solution_table {
+    border-collapse: collapse;
+}
+
+.solution_table th,
+.solution_table td {
+    border: 1px solid #999;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.code_block {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 12px;
+    border-radius: 3px;
+    font-family: monospace;
+    overflow-x: auto;
+    margin: 10px 0;
+    font-size: 13px;
+}
+
+.code_block pre {
+    margin: 0;
+    color: #ecf0f1;
+    white-space: pre-wrap;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+.btn_secondary {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #95a5a6;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.btn_secondary:hover {
+    background-color: #7f8c8d;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.source_info span {
+    color: #666;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .answer_form {
+        flex-direction: column;
+    }
+    
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_check,
+    .btn_show_solution,
+    .btn_secondary {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .solution_tables {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+<body>
+<div class="new_header" 
+align="center" 
+style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<p><b>Задания 2.Построение таблиц истинности логических выражений. Строки с пропущенными значениями.</b></p></div>	
+<div class="container">
+    <div class="problem_container">
+        <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">
+                Тип 2 № 1
+                (1 балл)
+            </div>
+        </div>
+
+        <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+        <div class="problem_text left_margin">
+            <p>Логическая функция <i>F</i> задаётся выражением <i>(x ∨ y) → (z ≡ x)</i>.</p>
+            
+            <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+            
+            <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>.</p>
+        </div>
+
+        <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+        <div class="table_container">
+            <div class="wrap_scroll_table">
+                <table class="truth_table">
+                    <thead>
+                        <tr>
+                            <th>Переменная 1</th>
+                            <th>Переменная 2</th>
+                            <th>Переменная 3</th>
+                            <th>Функция</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>???</td>
+                            <td>???</td>
+                            <td>???</td>
+                            <td><i>F</i></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>0</td>
+                            <td></td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+        <div class="instruction_box">
+            <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i> в том порядке, в котором идут соответствующие им столбцы. Буквы пишите подряд, без разделителей.</p>
+        </div>
+
+        <!-- ★ ПРИМЕР ★ -->
+        <div class="example_box">
+            <p><strong>Пример.</strong> Пусть задано выражение <i>x → y</i> и фрагмент таблицы:</p>
+            
+            <div class="wrap_scroll_table">
+                <table class="example_table">
+                    <thead>
+                        <tr>
+                            <th>Переменная 1</th>
+                            <th>Переменная 2</th>
+                            <th>Функция</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p>Тогда ответ: <i>yx</i> (первому столбцу соответствует y, второму - x).</p>
+        </div>
+
+        <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <p class="left_margin"><b>Решение.</b></p>
+            
+            <div class="solution_text">
+                <p>Данная импликация принимает значение 0 тогда и только тогда, когда:</p>
+                <p style="text-align: center;"><i>(x ∨ y) = 1</i> и <i>(z ≡ x) = 0</i></p>
+                <p>Получаем систему: <b>{ x + y = 1, x ≠ z }</b></p>
+                
+                <p>Пусть x = 0, тогда y = z = 1. В первой строке нет двух единиц, значит, x = 1, и эта переменная находится в первом столбце. Тогда первая строка: 1 0 0.</p>
+                
+                <p>Вторая строка должна отличаться от первой, поэтому она: 1 0 1.</p>
+                
+                <div class="solution_tables">
+                    <table class="solution_table">
+                        <tr><th>x</th><th>y</th><th>z</th></tr>
+                        <tr><td>1</td><td>0</td><td>0</td></tr>
+                        <tr><td>1</td><td>0</td><td>1</td></tr>
+                    </table>
+                    
+                    <table class="solution_table">
+                        <tr><th>x</th><th>z</th><th>y</th></tr>
+                        <tr><td>1</td><td>0</td><td>0</td></tr>
+                        <tr><td>1</td><td>0</td><td>1</td></tr>
+                    </table>
+                </div>
+                
+                <p>Первый вариант не удовлетворяет системе, а второй — удовлетворяет.</p>
+                
+                <p><strong>Ответ:</strong> xzy</p>
+                
+                <hr>
+                
+                <p><strong>Решение с помощью Python:</strong></p>
+                
+                <div class="code_block">
+                    <pre>print("x y z")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            if not ((x or y) <= (z == x)):
+                print(x, y, z)</pre>
+                </div>
+                
+                <p>Получим наборы: (0,1,1), (1,0,0), (1,1,0)</p>
+                <p>Сопоставляем с таблицей → xzy</p>
+            </div>
+        </div>
+
+        <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">
+                Показать решение
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">
+                Тип 2 № 2 (1 балл)
+            </div>
+        </div>
+
+        <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+        <div class="problem_text left_margin">
+            <p>Логическая функция <i>F</i> задаётся выражением <i>(x ≡ z) ∨ (x → (y ∧ z))</i>.</p>
+            
+            <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+            
+            <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>.</p>
+        </div>
+
+        <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+        <div class="table_container">
+            <div class="wrap_scroll_table">
+                <table class="truth_table">
+                    <thead>
+                        <tr>
+                            <th>Переменная 1</th>
+                            <th>Переменная 2</th>
+                            <th>Переменная 3</th>
+                            <th>Функция</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>???</td>
+                            <td>???</td>
+                            <td>???</td>
+                            <td><i>F</i></td>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>0</td>
+                            <td></td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td></td>
+                            <td></td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+        <div class="instruction_box">
+            <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i> в том порядке, в котором идут соответствующие им столбцы. Буквы пишите подряд, без разделителей.</p>
+        </div>
+
+        <!-- ★ ПРИМЕР ★ -->
+        <div class="example_box">
+            <p><strong>Пример.</strong> Пусть задано выражение <i>x → y</i> и фрагмент таблицы:</p>
+            
+            <div class="wrap_scroll_table">
+                <table class="example_table">
+                    <thead>
+                        <tr>
+                            <th>Переменная 1</th>
+                            <th>Переменная 2</th>
+                            <th>Функция</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p>Тогда ответ: <i>yx</i> (первому столбцу соответствует y, второму - x).</p>
+        </div>
+
+        <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <p class="left_margin"><b>Решение.</b></p>
+            
+            <div class="solution_text">
+                <p>Данное выражение принимает значение 0 тогда и только тогда, когда:</p>
+                <p style="text-align: center;"><i>(x ≡ z) = 0</i> и <i>(x → (y ∧ z)) = 0</i></p>
+                <p>Получаем систему:</p>
+                <p style="text-align: center;"><b>{ x ≠ z, x = 1, y ∧ z = 0 }</b></p>
+                <p style="text-align: center;">или</p>
+                <p style="text-align: center;"><b>{ x ≠ z, x = 1, y = 0 или z = 0 }</b></p>
+                
+                <p>Пусть y = 0. Из системы получаем: x = 1, тогда z = 0. В первой строке нет единицы, значит, переменная x находится в третьем столбце. Тогда первая строка имеет вид 0 0 1.</p>
+                
+                <p>Вторая строка должна отличаться от первой, поэтому она имеет вид 1 0 1. Рассмотрим два варианта:</p>
+                
+                <div class="solution_tables">
+                    <table class="solution_table">
+                        <tr><th>y</th><th>z</th><th>x</th></tr>
+                        <tr><td>0</td><td>0</td><td>1</td></tr>
+                        <tr><td>1</td><td>0</td><td>1</td></tr>
+                    </table>
+                    
+                    <table class="solution_table">
+                        <tr><th>z</th><th>y</th><th>x</th></tr>
+                        <tr><td>0</td><td>0</td><td>1</td></tr>
+                        <tr><td>1</td><td>0</td><td>1</td></tr>
+                    </table>
+                </div>
+                
+                <p>Второй вариант не удовлетворяет системе, а первый — удовлетворяет.</p>
+                
+                <p><strong>Ответ:</strong> yzx</p>
+                
+                <hr>
+                
+                <p><strong>Решение с помощью Python:</strong></p>
+                
+                <div class="code_block">
+                    <pre>print("x y z")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            if not ((x == z) or (x <= (y and z))):
+                print(x, y, z)</pre>
+                </div>
+                
+                <p>Получим наборы: (1,0,0), (1,1,0)</p>
+                <p>Сопоставляем с таблицей → yzx</p>
+            </div>
+        </div>
+
+        <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">
+                Показать решение
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">
+                Тип 2 № 3 (1 балл)
+            </div>
+        </div>
+
+        <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+        <div class="problem_text left_margin">
+            <p>Логическая функция <i>F</i> задаётся выражением <i>(x ∧ ¬y) ∨ (y ≡ z) ∨ ¬w</i>.</p>
+            
+            <p>На рисунке приведён фрагмент таблицы истинности функции <i>F</i>, содержащий все наборы аргументов, при которых функция <i>F</i> ложна. Определите, какому столбцу таблицы истинности функции <i>F</i> соответствует каждая из переменных <i>w, x, y, z</i>. Все строки в представленном фрагменте разные.</p>
+        </div>
+
+        <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+        <div class="table_container">
+            <div class="wrap_scroll_table">
+                <table class="truth_table">
+                    <thead>
+                        <tr>
+                            <th>Перем. 1</th>
+                            <th>Перем. 2</th>
+                            <th>Перем. 3</th>
+                            <th>Перем. 4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>???</td>
+                            <td>???</td>
+                            <td>???</td>
+                            <td>???</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>0</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>0</td>
+                            <td></td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td></td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+        <div class="instruction_box">
+            <p>В ответе напишите буквы <i>w, x, y, z</i> в том порядке, в котором идут соответствующие им столбцы (без разделителей).</p>
+        </div>
+
+        <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <p class="left_margin"><b>Решение.</b></p>
+            
+            <div class="solution_text">
+                <p>Рассмотрим данное выражение. Преобразуем логическое выражение <i>(x ∧ ¬y) ∨ (y ≡ z) ∨ ¬w</i> и получим систему, при которой оно ложно:</p>
+                
+                <div class="system_equation">
+                    <p>{ x = 0, y = 1 }</p>
+                    <p>или</p>
+                    <p>{ y ≠ z, w = 1 }</p>
+                </div>
+                
+                <p>Сразу видно, что первый столбец — это <i>w</i>, поскольку <i>w</i> всегда должна равняться единице. Также ясно, что <i>x</i> — это переменная 4, так как из первой строки таблицы видно, что <i>y ≠ z</i>. Из первого выражения <i>x ∧ ¬y</i> и последней строчке таблицы видно, что переменная 3 — это <i>y</i>, а вторая переменная — это <i>z</i>.</p>
+                
+                <p><strong>Примечание.</strong></p>
+                <p>Рассмотрим, как будет выглядеть полная таблица истинности. Переменная <i>w</i> всегда должна принимать значение 1, поэтому в первом столбце во всех строках будет стоять единица. Исходя из условия <i>y ≠ z</i> можно заключить, что во втором столбце в последней строке будет стоять единица, и в первых двух строках третьего столбца тоже будут стоять единицы. В первой строке четвёртого столбца должна стоять единица, поскольку строки в таблице истинности должны быть разными.</p>
+                
+                <div class="solution_tables">
+                    <table class="solution_table">
+                        <tr><th>Перем. 1</th><th>Перем. 2</th><th>Перем. 3</th><th>Перем. 4</th></tr>
+                        <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+                        <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+                        <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+                    </table>
+                </div>
+                
+                <p>Вариант <i>wyzx</i> не подходит, поскольку в первой строке функция <i>F</i> окажется истинной.</p>
+                
+                <hr>
+                
+                <p><strong>Решение с помощью Python:</strong></p>
+                
+                <div class="code_block">
+                    <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if not ((x and not(y)) or (y == z) or not(w)):
+                    print(x, y, z, w)</pre>
+                </div>
+                
+                <p>Далее выпишем те наборы переменных, при которых данное выражение равно 0. В наборах переменные запишем в порядке <i>х, y, z, w</i>:</p>
+                <p>(0, 0, 1, 1),</p>
+                <p>(0, 1, 0, 1),</p>
+                <p>(1, 1, 0, 1).</p>
+                
+                <p>Заметим, что переменная <i>w</i> всегда должна быть равна 1, поэтому ей соответствует первый столбец заданной таблицы.</p>
+                
+                <p>Заметим, что вторая и третья строки заданной таблицы, содержащие по два нуля, соответствуют наборам переменных (0, 0, 1, 1) или (0, 1, 0, 1), тогда первая строка соответствует набору (1, 1, 0, 1). Значит, в первой строке <i>z</i> = 0, а все остальные переменные равны 1, и переменной <i>z</i> соответствует второй столбец заданной таблицы.</p>
+                
+                <p>Тогда вторая строка заданной таблицы, в которой переменная <i>z</i> также равна 0, соответствует набору (0, 1, 0, 1), в котором <i>х</i> = 0, а остальные переменные равны 1, поэтому переменной <i>х</i> соответствует четвёртый столбец таблицы.</p>
+                
+                <p>Тогда переменной <i>y</i> соответствует третий столбец.</p>
+                
+                <p><strong>Ответ:</strong> wzyx</p>
+            </div>
+        </div>
+
+        <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">
+                Показать решение
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">4</div>
+        <div class="prob_nums">
+            Тип 2 № 4 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>((x → y) ∧ (y → w)) ∨ (z ≡ (x ∨ y))</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>1</td>
+                        <td></td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала — буква, соответствующая первому столбцу; затем — буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock4" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Заметим, что в каждом столбце, кроме третьего, как минимум в одной строке встречается 1. Часть логического выражения <nobr>(<i>z</i> ≡ ( <i>x</i> ∨ <i>y</i>))</nobr> будет равна 0 только тогда, когда <i>z</i> будет принимать значение, отличное от <i>x</i> ∨ <i>y</i>. Если поставить в соответствие переменной <i>z</i> какой-либо столбец, кроме третьего, условие <nobr>(<i>z</i> ≡ ( <i>x</i> ∨ <i>y</i>))</nobr> будет принимать значение 1 в какой-либо из строк таблицы. Следовательно, переменная <i>z</i> соответствует третьему столбцу.</p>
+            
+            <p>Переменные <i>y</i> и <i>w</i> не должны одновременно принимать значение 1. Следовательно, переменной <i>y</i> соответствует первый столбец, а переменной <i>w</i> соответствует второй столбец. Значит, четвёртый столбец фрагмента таблицы истинности соответствует переменной <i>x</i>.</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python:</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if not (((x <= y) and (y <= w)) or (z == (x or y))):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Далее выпишем те наборы переменных, при которых данное выражение равно 0. В наборах переменные запишем в порядке <i>х, y, z,w</i>:</p>
+            <p>(0, 1, 0, 0),</p>
+            <p>(1, 0, 0, 0),</p>
+            <p>(1, 0, 0, 1),</p>
+            <p>(1, 1, 0, 0).</p>
+            
+            <p>Сопоставим эти наборы с приведенным в задании фрагментом таблицы истинности.</p>
+            
+            <p>Заметим, что ни в одном из наборов переменная <i>z</i> не принимает единичное значение. Следовательно, переменной <i>z</i> соответствует третий столбец, и во всех строчках таблицы в третьем столбце стоит 0.</p>
+            
+            <p>Переменная <i>w</i> принимает единичное значение только в одном наборе. Следовательно, переменной <i>w</i> соответствует второй столбец, и в первой и второй сточках таблицы во втором столбце стоит 0.</p>
+            
+            <p>Третья строка таблицы, в которой переменная <i>w</i> принимает единичное значение, соответствует набору (1, 0, 0, 1). В этом наборе единичное значение принимает также переменная <i>х</i>. Следовательно, переменной <i>х</i> соответствует четвертый столбец.</p>
+            
+            <p>Тогда первый столбец соответствует переменной <i>у</i>.</p>
+            
+            <p><strong>Ответ:</strong> ywzx</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(4)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">5</div>
+        <div class="prob_nums">
+            Тип 2 № 5 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>(x ≡ (w ∨ y)) ∨ ((w → z) ∧ (y → w))</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td>1</td>
+                        <td></td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>w</i>, <i>x</i>, <i>y</i>, <i>z</i> в том порядке, в котором идут соответствующие им столбцы (сначала — буква, соответствующая первому столбцу; затем — буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock5" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Рассмотрим данное выражение. Преобразуем логическое выражение <i>(x ≡ (w ∨ y)) ∨ ((w → z) ∧ (y → w))</i> и получим систему, при которой оно ложно:</p>
+            
+            <div class="system_equation">
+                <p>{ w = 1, y = 1, z = 0 }</p>
+                <p>или</p>
+                <p>{ x ≠ w + y }</p>
+            </div>
+            
+            <p>Заметим, что первый и четвёртый столбцы таблицы истинности — это <i>y</i> и <i>w</i>. Из условия <i>x ≠ w + y</i> следует, что переменная <i>x</i> соответствует второму столбцу таблицы истинности. Следовательно, третьему столбцу соответствует переменная <i>z</i>.</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python:</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if not ((x == (w or y)) or ((w <= z) and (y <= w))):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Далее выпишем те наборы переменных, при которых данное выражение равно 0. В наборах переменные запишем в порядке <i>х, y, z, w</i>:</p>
+            <p>(0, 0, 0, 1),</p>
+            <p>(0, 1, 0, 0),</p>
+            <p>(0, 1, 0, 1),</p>
+            <p>(0, 1, 1, 0).</p>
+            
+            <p>Сопоставим эти наборы с приведенным в задании фрагментом таблицы истинности.</p>
+            
+            <p>Первая строка таблицы (как минимум две единицы) может соответствовать либо набору (0, 1, 0, 1), либо набору (0, 1, 1, 0).</p>
+            
+            <p>Третья строка таблицы также может соответствовать одному из этих двух наборов.</p>
+            
+            <p>Заметим, что в каждом из этих двух наборов переменная <i>y</i> принимает значение 1. Следовательно, ей соответствует первый столбец таблицы.</p>
+            
+            <p>В данных наборах единичные значения принимают также переменные <i>z</i> и <i>w</i>. Заметим, что переменная <i>z</i> принимает единичное значение в единственном наборе переменных. Следовательно, ей не может соответствовать четвертый столбец. Тогда переменной <i>z</i> соответствует третий столбец, а переменной <i>w</i> — четвертый столбец.</p>
+            
+            <p>Следовательно, переменной <i>х</i> соответствует второй столбец.</p>
+            
+            <p><strong>Ответ:</strong> yxzw</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(5)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">6</div>
+        <div class="prob_nums">
+            Тип 2 № 15939 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>(z ∧ y) ∨ ((x → z) ≡ (y → w))</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала — буква, соответствующая первому столбцу; затем — буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock6" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Рассмотрим данное выражение. Преобразуем логическое выражение <i>(z ∧ y) ∨ ((x → z) ≡ (y → w))</i> и получим систему, при которой оно ложно:</p>
+            
+            <div class="system_equation">
+                <p>{ z = 0, y = 0 }</p>
+                <p>или</p>
+                <p>{ ¬x + z ≠ ¬y + w }</p>
+            </div>
+            
+            <p>Заметим, что второй столбец таблицы истинности — это <i>z</i>, тогда четвёртый столбец таблицы истинности — это переменная <i>x</i>. Из условия <i>¬x + z ≠ ¬y + w</i> следует, что переменная <i>y</i> соответствует третьему столбцу таблицы истинности, а переменная <i>w</i> соответствует первому столбцу таблицы истинности.</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python:</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if not ((z and y) or ((x <= z) == (y <= w))):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Далее выпишем те наборы переменных, при которых данное выражение равно 0. В наборах переменные запишем в порядке <i>х, y, z, w</i>:</p>
+            <p>(0, 1, 0, 0),</p>
+            <p>(1, 0, 0, 0),</p>
+            <p>(1, 0, 0, 1),</p>
+            <p>(1, 1, 0, 1).</p>
+            
+            <p>Сопоставим эти наборы со строками приведенного в задании фрагмента таблицы истинности.</p>
+            
+            <p>Рассмотрим третью строку таблицы (как минимум три единицы). Она может соответствовать только набору (1, 1, 0, 1). Следовательно, второй столбец — это переменная <i>z</i>, и в третьей строке во втором столбце стоит 0.</p>
+            
+            <p>Заметим, что четвёртый столбец таблицы может соответствовать только переменной <i>х</i>, так как переменные <i>у</i> и <i>w</i> принимают единичные значения только в двух наборах.</p>
+            
+            <p>Рассмотрим вторую строку таблицы (как минимум две единицы). Она может соответствовать только набору (1, 0, 0, 1). Следовательно, первый столбец — это переменная <i>w</i>, тогда третий столбец — это переменная <i>у</i>.</p>
+            
+            <p><strong>Ответ:</strong> wzyx</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(6)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+ 
+ <div class="container">
+     <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">7</div>
+        <div class="prob_nums">
+            Тип 2 № 7 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>(x ∧ ¬y) ∨ (y ≡ z) ∨ w</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td></td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала — буква, соответствующая первому столбцу; затем — буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock7" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Рассмотрим данное выражение. Преобразуем логическое выражение <i>(x ∧ ¬y) ∨ (y ≡ z) ∨ w</i> и получим систему, при которой оно ложно:</p>
+            
+            <div class="system_equation">
+                <p>{ x = 1, y = 0 }</p>
+                <p>или</p>
+                <p>{ y ≠ z, w = 0 }</p>
+            </div>
+            
+            <p>Заметим, что третий столбец таблицы истинности — это <i>w</i>. Из условия <i>y ≠ z</i> следует, что переменные <i>y</i> и <i>z</i> соответствуют первому и четвёртому столбцам таблицы истинности. Следовательно, второму столбцу таблицы истинности соответствует переменная <i>x</i>.</p>
+            
+            <p><strong>Примечание.</strong> Вариант <i>zxwy</i> не подходит, поскольку в третьей строке таблицы истинности функция <i>F</i> будет истинной, что не удовлетворяет условию задания.</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python:</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if not ((x and not(y)) or (y == z) or w):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Далее выпишем те наборы переменных, при которых данное выражение равно 0. В наборах переменные запишем в порядке <i>х, y, z, w</i>:</p>
+            <p>(0, 0, 1, 0),</p>
+            <p>(0, 1, 0, 0),</p>
+            <p>(1, 1, 0, 0).</p>
+            
+            <p>Сопоставим эти наборы с приведенным в задании фрагментом таблицы истинности.</p>
+            
+            <p>Третья строка таблицы (как минимум две единицы) соответствует набору (1, 1, 0, 0).</p>
+            
+            <p>Заметим, что в каждом из этих трех наборов переменная <i>w</i> принимает значение 0. Следовательно, ей соответствует третий столбец таблицы.</p>
+            
+            <p>В каждом из этих двух наборов переменная <i>y</i> принимает значение 1. Следовательно, ей соответствует первый столбец таблицы.</p>
+            
+            <p>Когда переменная <i>y</i> принимает значение 1, переменная <i>z</i> принимает значение 0. Следовательно, второй столбец не подходит, тогда переменной <i>z</i> соответствует четвёртый столбец, а <i>x</i> — второй столбец.</p>
+            
+            <p><strong>Ответ:</strong> yxwz</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(7)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+
+<div class="container">
+     <div class="problem_container">
+
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">8</div>
+        <div class="prob_nums">
+            Тип 2 № 8 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>((x → y) ≡ (y → z)) ∧ (y ∨ w)</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td></td>
+                        <td>0</td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        <td></td>
+                        <td>0</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>0</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала — буква, соответствующая первому столбцу; затем — буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock8" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Рассмотрим данное выражение. Преобразуем логическое выражение <i>((x → y) ≡ (y → z)) ∧ (y ∨ w)</i> и получим систему, при которой оно истинно:</p>
+            
+            <div class="system_equation">
+                <p>{ y = 1, w = 1 }</p>
+                <p>или</p>
+                <p>{ ¬x + y = ¬y + z }</p>
+            </div>
+            
+            <p>Заметим, что четвёртый столбец таблицы истинности — это <i>y</i>, тогда третий столбец таблицы истинности — это переменная <i>w</i>. Из условия <i>¬x + y ≠ ¬y + z</i> следует, что переменная <i>x</i> соответствует первому столбцу таблицы истинности, а переменная <i>z</i> соответствует второму столбцу таблицы истинности.</p>
+            
+            <p><strong>Примечание.</strong></p>
+            <p>Рассмотрим, как будет выглядеть полная таблица истинности. Одна из переменных <i>y</i> или <i>w</i> должна принимать значение 1, поэтому в третьем столбце во второй и третьей строках будут стоять единицы и в четвёртом столбце в первой строке будет стоять единица. Исходя из условия <i>¬x + y ≠ ¬y + z</i> можно заключить, что в первом столбце в последней строке будет стоять ноль, а в первой строке второго столбца будет стоять единица. В последней строке второго столбца должна стоять единица, поскольку строки в таблице истинности должны быть разными.</p>
+            
+            <div class="solution_tables">
+                <table class="solution_table">
+                    <tr><th>Перем. 1</th><th>Перем. 2</th><th>Перем. 3</th><th>Перем. 4</th></tr>
+                    <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+                    <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+                    <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+                </table>
+            </div>
+            
+            <p>Вариант <i>xzyw</i> не подходит, поскольку во второй строке функция <i>F</i> окажется ложной.</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python:</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if ((x <= y) == (y <= z)) and (y or w):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Далее выпишем те наборы переменных, при которых данное выражение равно 1. В наборах переменные запишем в порядке <i>х, y, z, w</i>:</p>
+            <p>(0, 0, 0, 1),</p>
+            <p>(0, 0, 1, 1),</p>
+            <p>(0, 1, 1, 0),</p>
+            <p>(0, 1, 1, 1),</p>
+            <p>(1, 1, 1, 0),</p>
+            <p>(1, 1, 1, 1).</p>
+            
+            <p>Сопоставим эти наборы с приведенным в задании фрагментом таблицы истинности.</p>
+            
+            <p>Вторая строка таблицы истинности содержит три нуля, следовательно, она может соответствовать только набору (0, 0, 0, 1), тогда в третьем столбце второй строки стоит 1 и третий столбец соответствует переменной <i>w</i>.</p>
+            
+            <p>Рассмотрим первую строку таблицы. В ней переменная <i>w</i> принимает нулевое значение, и есть еще одна переменная, принимающая нулевое значение, значит, эта строка может соответствовать только набору (0, 1, 1, 0), тогда первый столбец соответствует переменной <i>x</i>.</p>
+            
+            <p>Рассмотрим третью строку таблицы. В ней одна из переменных <i>y</i> или <i>z</i> принимает нулевое значение, значит, эта строка может соответствовать только набору (0, 0, 1, 1) и четвертый столбец соответствует переменной <i>y</i>, тогда второй столбец соответствует переменной <i>z</i>.</p>
+            
+            <p><strong>Ответ:</strong> xzwy</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(8)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+<div class="container">
+     <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">9</div>
+        <div class="prob_nums">
+            Тип 2 № 9 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>((y → x) ≡ (x → w)) ∧ (z ∨ x)</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td></td>
+                        <td></td>
+                        <td>0</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>0</td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала — буква, соответствующая первому столбцу; затем — буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock9" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Рассмотрим данное выражение. Преобразуем логическое выражение <i>((y → x) ≡ (x → w)) ∧ (z ∨ x)</i> и получим систему, при которой оно истинно:</p>
+            
+            <div class="system_equation">
+                <p>{ z = 1, x = 1 }</p>
+                <p>или</p>
+                <p>{ ¬y + x = ¬x + w }</p>
+            </div>
+            
+            <p>Заметим, что четвёртый столбец таблицы истинности — это <i>z</i>, тогда третий столбец таблицы истинности — это переменная <i>x</i>. Из условия <i>¬y + x ≠ ¬x + w</i> следует, что переменная <i>y</i> соответствует первому столбцу таблицы истинности, а переменная <i>w</i> соответствует второму столбцу таблицы истинности.</p>
+            
+            <p><strong>Примечание.</strong></p>
+            <p>Рассмотрим, как будет выглядеть полная таблица истинности. Одна из переменных <i>z</i> или <i>x</i> должна принимать значение 1, поэтому в третьем столбце в первой строке будет стоять единица и в четвёртом столбце во второй и третьей строках будут стоять единицы. Исходя из условия <i>¬y + x ≠ ¬x + w</i> можно заключить, что в первом столбце в последней строке будет стоять ноль, а в первой и третьей строках второго столбца будут стоять единицы.</p>
+            
+            <div class="solution_tables">
+                <table class="solution_table">
+                    <tr><th>Перем. 1</th><th>Перем. 2</th><th>Перем. 3</th><th>Перем. 4</th></tr>
+                    <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+                    <tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+                    <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+                </table>
+            </div>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python:</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if ((y <= x) == (x <= w)) and (z or x):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Далее выпишем те наборы переменных, при которых данное выражение равно 1. В наборах переменные запишем в порядке <i>х, y, z, w</i>:</p>
+            <p>(0, 0, 1, 0),</p>
+            <p>(0, 0, 1, 1),</p>
+            <p>(1, 0, 0, 1),</p>
+            <p>(1, 0, 1, 1),</p>
+            <p>(1, 1, 0, 1),</p>
+            <p>(1, 1, 1, 1).</p>
+            
+            <p>Сопоставим эти наборы с приведенным в задании фрагментом таблицы истинности.</p>
+            
+            <p>В третьей строке три нуля. Следовательно, подходит только набор (0, 0, 1, 0), тогда переменной <i>z</i> соответствует четвёртый столбец.</p>
+            
+            <p>Переменная <i>z</i> принимает значение ноль в наборах (1, 0, 0, 1) или (1, 1, 0, 1). В первой строке таблицы два нуля, поэтому набор (1, 1, 0, 1) не подходит, так как нет второго нуля. Следовательно, подойдет набор (1, 0, 0, 1).</p>
+            
+            <p>Второму нулю в наборе соответствует <i>y</i>, поэтому переменной <i>y</i> соответствует первый столбец.</p>
+            
+            <p>Переменная <i>w</i> имеет только один ноль во всех наборах, поэтому не может стоять в третьем столбце. Следовательно, переменной <i>w</i> соответствует второй столбец, а переменной <i>x</i> соответствует третий столбец.</p>
+            
+            <p><strong>Ответ:</strong> ywxz</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(9)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+
+<div class="container">
+<div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">10</div>
+        <div class="prob_nums">
+            Тип 2 № 10 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>(¬x ≡ z) → (y ≡ (w ∨ x))</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        <td></td>
+                        <td></td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td></td>
+                        <td></td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td></td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала — буква, соответствующая первому столбцу; затем — буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock10" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Рассмотрим данное выражение. Преобразуем логическое выражение <i>(¬x ≡ z) → (y ≡ (w ∨ x))</i> и получим систему, при которой оно ложно:</p>
+            
+            <div class="system_equation">
+                <p>{ ¬x = z, y ≠ w ∨ x }</p>
+            </div>
+            
+            <p>Заметим, что второй и четвёртый столбцы таблицы истинности — это <i>x</i> и <i>z</i>. Из условия <i>y ≠ w ∨ x</i> следует, что первому столбцу таблицы истинности соответствует переменная <i>y</i>. Следовательно, третьему столбцу таблицы истинности соответствует <i>w</i>.</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python:</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if not ((not(x) == z) <= (y == (w or x))):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Далее выпишем те наборы переменных, при которых данное выражение равно 0. В наборах переменные запишем в порядке <i>х, y, z, w</i>:</p>
+            <p>(0, 0, 1, 1),</p>
+            <p>(0, 1, 1, 0),</p>
+            <p>(1, 0, 0, 0),</p>
+            <p>(1, 0, 0, 1).</p>
+            
+            <p>Сопоставим эти наборы с приведенным в задании фрагментом таблицы истинности.</p>
+            
+            <p>Третья строка таблицы (как минимум три нуля) может соответствовать только набору (1, 0, 0, 0), тогда второй столбец соответствует переменной <i>х</i>.</p>
+            
+            <p>Заметим, что первый столбец таблицы может соответствовать только переменной <i>у</i>, поскольку переменные <i>z</i> и <i>w</i> принимают нулевые значения только в двух наборах.</p>
+            
+            <p>В первой строке таблицы <i>x = 0, y = 0</i>. Следовательно, она соответствует набору (0, 0, 1, 1), тогда вторая строка таблицы соответствует набору (1, 0, 0, 1). В этом наборе переменная <i>w = 1, z = 0</i>. Следовательно, третий столбец таблицы соответствует переменной <i>w</i>, а четвёртый столбец — переменной <i>z</i>.</p>
+            
+            <p><strong>Ответ:</strong> yxwz</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(10)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+<div class="container">
+<div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">11</div>
+        <div class="prob_nums">
+            Тип 2 № 11 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>((x ∧ y) ∨ (y ∧ z)) ≡ ((x → w) ∧ (w → z))</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала — буква, соответствующая первому столбцу; затем — буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock11" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Поскольку строки в таблице не должны повторяться, заполним пустые ячейки в таблице:</p>
+            
+            <div class="solution_tables">
+                <table class="solution_table">
+                    <tr><th>Перем. 1</th><th>Перем. 2</th><th>Перем. 3</th><th>Перем. 4</th><th>F</th></tr>
+                    <tr><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+                    <tr><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+                    <tr><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+                </table>
+            </div>
+            
+            <p>Рассмотрим данное выражение. Логическая функция принимает значение 1, когда обе части выражения принимают значения 1 или 0.</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python:</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if ((x and y) or (y and z)) == ((x <= w) and (w <= z)):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Далее выпишем те наборы переменных, при которых данное выражение равно 1. В наборах переменные запишем в порядке <i>х, y, z, w</i>:</p>
+            <p>(0, 0, 0, 1)</p>
+            <p>(0, 1, 0, 1)</p>
+            <p>(0, 1, 1, 0)</p>
+            <p>(0, 1, 1, 1)</p>
+            <p>(1, 0, 0, 0)</p>
+            <p>(1, 0, 0, 1)</p>
+            <p>(1, 0, 1, 0)</p>
+            <p>(1, 1, 1, 1)</p>
+            
+            <p>Заметим, что имеется только один набор, содержащий ровно три единицы: (0, 1, 1, 1). Этому набору соответствует первая строка приведенного фрагмента таблицы истинности. Следовательно, первый столбец соответствует переменной <i>x</i>.</p>
+            
+            <p>Тогда третья строка фрагмента таблицы соответствует набору (0, 0, 0, 1). Следовательно, второй столбец — это переменная <i>w</i>.</p>
+            
+            <p>Тогда вторая строка фрагмента таблицы соответствует набору (0, 1, 0, 1). Следовательно, третий столбец — это переменная <i>z</i>, а четвёртый столбец — переменная <i>y</i>.</p>
+            
+            <p><strong>Ответ:</strong> xwzy</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(11)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+
+<div class="container">
+<div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">12</div>
+        <div class="prob_nums">
+            Тип 2 № 12 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>(x ∧ ¬y) ∨ (y ≡ z) ∨ ¬w</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td></td>
+                        <td></td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td></td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала — буква, соответствующая первому столбцу; затем — буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock12" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Рассмотрим данное выражение. Преобразуем логическое выражение <i>(x ∧ ¬y) ∨ (y ≡ z) ∨ ¬w</i> и получим систему, при которой оно ложно:</p>
+            
+            <div class="system_equation">
+                <p>{ x = 0, y = 1 }</p>
+                <p>или</p>
+                <p>{ y ≠ z, w = 1 }</p>
+            </div>
+            
+            <p>Заметим, что второй столбец таблицы истинности — это <i>w</i>. Из условия <i>y ≠ z</i> следует, что переменные <i>z</i> и <i>y</i> соответствуют третьему и четвёртому столбцам таблицы истинности. Следовательно, первому столбцу таблицы истинности соответствует переменная <i>x</i>.</p>
+            
+            <p><strong>Примечание.</strong> Вариант <i>xwyz</i> не подходит, поскольку в третьей строке таблицы истинности функция <i>F</i> будет истинной, что не удовлетворяет условию задания.</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python:</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if not ((x and not(y)) or (y == z) or not(w)):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Далее выпишем те наборы переменных, при которых данное выражение равно 0. В наборах переменные запишем в порядке <i>х, y, z, w</i>:</p>
+            <p>(0, 0, 1, 1),</p>
+            <p>(0, 1, 0, 1),</p>
+            <p>(1, 1, 0, 1).</p>
+            
+            <p>Сопоставим эти наборы с приведенным в задании фрагментом таблицы истинности.</p>
+            
+            <p>Во всех наборах переменная <i>w</i> принимает значение 1. Следовательно, переменная <i>w</i> соответствует второму столбцу таблицы.</p>
+            
+            <p>Вторая строка таблицы соответствует набору (0, 1, 0, 1). Следовательно, четвёртый столбец таблицы соответствует переменной <i>у</i>.</p>
+            
+            <p>В первой строке таблицы переменная <i>у</i> принимает значение 0. Следовательно, эта строка соответствует набору (0, 0, 1, 1). Тогда первый столбец соответствует переменной <i>х</i>, а третий столбец — переменной <i>z</i>.</p>
+            
+            <p><strong>Ответ:</strong> xwzy</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(12)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+
+<div class="container">
+<div class= "problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">13</div>
+        <div class="prob_nums">
+            Тип 2 № 13 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>((y → w) ≡ (x → ¬z)) ∧ (x ∨ w)</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала буква, соответствующая первому столбцу; затем буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock13" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Подберём переменные так, чтобы выражение было ложно и при этом все переменные кроме одной были равны 1. Такой набор переменных: <i>x</i> = 1, <i>y</i> = 0, <i>z</i> = 1, <i>w</i> = 1. Сопоставляя полученные значения с первой строкой таблицы, получаем, что первая переменная — это переменная <i>y</i>.</p>
+            
+            <p>Рассмотрим вторую строку таблицы. Последовательно рассмотрим случаи, когда <i>x</i> = 1, <i>z</i> = 1, <i>w</i> = 1. В первых двух случаях выражение ложно, а в третьем — истинно. Следовательно, третья переменная — переменная <i>w</i>.</p>
+            
+            <p>Рассмотрим третью строку таблицы. Заметим, что <i>w</i> = 0, значит, для того, чтобы выражение было истинно, <i>x</i> должно быть равно 1. Первая и третья переменные — <i>y</i> и <i>w</i>, вторая переменная равна 0. Следовательно, <i>x</i> — четвёртая переменная.</p>
+            
+            <p>Таким образом, оставшаяся переменная, переменная 2, — это переменная <i>z</i>.</p>
+            
+            <p><strong>Ответ:</strong> yzwx</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python (наборы, где F = 0):</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if not(((y <= w) == (x <= (not z))) and (x or w)):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Наборы переменных, при которых выражение равно 0 (в порядке x, y, z, w):</p>
+            <p>(0, 0, 0, 0), (0, 0, 1, 0), (0, 1, 0, 0), (0, 1, 1, 0), (1, 0, 1, 0), (1, 0, 1, 1), (1, 1, 0, 0), (1, 1, 1, 1)</p>
+            
+            <p><strong>Решение с помощью Python (наборы, где F = 1):</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if ((y <= w) == (x <= (not z))) and (x or w):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Наборы переменных, при которых выражение равно 1 (в порядке x, y, z, w):</p>
+            <p>(0, 0, 0, 1), (0, 0, 1, 1), (0, 1, 0, 1), (0, 1, 1, 1), (1, 0, 0, 0), (1, 0, 0, 1), (1, 1, 0, 1), (1, 1, 1, 0)</p>
+            
+            <p>Заметим из наборов переменных, при которых выражение равно 0, что единственный набор, содержащий ровно три единицы (1, 0, 1, 1). Следовательно, переменной <i>y</i> соответствует первый столбец.</p>
+            
+            <p>Рассмотрим наборы переменных, при которых выражение равно 1. Ко второй строке таблицы истинности могут подойти наборы: (0, 0, 1, 1), (0, 1, 0, 1) или (1, 0, 0, 1). В первом столбце таблицы истинности стоит <i>y</i>, которое во второй строке принимает значение 1, поэтому подойдет только набор (0, 1, 0, 1). Следовательно, переменной <i>w</i> соответствует третий столбец.</p>
+            
+            <p>Поскольку в третьей строке таблицы переменная <i>w</i> принимает значение 0, то могут подойти наборы (1, 1, 1, 0) или (1, 0, 0, 0). Набор (1, 1, 1, 0) не подойдет, так как хотя бы одна из переменных <i>x</i> или <i>z</i> должна принимать значение 0, поэтому переменной <i>z</i> соответствует второй столбец, а переменной <i>x</i> соответствует четвертый столбец, что следует из набора (1, 0, 0, 0).</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(13)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+
+<div class="container">
+<div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">14</div>
+        <div class="prob_nums">
+            Тип 2 № 14 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>((y → z) ∨ (¬x ∧ w)) ≡ (w ≡ z)</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала буква, соответствующая первому столбцу; затем буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock14" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Подберём переменные так, чтобы выражение было истинно и при этом все переменные кроме одной были равны 0. Такой набор переменных: <i>x</i> = 1, <i>y</i> = 0, <i>z</i> = 0, <i>w</i> = 0. Сопоставляя полученные значения со второй строкой таблицы, получаем, что четвёртая переменная — это переменная <i>x</i>.</p>
+            
+            <p>Рассмотрим первую строку таблицы. Последовательно рассмотрим случаи, когда <i>y</i> = 1, <i>z</i> = 1, <i>w</i> = 1. В первых двух случаях выражение ложно, а в третьем — истинно. Следовательно, вторая переменная — переменная <i>w</i>.</p>
+            
+            <p>Рассмотрим третью строку таблицы. Заметим, что <i>w</i> = 1, значит, для того, чтобы выражение было истинно, <i>z</i> должно быть равно 0. Вторая и четвёртая переменные — <i>w</i> и <i>x</i>, первая переменная равна 0. Следовательно, <i>z</i> — первая переменная.</p>
+            
+            <p>Таким образом, оставшаяся переменная, переменная 3, — это переменная <i>y</i>.</p>
+            
+            <p><strong>Ответ:</strong> zwyx</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python:</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if ((y <= z) or (not x and w)) == (w == z):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Далее выпишем те наборы переменных, при которых данное выражение равно 1. В наборах переменные запишем в порядке <i>х, y, z, w</i>:</p>
+            <p>(0, 0, 0, 0),</p>
+            <p>(0, 0, 1, 1),</p>
+            <p>(0, 1, 1, 1),</p>
+            <p>(1, 0, 0, 0),</p>
+            <p>(1, 0, 1, 1),</p>
+            <p>(1, 1, 0, 1),</p>
+            <p>(1, 1, 1, 1).</p>
+            
+            <p>Рассмотрим вторую строку заданной таблицы. Она может соответствовать только набору переменных: <i>x</i> = 1, <i>y</i> = 0, <i>z</i> = 0, <i>w</i> = 0. Тогда четвёртый столбец таблицы — это переменная <i>x</i>.</p>
+            
+            <p>Рассмотрим первую строку заданной таблицы. Заметим, что в первой колонке должна стоять 1, так как наборов переменных, где были бы три нуля, больше нет. Тогда вторая строка может соответствовать только набору <i>x</i> = 0, <i>y</i> = 0, <i>z</i> = 1, <i>w</i> = 1. Следовательно, первая и вторая колонки соответствуют переменным <i>z</i> или <i>w</i>, а третья колонка — это переменная <i>y</i>.</p>
+            
+            <p>Рассмотрим третью строку таблицы. В ней одна из переменных <i>z</i> или <i>w</i> равна 1, а другая — 0. Следовательно, третьей строке может соответствовать только набор переменных <i>x</i> = 1, <i>y</i> = 1, <i>z</i> = 0, <i>w</i> = 1. Тогда первый столбец таблицы — это переменная <i>z</i>, а второй столбец — это переменная <i>w</i>.</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(14)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+
+<div class="container">
+<div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">15</div>
+        <div class="prob_nums">
+            Тип 2 № 15 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>((w → ¬x) ≡ (z → y)) ∧ (y ∨ w)</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td></td>
+                        <td>0</td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала буква, соответствующая первому столбцу; затем буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock15" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Подберём переменные так, чтобы выражение было ложно и при этом все переменные кроме одной были равны 1. Такой набор переменных: <i>w</i> = 1, <i>z</i> = 0, <i>x</i> = 1, <i>y</i> = 1. Сопоставляя полученные значения с первой строкой таблицы, получаем, что четвёртая переменная — это переменная <i>z</i>.</p>
+            
+            <p>Рассмотрим вторую строку таблицы. Последовательно рассмотрим случаи, когда <i>x</i> = 1, <i>y</i> = 1, <i>w</i> = 1. В первом и третьем случаях выражение ложно, а во втором — истинно. Следовательно, третья переменная — переменная <i>y</i>.</p>
+            
+            <p>Рассмотрим третью строку таблицы. Заметим, что <i>y</i> = 0, значит, для того, чтобы выражение было истинно, <i>w</i> должно быть равно 1. Третья и четвёртые переменные — <i>y</i> и <i>z</i>, первая переменная равна 0. Следовательно, <i>w</i> — вторая переменная.</p>
+            
+            <p>Таким образом, оставшаяся переменная, переменная 1, — это переменная <i>x</i>.</p>
+            
+            <p><strong>Ответ:</strong> xwyz</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python (наборы, где F = 0):</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if not(((w <= (not x)) == (z <= y)) and (y or w)):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Наборы переменных, при которых выражение равно 0 (в порядке x, y, z, w):</p>
+            <p>(0, 0, 0, 0), (0, 0, 1, 0), (0, 0, 1, 1), (1, 0, 0, 0), (1, 0, 0, 1), (1, 0, 1, 0), (1, 1, 0, 1), (1, 1, 1, 1)</p>
+            
+            <p><strong>Решение с помощью Python (наборы, где F = 1):</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if ((w <= (not x)) == (z <= y)) and (y or w):
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Наборы переменных, при которых выражение равно 1 (в порядке x, y, z, w):</p>
+            <p>(0, 0, 0, 1), (0, 1, 0, 0), (0, 1, 0, 1), (0, 1, 1, 0), (0, 1, 1, 1), (1, 0, 1, 1), (1, 1, 0, 0), (1, 1, 1, 0)</p>
+            
+            <p>Заметим из наборов переменных, при которых выражение равно 0, что единственный набор, содержащий ровно три единицы — (1, 1, 0, 1). Следовательно, переменной <i>z</i> соответствует четвёртый столбец.</p>
+            
+            <p>Рассмотрим наборы переменных, при которых выражение равно 1. Ко второй строке таблицы истинности могут подойти наборы: (1, 1, 0, 0), (0, 1, 1, 0) или (0, 1, 0, 1). В четвёртом столбце таблицы истинности стоит <i>z</i>, которое во второй строке принимает значение 1, поэтому подойдет только набор (0, 1, 1, 0). Следовательно, переменной <i>y</i> соответствует третий столбец.</p>
+            
+            <p>Поскольку в третьей строке таблицы переменная <i>y</i> принимает значение 0, то подойдут наборы (1, 0, 1, 1) или (0, 0, 0, 1). Набор (1, 0, 1, 1) не подойдет, так как хотя бы одна из переменных <i>x</i> или <i>w</i> должна принимать значение 0, поэтому переменной <i>x</i> соответствует первый столбец, а переменной <i>w</i> соответствует второй столбец, что следует из набора (0, 0, 0, 1).</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(15)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+<div class="container">
+<div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">16</div>
+        <div class="prob_nums">
+            Тип 2 № 16 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>Логическая функция <i>F</i> задаётся выражением <i>(x ∨ ¬y) ∧ ¬(w ≡ z) ∧ w</i>.</p>
+        
+        <p>Дан частично заполненный фрагмент, содержащий <b>неповторяющиеся</b> строки таблицы истинности функции <i>F</i>.</p>
+        
+        <p>Определите, какому столбцу таблицы истинности соответствует каждая из переменных <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i>.</p>
+    </div>
+
+    <!-- ★ ТАБЛИЦА ИСТИННОСТИ ★ -->
+    <div class="table_container">
+        <div class="wrap_scroll_table">
+            <table class="truth_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Переменная 3</th>
+                        <th>Переменная 4</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>0</td>
+                        <td></td>
+                        <td></td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ★ ИНСТРУКЦИЯ ПО ОТВЕТУ ★ -->
+    <div class="instruction_box">
+        <p>В ответе напишите буквы <i>x</i>, <i>y</i>, <i>z</i>, <i>w</i> в том порядке, в котором идут соответствующие им столбцы (сначала — буква, соответствующая первому столбцу; затем — буква, соответствующая второму столбцу, и т. д.). Буквы в ответе пишите подряд, никаких разделителей между буквами ставить не нужно.</p>
+    </div>
+
+    <!-- ★ ПРИМЕР ★ -->
+    <div class="example_box">
+        <p><i>Пример.</i> Пусть задано выражение <i>x</i> → <i>y</i>, зависящее от двух переменных <i>x</i> и <i>y</i>, и фрагмент таблицы истинности:</p>
+        
+        <div class="wrap_scroll_table">
+            <table class="example_table">
+                <thead>
+                    <tr>
+                        <th>Переменная 1</th>
+                        <th>Переменная 2</th>
+                        <th>Функция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>???</td>
+                        <td>???</td>
+                        <td><i>F</i></td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p>Тогда первому столбцу соответствует переменная <i>y</i>, а второму столбцу соответствует переменная <i>x</i>. В ответе нужно написать: <i>yx</i>.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock16" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Рассмотрим данное выражение. Преобразуем логическое выражение <i>(x ∨ ¬y) ∧ ¬(w ≡ z) ∧ w</i> и получим систему, при которой оно истинно:</p>
+            
+            <div class="system_equation">
+                <p>{ x = 1, y = 0 }</p>
+                <p>или</p>
+                <p>{ w ≠ z, w = 1 }</p>
+            </div>
+            
+            <p>Значение выражения ложно только тогда, когда переменная <i>w</i> равна 0. Следовательно, столбцы, в которых содержится ноль, не могут соответствовать переменной <i>w</i>, то есть переменной <i>w</i> соответствует первый столбец.</p>
+            
+            <p>Значения переменных <i>w</i> и <i>z</i> не могут быть равны. Из второй строки заключаем, что столбец 4 не может соответствовать переменным <i>z</i> и <i>y</i>. Следовательно, четвёртый столбец соответствует переменной <i>x</i>.</p>
+            
+            <p>Рассмотрим первую строку таблицы. Переменная <i>x</i> равна 0, значит, для истинности выражения переменная <i>y</i> должна принимать значение 0. Переменная <i>w</i> равна 1, значит, для истинности выражения переменная <i>z</i> должна принимать значение 0. Следовательно, во втором столбце в первой строке должен быть 0.</p>
+            
+            <p>Поскольку строки в таблице не повторяются, в третьей строке в третьем и четвёртом столбцах могут стоять значения 10 и 11. Поскольку переменная <i>w</i> не должна быть равна <i>z</i>, переменная <i>z</i> соответствует второму столбцу. Следовательно, переменная <i>y</i> соответствует третьему столбцу.</p>
+            
+            <p>Таким образом, ответ: wzyx.</p>
+            
+            <hr>
+            
+            <p><strong>Решение с помощью Python:</strong></p>
+            
+            <div class="code_block">
+                <pre>print("x y z w")
+for x in range(0, 2):
+    for y in range(0, 2):
+        for z in range(0, 2):
+            for w in range(0, 2):
+                if (x or not y) and not (w == z) and w:
+                    print(x, y, z, w)</pre>
+            </div>
+            
+            <p>Далее выпишем те наборы переменных, при которых данное выражение равно 1. В наборах переменные запишем в порядке <i>х, y, z, w</i>:</p>
+            <p>(0, 0, 0, 1)</p>
+            <p>(1, 0, 0, 1)</p>
+            <p>(1, 1, 0, 1)</p>
+            
+            <p>Сопоставим эти наборы с приведенным в задании фрагментом таблицы истинности.</p>
+            
+            <p>Во всех наборах переменная <i>w</i> принимает значение 1. Следовательно, переменной <i>w</i> соответствует первый столбец таблицы.</p>
+            
+            <p>Вторая строка таблицы соответствует набору (1, 0, 0, 1), в котором единичное значение принимает переменная <i>x</i>. Следовательно, переменной <i>x</i> соответствует четвёртый столбец таблицы.</p>
+            
+            <p>Набору (1, 1, 0, 1) может соответствовать только третья строка таблицы. В этом наборе нулевое значение принимает переменная <i>z</i>. Следовательно, ей соответствует второй столбец таблицы, тогда переменной <i>y</i> соответствует третий столбец.</p>
+            
+            <p><strong>Ответ:</strong> wzyx</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(16)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btn = event.target;
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

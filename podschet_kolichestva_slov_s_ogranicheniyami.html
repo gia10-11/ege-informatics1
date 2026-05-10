@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тип 8: Перебор слов и системы счисления</title>
+    <style>
+        /* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: #000;
+            background-color: #fff;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .problem_container {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+        .prob_header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .prob_num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #4a6baf;
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .prob_nums {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .prob_nums a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .prob_nums a:hover {
+            text-decoration: underline;
+        }
+
+        /* ★ ТЕКСТ ЗАДАНИЯ ★ */
+        .problem_text {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .left_margin {
+            margin-left: 0;
+        }
+
+        /* ★ РЕШЕНИЕ ★ */
+        .solution {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #4a6baf;
+            font-size: 14px;
+            display: none;
+        }
+
+        .solution_text {
+            line-height: 1.6;
+        }
+
+        .solution_text center {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .code_block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px;
+            border-radius: 3px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .code_block pre {
+            margin: 0;
+            color: #ecf0f1;
+            white-space: pre-wrap;
+        }
+
+        hr {
+            margin: 15px 0;
+            border: none;
+            border-top: 1px dashed #999;
+        }
+
+        /* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+        .btn_show_solution {
+            padding: 8px 16px;
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .btn_show_solution:hover {
+            background-color: #e67e22;
+        }
+
+        /* ★ ИСТОЧНИК ★ */
+        .source_info {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+
+        .source_info span, .source_info a {
+            color: #666;
+        }
+
+        .source_info a:hover {
+            color: #0066cc;
+        }
+
+        /* ★ ОТВЕТ ★ */
+        .answer {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f4ff;
+            border-left: 3px solid #4a6baf;
+            font-weight: bold;
+        }
+
+        /* ★ АДАПТИВНОСТЬ ★ */
+        @media (max-width: 768px) {
+            .btn_show_solution {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        .new_header {
+            padding-top: 3px;
+            vertical-align: middle;
+            width: 100%;
+            line-height: 25px;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #006;
+            font-weight: bold;
+        }
+        
+        .flex-img {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .flex-img img {
+            max-width: 100%;
+        }
+        
+        .tex {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="new_header">
+        <b>Тип 8. Перебор слов и системы счисления. Подсчёт количества разных последовательностей</b>
+    </div>
+
+    <div class="container">
+        <!-- Задача 1 (7667) -->
+        <div class="problem_container" id="problem_7667">
+            <div class="prob_header">
+                <div class="prob_num">1</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 7667</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько слов длины 5, начинающихся с гласной буквы, можно составить из букв Е, Г, Э? Каждая буква может входить в слово несколько раз. Слова не обязательно должны быть осмысленными словами русского языка.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('7667')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock7667">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>На первом месте может стоять две буквы: Е или Э, на остальных — три. Таким образом, можно составить 2·3·3·3·3 = 162 слова.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "ЕГЭ"
+count = 0
+for p in product(alphabet, repeat=5):
+    if p[0] in "ЕЭ":
+        count += 1
+print(count)  # 162</pre>
+                    </div>
+                    <p><b>Ответ:</b> 162.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 2 (7986) -->
+        <div class="problem_container" id="problem_7986">
+            <div class="prob_header">
+                <div class="prob_num">2</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 7986</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько слов длины 5, начинающихся с согласной буквы и заканчивающихся гласной буквой, можно составить из букв З, И, М, А? Каждая буква может входить в слово несколько раз. Слова не обязательно должны быть осмысленными словами русского языка.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('7986')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock7986">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>В конце может стоять две буквы: И или А, а в начале — буквы З или М. Таким образом, можно составить 2·4³·2 = 256 слов.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "ЗИМА"
+count = 0
+for p in product(alphabet, repeat=5):
+    if p[0] in "ЗМ" and p[-1] in "ИА":
+        count += 1
+print(count)  # 256</pre>
+                    </div>
+                    <p><b>Ответ:</b> 256.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 3 (8098) -->
+        <div class="problem_container" id="problem_8098">
+            <div class="prob_header">
+                <div class="prob_num">3</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 8098</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Вася составляет 5-буквенные слова, в которых есть только буквы С, Л, О, Н, причём буква С используется в каждом слове ровно 1 раз. Каждая из других допустимых букв может встречаться в слове любое количество раз или не встречаться совсем. Словом считается любая допустимая последовательность букв, не обязательно осмысленная. Сколько существует таких слов, которые может написать Вася?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('8098')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock8098">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Пусть С стоит в слове на первом месте. Тогда на каждое из оставшихся 4 мест можно поставить независимо одну из 3 букв. То есть всего 3·3·3·3 = 81 вариант. Таким образом, С можно по очереди поставить на все 5 мест, в каждом случае получая 81 вариант. Итого получается 81·5 = 405 слов.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "СЛОН"
+count = 0
+for p in product(alphabet, repeat=5):
+    if p.count("С") == 1:
+        count += 1
+print(count)  # 405</pre>
+                    </div>
+                    <p><b>Ответ:</b> 405.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 4 (9361) -->
+        <div class="problem_container" id="problem_9361">
+            <div class="prob_header">
+                <div class="prob_num">4</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 9361</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Игорь составляет таблицу кодовых слов для передачи сообщений, каждому сообщению соответствует своё кодовое слово. В качестве кодовых слов Игорь использует 5-буквенные слова, в которых есть только буквы П, И, Р, причём буква П появляется ровно 1 раз. Каждая из других допустимых букв может встречаться в кодовом слове любое количество раз или не встречаться совсем. Сколько различных кодовых слов может использовать Игорь?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('9361')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock9361">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Игорь может составить 2⁴ слов, поставив букву П на первое место. Аналогично можно поставить ее на второе, третье, четвертое и пятое место. Получим 5·2⁴ = 80 слов.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "ПИР"
+count = 0
+for p in product(alphabet, repeat=5):
+    if p.count("П") == 1:
+        count += 1
+print(count)  # 80</pre>
+                    </div>
+                    <p><b>Ответ:</b> 80.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 5 (9760) -->
+        <div class="problem_container" id="problem_9760">
+            <div class="prob_header">
+                <div class="prob_num">5</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 9760</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Алексей составляет таблицу кодовых слов для передачи сообщений, каждому сообщению соответствует своё кодовое слово. В качестве кодовых слов Алексей использует 5-буквенные слова, в которых есть только буквы A, B, C, X, причём буква X может появиться на первом месте или не появиться вовсе. Сколько различных кодовых слов может использовать Алексей?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('9760')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock9760">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>На первой позиции в слове могут быть все четыре буквы А, В, С и Х, а со второй по пятую — 3. Значит, всего можно составить 4·3·3·3·3 = 324 слова.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "ABCX"
+count = 0
+for p in product(alphabet, repeat=5):
+    if p[0] == "X" or p.count("X") == 0:
+        count += 1
+print(count)  # 324</pre>
+                    </div>
+                    <p><b>Ответ:</b> 324.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 6 (7306) -->
+        <div class="problem_container" id="problem_7306">
+            <div class="prob_header">
+                <div class="prob_num">6</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 7306</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Рассматриваются символьные последовательности длины 5 в шестибуквенном алфавите {У, Ч, Е, Н, И, К}. Сколько существует таких последовательностей, которые начинаются с буквы У и заканчиваются буквой К?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('7306')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock7306">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Первая и последняя буквы пятибуквенного слова фиксированы, значит, задача сводится к нахождению количества возможных слов длины 3 в шестибуквенном алфавите. Их число равно 6³ = 216.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "УЧЕНИК"
+count = 0
+for p in product(alphabet, repeat=5):
+    if p[0] == "У" and p[-1] == "К":
+        count += 1
+print(count)  # 216</pre>
+                    </div>
+                    <p><b>Ответ:</b> 216.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 7 (11306) -->
+        <div class="problem_container" id="problem_11306">
+            <div class="prob_header">
+                <div class="prob_num">7</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 11306</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Вася составляет 4-буквенные слова, в которых есть только буквы Б, Р, О, Н, Х, И, причём буква Х используется в каждом слове, и только 1 раз. Каждая из других допустимых букв может встречаться в слове любое количество раз или не встречаться совсем. Словом считается любая допустимая последовательность букв, не обязательно осмысленная. Сколько существует таких слов, которые может написать Вася?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('11306')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock11306">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Кодовые слова устроены следующим образом: на одном из мест стоит буква Х, на остальных произвольные три символа из шестибуквенного алфавита. Найдём количество кодовых слов, в которых буква Х стоит на первом месте: 5³ = 125. Количество кодовых слов, в которых буква Х стоит на втором, третьем или четвёртом местах также равно 125. Всего кодовых слов: 4·125 = 500.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "БРОНХИ"
+count = 0
+for p in product(alphabet, repeat=4):
+    if p.count("Х") == 1:
+        count += 1
+print(count)  # 500</pre>
+                    </div>
+                    <p><b>Ответ:</b> 500.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 8 (13459) -->
+        <div class="problem_container" id="problem_13459">
+            <div class="prob_header">
+                <div class="prob_num">8</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 13459</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Ольга составляет таблицу кодовых слов для передачи сообщений, каждому сообщению соответствует своё кодовое слово. В качестве кодовых слов Ольга использует 4-буквенные слова, в которых есть только буквы A, B, C, D, X, Y. При этом первая буква кодового слова — это буква X или Y, а далее в кодовом слове буквы X и Y не встречаются. Сколько различных кодовых слов может использовать Ольга?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('13459')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock13459">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Существует 2 варианта буквы на первую позицию и по 4 варианта буквы на вторую, третью и четвёртую позицию, то есть 2·4·4·4 = 128.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "ABCDXY"
+count = 0
+for p in product(alphabet, repeat=4):
+    if p[0] in "XY" and p[1] not in "XY" and p[2] not in "XY" and p[3] not in "XY":
+        count += 1
+print(count)  # 128</pre>
+                    </div>
+                    <p><b>Ответ:</b> 128.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 9 (13486) -->
+        <div class="problem_container" id="problem_13486">
+            <div class="prob_header">
+                <div class="prob_num">9</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 13486</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Игорь составляет таблицу кодовых слов для передачи сообщений, каждому сообщению соответствует своё кодовое слово. В качестве кодовых слов Игорь использует 5-буквенные слова, в которых есть только буквы A, B, C, X, причём буква X появляется ровно 1 раз и только на 1-й или последней позиции слова. Каждая из других допустимых букв может встречаться в кодовом слове любое количество раз или не встречаться совсем. Сколько различных кодовых слов может использовать Игорь?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('13486')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock13486">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Есть 2 варианта: если буква X на 1 месте и если на последнем. Для каждого из таких вариантов для других букв существует 3⁴ варианта. Тогда ответ — 2·3⁴ = 162.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "ABCX"
+count = 0
+for p in product(alphabet, repeat=5):
+    if p.count("X") == 1 and (p[0] == "X" or p[-1] == "X"):
+        count += 1
+print(count)  # 162</pre>
+                    </div>
+                    <p><b>Ответ:</b> 162.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 10 (13540) -->
+        <div class="problem_container" id="problem_13540">
+            <div class="prob_header">
+                <div class="prob_num">10</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 13540</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Пётр составляет таблицу кодовых слов для передачи сообщений, каждому сообщению соответствует своё кодовое слово. В качестве кодовых слов Пётр использует все пятибуквенные слова в алфавите {A, B, C, D, E, F}, удовлетворяющие такому условию: кодовое слово не может начинаться с буквы F и заканчиваться буквой A. Сколько различных кодовых слов может использовать Пётр?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('13540')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock13540">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Существует 5 вариантов первой и последней буквы и 6 вариантов остальных трех букв: 5·6·6·6·5 = 5400.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "ABCDEF"
+count = 0
+for p in product(alphabet, repeat=5):
+    if p[0] != "F" and p[-1] != "A":
+        count += 1
+print(count)  # 5400</pre>
+                    </div>
+                    <p><b>Ответ:</b> 5400.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 11 (14225) -->
+        <div class="problem_container" id="problem_14225">
+            <div class="prob_header">
+                <div class="prob_num">11</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 14225</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Олег составляет таблицу кодовых слов для передачи сообщений, каждому сообщению соответствует своё кодовое слово. В качестве кодовых слов Олег использует 4-буквенные слова, в которых есть только буквы A, B, C, D, E, X, Z, причём буквы X и Z встречаются только на двух первых позициях, а буквы A, B, C, D, E — только на двух последних. Сколько различных кодовых слов может использовать Олег?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('14225')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock14225">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Составляем четырехбуквенные слова. На первые два места можно поставить одну из двух букв X или Z. Это можно сделать 2·2 = 4 вариантами. На два последних места выбираем букву из 5 букв. Получаем 5·5 = 25 вариантов. Таким образом, всего 25·4 = 100 вариантов.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "ABCDEXZ"
+count = 0
+for p in product(alphabet, repeat=4):
+    if p[0] in "XZ" and p[1] in "XZ" and p[2] in "ABCDE" and p[3] in "ABCDE":
+        count += 1
+print(count)  # 100</pre>
+                    </div>
+                    <p><b>Ответ:</b> 100.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 12 (16037) -->
+        <div class="problem_container" id="problem_16037">
+            <div class="prob_header">
+                <div class="prob_num">12</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 16037</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Вася составляет 5-буквенные слова, в которых есть только буквы З, И, М, А, причём в каждом слове есть ровно одна гласная буква и она встречается ровно 1 раз. Каждая из допустимых согласных букв может встречаться в слове любое количество раз или не встречаться совсем. Словом считается любая допустимая последовательность букв, не обязательно осмысленная. Сколько существует таких слов, которые может написать Вася?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('16037')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock16037">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Слова, используемые Васей, имеют вид Х****, *Х***, **Х**, ***Х* или ****Х, где на месте * может стоять любая из 2 согласных букв, кроме букв И и А. На это есть 2⁴ = 16 вариантов в пяти случаях для буквы И и для пяти случаев для буквы А. Всего вариантов 2⁴·5·2 = 160.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "ЗИМА"
+count = 0
+for p in product(alphabet, repeat=5):
+    if (p.count("И") == 1 and p.count("А") == 0) or (p.count("И") == 0 and p.count("А") == 1):
+        count += 1
+print(count)  # 160</pre>
+                    </div>
+                    <p><b>Ответ:</b> 160.</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <hr>
+
+        <!-- Задача 13 (16439) -->
+        <div class="problem_container" id="problem_16439">
+            <div class="prob_header">
+                <div class="prob_num">13</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 16439</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Михаил составляет 6-буквенные коды. В кодах разрешается использовать только буквы А, Б, В, Г, при этом код не может начинаться с гласной и не может содержать двух одинаковых букв подряд. Сколько различных кодов может составить Михаил?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('16439')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock16439">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>На первое место слова можно поставить любую из 4 букв, кроме А. На каждое следующее место можно поставить любую из 4 букв, кроме той, которая стоит на предыдущем месте. Значит, всего Михаил может составить 3·3·3·3·3·3 = 729 кодов.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "АБВГ"
+count = 0
+for p in product(alphabet, repeat=6):
+    ok = True
+    for i in range(5):
+        if p[i] == p[i+1]:
+            ok = False
+            break
+    if ok and p[0] != "А":
+        count += 1
+print(count)  # 729</pre>
+                    </div>
+                    <p><b>Ответ:</b> 729.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 14 (16886) -->
+        <div class="problem_container" id="problem_16886">
+            <div class="prob_header">
+                <div class="prob_num">14</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 16886</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Матвей составляет 6-буквенные коды из букв М, А, Т, В, Е, Й. Каждую букву нужно использовать ровно 1 раз, при этом код не может начинаться с буквы Й и не может содержать сочетания АЕ. Сколько различных кодов может составить Матвей?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('16886')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock16886">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Сначала найдём общее количество возможных слов. Поскольку на первое место можно поставить любую букву, кроме Й, общее количество возможных слов равняется 5·5·4·3·2·1 = 600. Определим, сколько слов содержат сочетание АЕ. Пусть слово начинается с АЕ, тогда количество вариантов равняется 1·1·4·3·2·1 = 24. Пусть АЕ — это вторая и третья буквы слова, тогда количество вариантов равняется 3·1·1·3·2·1 = 18. Аналогично для АЕ на третьей и четвёртой, на четвёртой и пятой, на пятой и шестой — по 18 вариантов. Таким образом, количество кодов, которые может составить Матвей, равняется 600 − 24 − 18·4 = 600 − 96 = 504.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import permutations
+count = 0
+for p in permutations("МАТВЕЙ"):
+    s = "".join(p)
+    if s[0] != "Й" and "АЕ" not in s:
+        count += 1
+print(count)  # 504</pre>
+                    </div>
+                    <p><b>Ответ:</b> 504.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 15 (17328) -->
+        <div class="problem_container" id="problem_17328">
+            <div class="prob_header">
+                <div class="prob_num">15</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 17328</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Герасим составляет 7-буквенные коды из букв Г, Е, Р, А, С, И, М. Каждую букву нужно использовать ровно 1 раз, при этом нельзя ставить подряд две гласные или две согласные. Сколько различных кодов может составить Герасим?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('17328')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock17328">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Заметим, что, поскольку гласных букв три, а согласных — четыре, слово должно начинаться с согласной, поскольку иначе нельзя будет составить слово, в котором не будут встречаться подряд две согласные буквы. На первое место можно поставить любую из четырёх согласных. На второе — любую из трёх гласных. На третье — любую из трёх оставшихся согласных. На четвёртое — любую из двух оставшихся гласных. На пятое — любую из двух оставшихся согласных. На шестое — одну оставшуюся гласную. На седьмое место можно поставить последнюю оставшуюся согласную. По правилу произведения, соответствующие количества способов перемножаем. Таким образом, Герасим может составить 4·3·3·2·2·1·1 = 144 различных кода.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import permutations
+vol = "ЕАИ"
+con = "ГРСМ"
+count = 0
+for p in permutations("ГЕРАСИМ"):
+    s = "".join(p)
+    ok = True
+    for i in range(6):
+        if (s[i] in vol and s[i+1] in vol) or (s[i] in con and s[i+1] in con):
+            ok = False
+            break
+    if ok:
+        count += 1
+print(count)  # 144</pre>
+                    </div>
+                    <p><b>Ответ:</b> 144.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 16 (18079) -->
+        <div class="problem_container" id="problem_18079">
+            <div class="prob_header">
+                <div class="prob_num">16</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 18079</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Вася составляет 6-буквенные слова из букв К, О, Т. Причём буква К используется в каждом слове ровно 1 раз. Остальные буквы могут быть использованы любое количество раз, в том числе совсем отсутствовать. Сколько слов может составить Вася? Словом называется любая буквенная комбинация, не обязательно осмысленное слово русского языка.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('18079')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock18079">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Пусть К стоит в слове на первом месте. Тогда на каждое из оставшихся 5 мест можно поставить независимо одну из 2 букв. То есть всего 2·2·2·2·2 = 32 варианта. Таким образом, К можно по очереди поставить на все 6 мест, в каждом случае получая 32 варианта. Итого получается 32·6 = 192 слова.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "КОТ"
+count = 0
+for p in product(alphabet, repeat=6):
+    if p.count("К") == 1:
+        count += 1
+print(count)  # 192</pre>
+                    </div>
+                    <p><b>Ответ:</b> 192.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 17 (18491) -->
+        <div class="problem_container" id="problem_18491">
+            <div class="prob_header">
+                <div class="prob_num">17</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 18491</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Ольга составляет 5-буквенные коды из букв О, Л, Ь, Г, А. Каждую букву нужно использовать ровно 1 раз, при этом Ь нельзя ставить первым и нельзя ставить после гласной. Сколько различных кодов может составить Ольга?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('18491')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock18491">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Пусть буква Г обозначает гласную, а буква С — согласную. Тогда в слове на любой позиции могут быть использованы гласные Г, согласные С и конструкция СЬ, обозначающая какую-либо согласную с мягким знаком. Тогда, например, при использовании в качестве согласной буквы в конструкции СЬ буквы Л можно будет получить 4·3·2·1 = 24 варианта слов. Для оставшейся согласной буквы также получаем 24 варианта. Таким образом, всего можно составить 2·24 = 48 различных кодов.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import permutations
+vol = "ОА"
+count = 0
+for p in permutations("ОЛЬГА"):
+    s = "".join(p)
+    if s[0] != "Ь" and "ОЬ" not in s and "АЬ" not in s:
+        count += 1
+print(count)  # 48</pre>
+                    </div>
+                    <p><b>Ответ:</b> 48.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 18 (18558) -->
+        <div class="problem_container" id="problem_18558">
+            <div class="prob_header">
+                <div class="prob_num">18</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 18558</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Иван составляет 5-буквенные коды из букв И, В, А, Н. Буквы в коде могут повторяться, использовать все буквы не обязательно, но букву И нужно использовать хотя бы один раз. Сколько различных кодов может составить Иван?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('18558')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock18558">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Сначала найдём общее количество слов: 4·4·4·4·4 = 1024. После этого вычтем из них количество слов, в которых буква И не встречается: 1024 − 3·3·3·3·3 = 1024 − 243 = 781. Таким образом, Иван может составить 781 код.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "ИВАН"
+count = 0
+for p in product(alphabet, repeat=5):
+    if p.count("И") >= 1:
+        count += 1
+print(count)  # 781</pre>
+                    </div>
+                    <p><b>Ответ:</b> 781.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Задача 19 (26953) -->
+        <div class="problem_container" id="problem_26953">
+            <div class="prob_header">
+                <div class="prob_num">19</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 26953</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Найдите количество пятизначных восьмеричных чисел, в которых все цифры различны и никакие две чётные или нечётные не стоят рядом.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('26953')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock26953">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Заметим, что чётных и нечётных цифр в восьмеричной системе счисления 4 и 4 соответственно. Найдём количество пятизначных чисел, начинающихся с нечётной цифры: 4·4·3·3·2 = 288. Найдём количество пятизначных чисел, начинающихся с чётной цифры (при этом учтем, что число не может начинаться с нуля): 3·4·3·3·2 = 216. Таким образом, получаем ответ: 288 + 216 = 504.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import permutations
+alphabet = "01234567"
+count = 0
+for p in permutations(alphabet, 5):
+    if p[0] != "0":
+        ok = True
+        for i in range(4):
+            if (int(p[i]) % 2) == (int(p[i+1]) % 2):
+                ok = False
+                break
+        if ok:
+            count += 1
+print(count)  # 504</pre>
+                    </div>
+                    <p><b>Ответ:</b> 504.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 20 (26982) -->
+        <div class="problem_container" id="problem_26982">
+            <div class="prob_header">
+                <div class="prob_num">20</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 26982</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько существует шестизначных чисел, делящихся на 5, в которых каждая цифра может встречаться только один раз, при этом никакие две чётные и две нечётные цифры не стоят рядом.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('26982')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock26982">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Заметим, что чётных и нечётных цифр 5 и 5 соответственно. Чтобы число делилось на 5, необходимо, чтобы на конце числа стояла цифра 5 или 0. Найдём количество шестизначных чисел, делящихся на 5 и начинающихся с нечётной цифры: 5·4·4·3·3·1 = 720. Найдём количество шестизначных чисел, делящихся на 5 и начинающихся с чётной цифры (при этом число не должно начинаться с нуля): 4·4·4·3·3·1 = 576. Таким образом, получаем ответ: 720 + 576 = 1296.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import permutations
+alphabet = "0123456789"
+count = 0
+for p in permutations(alphabet, 6):
+    if p[0] != "0" and (p[-1] == "0" or p[-1] == "5"):
+        ok = True
+        for i in range(5):
+            if (int(p[i]) % 2) == (int(p[i+1]) % 2):
+                ok = False
+                break
+        if ok:
+            count += 1
+print(count)  # 1296</pre>
+                    </div>
+                    <p><b>Ответ:</b> 1296.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 21 (27009) -->
+        <div class="problem_container" id="problem_27009">
+            <div class="prob_header">
+                <div class="prob_num">21</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 27009</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Николай составляет 4-буквенные коды из букв Н, И, К, О, Л, А, Й. Каждую букву можно использовать любое количество раз, при этом код не может начинаться с буквы Й и должен содержать хотя бы одну гласную. Сколько различных кодов может составить Николай?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('27009')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock27009">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Найдём все слова, не начинающиеся с буквы Й: 6·7·7·7 = 2058. Теперь вычтем из них все слова, не начинающиеся с буквы Й и не содержащие гласных: 2058 − 3·4·4·4 = 2058 − 192 = 1866.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import product
+alphabet = "НИКОЛАЙ"
+vol = "ИОА"
+count = 0
+for p in product(alphabet, repeat=4):
+    if p[0] != "Й":
+        if any(c in vol for c in p):
+            count += 1
+print(count)  # 1866</pre>
+                    </div>
+                    <p><b>Ответ:</b> 1866.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <!-- Задача 22 (27268) -->
+        <div class="problem_container" id="problem_27268">
+            <div class="prob_header">
+                <div class="prob_num">22</div>
+                <div class="prob_nums">
+                    <b>Тип 8 № 27268</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Руслан составляет 6-буквенные коды из букв Р, У, С, Л, А, Н. Каждую букву нужно использовать ровно один раз, при этом нельзя ставить рядом две гласные. Сколько различных кодов может составить Руслан?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('27268')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock27268">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Найдём все слова, в которых учитывается условие, что каждую букву нужно использовать ровно один раз: 6·5·4·3·2·1 = 720. Слов, в которых гласные стоят рядом на первом и втором месте, — 2·1·4·3·2·1 = 48. Также гласные могут стоять рядом на втором и третьем месте, на третьем и четвёртом, на четвёртом и пятом, на пятом и шестом. Значит, всего слов, в которых гласные стоят рядом, — 48·5 = 240. Таким образом, ответ — 720 − 240 = 480.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from itertools import permutations
+vol = "УА"
+count = 0
+for p in permutations("РУСЛАН"):
+    s = "".join(p)
+    ok = True
+    for i in range(5):
+        if s[i] in vol and s[i+1] in vol:
+            ok = False
+            break
+    if ok:
+        count += 1
+print(count)  # 480</pre>
+                    </div>
+                    <p><b>Ответ:</b> 480.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+        function toggleSolution(problemNumber) {
+            const solution = document.getElementById('solutionBlock' + problemNumber);
+            const btn = event.target;
+            
+            if (solution.style.display === 'none' || solution.style.display === '') {
+                solution.style.display = 'block';
+                btn.textContent = 'Скрыть решение';
+            } else {
+                solution.style.display = 'none';
+                btn.textContent = 'Показать решение';
+            }
+        }
+    </script>
+</body>
+</html>

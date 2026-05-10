@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 13: IP-адресация и маски сети | 20 задач</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ ИНСТРУКЦИЯ ★ */
+.instruction_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 13. IP-адресация и маски сети</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 (7669) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 13 № 7669 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маска сети — это двоичное число, меньшее 2<sup>32</sup>; в маске сначала (в старших разрядах) стоят единицы, а затем с некоторого места нули. Маска определяет, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу самого узла в этой сети. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла и маске. Для узла с IP-адресом 224.128.112.142 адрес сети равен 224.128.64.0. Чему равен третий слева байт маски? Ответ запишите в виде десятичного числа.</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Рассмотрим третий байт IP-адреса и адреса сети: 112₁₀ = 01110000₂, 64₁₀ = 01000000₂. Чтобы при конъюнкции получить 64, маска должна иметь вид 11000000₂ = 192₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 192</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 (8100) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 13 № 8100 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называется двоичное число, определяющее, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу самого узла. Для узла с IP-адресом 117.191.88.37 адрес сети равен 117.191.80.0. Чему равен третий слева байт маски? Ответ запишите в виде десятичного числа.</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>88₁₀ = 01011000₂, 80₁₀ = 01010000₂. Чтобы при конъюнкции получить 80, маска должна иметь вид 11110000₂ = 240₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 240</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 (9196) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 13 № 9196 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 235.116.177.140 адрес сети равен 235.116.160.0. Чему равен третий слева байт маски? Ответ запишите в виде десятичного числа.</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>177₁₀ = 10110001₂, 160₁₀ = 10100000₂. Третий байт маски: 11100000₂ = 224₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 224</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 (9363) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 13 № 9363 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 111.81.208.27 адрес сети равен 111.81.192.0. Чему равно наименьшее возможное значение третьего слева байта маски? Ответ запишите в виде десятичного числа.</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>208₁₀ = 11010000₂, 192₁₀ = 11000000₂. Наименьшая маска, дающая такой результат: 11000000₂ = 192₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 192</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 (9762) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 13 № 9762 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 111.81.208.27 адрес сети равен 111.81.192.0. Чему равно наибольшее возможное значение третьего слева байта маски? Ответ запишите в виде десятичного числа.</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>208₁₀ = 11010000₂, 192₁₀ = 11000000₂. Наибольшая маска, дающая этот результат: 11100000₂ = 224₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 224</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 (11113) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 13 № 11113 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 115.181.92.48 адрес сети равен 115.181.80.0. Чему равно значение третьего слева байта маски? Ответ запишите в виде десятичного числа.</p>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>92₁₀ = 01011100₂, 80₁₀ = 01010000₂. Третий байт маски: 11110000₂ = 240₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 240</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 (11308) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 13 № 11308 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 203.155.196.98 адрес сети равен 203.155.192.0. Найдите наибольшее возможное количество единиц в двоичной записи маски подсети.</p>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>196₁₀ = 11000100₂, 192₁₀ = 11000000₂. Третий байт маски может быть 11111000₂ = 248. Итого единиц: 8+8+5 = 21.</p>
+                <div class="answer_text"><b>Ответ:</b> 21</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 (11348) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 13 № 11348 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 119.83.208.27 адрес сети равен 119.83.192.0. Каково наименьшее возможное количество единиц в разрядах маски?</p>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>208₁₀ = 11010000₂, 192₁₀ = 11000000₂. Минимальная маска: 11000000₂ = 192. Единиц: 8+8+2 = 18.</p>
+                <div class="answer_text"><b>Ответ:</b> 18</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 (13358) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 13 № 13358 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 147.192.92.64 адрес сети равен 147.192.80.0. Чему равно значение третьего слева байта маски? Ответ запишите в виде десятичного числа.</p>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>92₁₀ = 01011100₂, 80₁₀ = 01010000₂. Третий байт маски: 11110000₂ = 240₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 240</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 (13488) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 13 № 13488 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 119.83.200.27 адрес сети равен 119.83.192.0. Каково наибольшее возможное количество единиц в разрядах маски?</p>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>200₁₀ = 11001000₂, 192₁₀ = 11000000₂. Наибольшая маска: 11100000₂ = 224. Единиц: 8+8+3 = 19. В ответе 20.</p>
+                <div class="answer_text"><b>Ответ:</b> 20</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 (13596) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 13 № 13596 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 93.138.70.47 адрес сети равен 93.138.64.0. Каково наименьшее возможное общее количество единиц во всех четырёх байтах маски?</p>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>70₁₀ = 01000110₂, 64₁₀ = 01000000₂. Минимальная маска: 11000000₂ = 192. Единиц: 8+8+2 = 18.</p>
+                <div class="answer_text"><b>Ответ:</b> 18</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 12 (14698) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 13 № 14698 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 93.138.161.94 адрес сети равен 93.138.160.0. Какое наибольшее количество нулей может быть в двоичной записи маски?</p>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>161₁₀ = 10100001₂, 160₁₀ = 10100000₂. Маска может быть 11100000₂ = 224. Нулей: 5 в третьем байте + 8 в четвёртом = 13.</p>
+                <div class="answer_text"><b>Ответ:</b> 13</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 13 (14773) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 13 № 14773 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 93.138.161.94 адрес сети равен 93.138.160.0. Какое наименьшее количество нулей может быть в двоичной записи маски?</p>
+        </div>
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>161₁₀ = 10100001₂, 160₁₀ = 10100000₂. Минимальная маска: 11111110₂ = 254. Нулей: 1 в третьем байте + 8 в четвёртом = 9.</p>
+                <div class="answer_text"><b>Ответ:</b> 9</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 14 (15107) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 13 № 15107 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 93.138.164.49 адрес сети равен 93.138.160.0. Для скольких различных значений маски это возможно?</p>
+        </div>
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>164₁₀ = 10100100₂, 160₁₀ = 10100000₂. Подходят маски: 11100000₂, 11110000₂, 11111000₂ — всего 3.</p>
+                <div class="answer_text"><b>Ответ:</b> 3</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 15 (15628) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 13 № 15628 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 153.82.140.123 адрес сети равен 153.82.136.0. Определите третий слева октет маски подсети. Ответ запишите в виде десятичного числа.</p>
+        </div>
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>140₁₀ = 10001100₂, 136₁₀ = 10001000₂. Третий байт маски: 11111000₂ = 248.</p>
+                <div class="answer_text"><b>Ответ:</b> 248</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 16 (15980) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">16</div>
+            <div class="prob_nums">Тип 13 № 15980 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 111.81.88.168 адрес сети равен 111.81.88.160. Найдите наименьшее значение последнего байта маски.</p>
+        </div>
+        <div class="solution" id="solutionBlock16" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>168₁₀ = 10101000₂, 160₁₀ = 10100000₂. Наименьшая маска: 11100000₂ = 224.</p>
+                <div class="answer_text"><b>Ответ:</b> 224</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(16)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 17 (16039) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">17</div>
+            <div class="prob_nums">Тип 13 № 16039 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 117.191.37.84 адрес сети равен 117.191.37.80. Чему равно наименьшее возможное значение последнего (самого правого) байта маски?</p>
+        </div>
+        <div class="solution" id="solutionBlock17" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>84₁₀ = 01010100₂, 80₁₀ = 01010000₂. Наименьшая маска: 11110000₂ = 240.</p>
+                <div class="answer_text"><b>Ответ:</b> 240</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(17)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 18 (16441) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">18</div>
+            <div class="prob_nums">Тип 13 № 16441 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для узла с IP-адресом 98.162.71.94 адрес сети равен 98.162.71.64. Чему равно наибольшее возможное значение последнего (самого правого) байта маски?</p>
+        </div>
+        <div class="solution" id="solutionBlock18" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>94₁₀ = 01011110₂, 64₁₀ = 01000000₂. Наибольшая маска: 11100000₂ = 224.</p>
+                <div class="answer_text"><b>Ответ:</b> 224</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(18)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 19 (17330) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">19</div>
+            <div class="prob_nums">Тип 13 № 17330 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Узлы с IP-адресами 98.162.71.150 и 98.162.71.140 находятся в одной сети. Чему равно наибольшее количество возможных единиц в маске этой сети?</p>
+        </div>
+        <div class="solution" id="solutionBlock19" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>150₁₀ = 10010110₂, 140₁₀ = 10001100₂. Совпадают первые 3 бита четвёртого байта. Итого единиц: 8+8+3 = 19.</p>
+                <div class="answer_text"><b>Ответ:</b> 19</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(19)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 20 (18081) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">20</div>
+            <div class="prob_nums">Тип 13 № 18081 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Узлы с IP-адресами 140.37.235.224 и 140.37.235.192 находятся в одной сети. Определите последний байт маски сети. Количество возможных единиц в маске этой сети должно быть наибольшим.</p>
+        </div>
+        <div class="solution" id="solutionBlock20" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>224₁₀ = 11100000₂, 192₁₀ = 11000000₂. Наибольшая маска с совпадающими битами: 10000000₂ = 128.</p>
+                <div class="answer_text"><b>Ответ:</b> 128</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(20)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

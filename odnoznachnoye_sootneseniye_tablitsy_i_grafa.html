@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Однозначное соотнесение таблицы и графа</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: #000;
+            background-color: #fff;
+            padding: 10px;
+        }
+        
+        .problem_container {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        .prob_num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #4a6baf;
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .prob_nums {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .prob_nums a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .prob_nums a:hover {
+            text-decoration: underline;
+        }
+        
+        .problem_header {
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .problem_actions {
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .action_btn {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin: 0 3px;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+        
+        .problem_text {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .left_margin {
+            margin-left: 0;
+        }
+        
+        .problem_data {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            gap: 20px;
+        }
+        
+        .table_wrapper, .graph_wrapper {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            font-size: 13px;
+        }
+        
+        th, td {
+            border: 1px solid #999;
+            padding: 6px 8px;
+            text-align: center;
+            min-width: 30px;
+        }
+        
+        th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        
+        td.gray {
+            background-color: #b3b3b3;
+        }
+        
+        .star {
+            font-weight: bold;
+        }
+        
+        .graph_wrapper img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .solution {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #4a6baf;
+            display: none;
+        }
+        
+        .solution.show {
+            display: block;
+        }
+        
+        .answer {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f4ff;
+            border-left: 3px solid #4a6baf;
+            font-weight: bold;
+        }
+        
+        .toggle_solution {
+            background-color: #4a6baf;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-top: 10px;
+            border-radius: 3px;
+        }
+        
+        .toggle_solution:hover {
+            background-color: #3a5a9f;
+        }
+        
+        .code_block {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+        
+        .pagination {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .page_num {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 0 2px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            background-color: #f5f5f5;
+        }
+        
+        .page_num.active {
+            background-color: #4a6baf;
+            color: white;
+            border-color: #4a6baf;
+        }
+        
+        .source_info {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .source_info a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .source_info a:hover {
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        
+        .wrap_flex_table {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .wrap_flex_table_col {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .wrap_scroll_table {
+            overflow-x: auto;
+        }
+        
+        .nocopy {
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+<div class="new_header" 
+align="center" 
+style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задания 1. Анализ информационных моделей. Однозначное соотнесение таблицы и графа</b></div
+
+    <!-- Задача 1 -->
+    <div class="problem_container" id="problem_15619">
+        <div class="problem_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 1</b></p>
+
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке справа схема дорог Н-⁠ского района изображена в виде графа, в таблице содержатся сведения о длинах этих дорог (в километрах).Так как таблицу и схему рисовали независимо друг от друга, то нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите, какова длина дороги из пункта В в пункт Е. В ответе запишите целое число  — так, как оно указано в таблице.
+
+
+</p>
+       </div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+				<table>
+					<tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25"><b>П1</b></td>
+                                <td width="25"><b>П2</b></td>
+                                <td width="25"><b>П3</b></td>
+                                <td width="25"><b>П4</b></td>
+                                <td width="25"><b>П5</b></td>
+                                <td width="25"><b>П6</b></td>
+                                <td width="25"><b>П7</b></td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td><b>П1</b></td>
+                                <td class="gray"></td>
+                                <td class="number">45</td>
+                                <td></td>
+                                <td class="number">10</td>
+								<td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П2</b></td>
+                                <td class="number">45</td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td class="number">40</td>
+                                <td></td>
+                                <td class="number">55</td>
+								<td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П3</b></td>
+                                <td></td>
+                                <td></td>
+                                <td class="gray"></td>
+								<td></td>
+                                <td class="number">15</td>
+                                <td class="number">60</td>
+								<td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П4</b></td>
+								<td class="number">10</td>
+                                <td class="number">40</td>
+							    <td></td>
+                                <td class="gray"></td>
+							    <td></td>                                
+								<td class="number">20</td>
+                                <td class="number">35</td>                                                               
+                            </tr>
+                            <tr>
+                                <td><b>П5</b></td>
+							    <td></td>                                
+							    <td></td>                                
+                                <td class="number">15</td>
+							    <td></td>                                
+                                <td class="gray"></td>
+                                <td class="number">55</td>
+							    <td></td>                                
+                            </tr>
+                            <tr>
+                                <td><b>П6</b></td>
+                                <td></td>
+                                <td class="number">55</td>
+								<td class="number">60</td>
+                                <td class="number">20</td> 
+                                <td class="number">55</td>
+                                <td class="gray"></td>
+                                <td class="number">45</td>
+
+								
+                            </tr>
+                            <tr>
+                                <td><b>П7</b></td>
+								<td></td>
+                                <td></td>
+								<td></td>
+                                <td class="number">35</td>
+                                <td></td>
+                                <td class="number">45</td>
+                                <td class="gray"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\1.png" style="max-width:60%; margin:9px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(15619)">Показать решение</button>
+        
+        <div class="solution" id="solution15619">
+            <p class="left_margin"><b>Решение.</b></p>
+            <p class="left_margin">Пункт В  — единственный пункт с пятью дорогами, значит, ему соответствует П6, а пункт Е − единственный с четырьмя дорогами, значит, ему соответствует П4.
+
+Длина дороги из П6 в П4 равна 20.</p>
+            <p>Ответ: 20.</p>
+            
+
+            </div>
+        </div>
+        
+        
+
+    </div>
+
+    <hr>
+
+    <!-- Задача 2 -->
+    <div class="problem_container" id="problem_15843">
+        <div class="problem_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 2</b></p>
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке схема дорог Н-⁠ского района изображена в виде графа, в таблице содержатся сведения о длинах этих дорог (в километрах).</p>
+            <p>Так как таблицу и схему рисовали независимо друг от друга, нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите длину дороги из пункта Б в пункт Д. В ответе запишите целое число.
+
+</p>
+        </div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+				<table>
+					<tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25"><b>П1</b></td>
+                                <td width="25"><b>П2</b></td>
+                                <td width="25"><b>П3</b></td>
+                                <td width="25"><b>П4</b></td>
+                                <td width="25"><b>П5</b></td>
+                                <td width="25"><b>П6</b></td>
+                                <td width="25"><b>П7</b></td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td><b>П1</b></td>
+                                <td class="gray"></td>
+                                <td class="number">40</td>
+                                <td></td>
+                                <td class="number">15</td>
+								<td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П2</b></td>
+                                <td class="number">40</td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td class="number">35</td>
+                                <td></td>
+                                <td class="number">50</td>
+								<td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П3</b></td>
+                                <td></td>
+                                <td></td>
+                                <td class="gray"></td>
+								<td></td>
+                                <td class="number">10</td>
+                                <td class="number">65</td>
+                                <td class="number">8</td>
+                            </tr>
+                            <tr>
+                                <td><b>П4</b></td>
+								<td class="number">15</td>
+                                <td class="number">35</td>
+							    <td></td>
+                                <td class="gray"></td>
+							    <td></td>                                
+								<td class="number">22</td>
+                                <td class="number">33</td>                                                               
+                            </tr>
+                            <tr>
+                                <td><b>П5</b></td>
+							    <td></td>                                
+							    <td></td>                                
+                                <td class="number">10</td>
+							    <td></td>                                
+                                <td class="gray"></td>
+                                <td class="number">50</td>
+							    <td></td>                                
+                            </tr>
+                            <tr>
+                                <td><b>П6</b></td>
+                                <td></td>
+                                <td class="number">50</td>
+								<td class="number">65</td>
+                                <td class="number">22</td> 
+                                <td class="number">50</td>
+                                <td class="gray"></td>
+                                <td class="number">40</td>
+
+								
+                            </tr>
+                            <tr>
+                                <td><b>П7</b></td>
+								<td></td>
+                                <td></td>
+                                <td class="number">8</td>
+                                <td class="number">33</td>
+                                <td></td>
+                                <td class="number">40</td>
+                                <td class="gray"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\2.png" style="max-width:50%; margin:9px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(15843)">Показать решение</button>
+        
+        <div class="solution" id="solution15843">
+            <p class="left_margin"><b>Решение.</b></p>
+            <p class="left_margin">Есть только один пункт, из которого ведёт 5 дорог,  — это В, а в таблице  — П6.
+
+Из А ведёт две дороги, и одна из них  — в В. В таблице такому соответствует П5.
+
+Из Б ведёт три дороги, причём есть дороги в А и в В, в таблице под такое подходит только П3.
+
+Из Д три дороги, две из которых  — в Б и в В, в таблице только один пункт такому соответствует  — П7.
+
+Таким образом, Б  — это П3, а Д  — П7. Длина дороги между П3 и П7  — 8.</p>
+            <p>Ответ: 8.</p>
+            
+ 
+        </div>
+
+        
+
+    </div>
+
+    <hr>
+
+    <!-- Задача 3 -->
+    <div class="problem_container" id="problem_15971">
+        <div class="problem_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 3</b></p>
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке схема дорог Н-⁠ского района изображена в виде графа, в таблице содержатся сведения о длинах этих дорог (в километрах).
+			</p>
+			<p>Так как таблицу и схему рисовали независимо друг от друга, нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите длину дороги из пункта А в пункт Г. В ответе запишите целое число.
+
+</p>
+        </div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+				<table>
+					<tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25"><b>П1</b></td>
+                                <td width="25"><b>П2</b></td>
+                                <td width="25"><b>П3</b></td>
+                                <td width="25"><b>П4</b></td>
+                                <td width="25"><b>П5</b></td>
+                                <td width="25"><b>П6</b></td>
+                                <td width="25"><b>П7</b></td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td><b>П1</b></td>
+                                <td class="gray"></td>
+                                <td class="number">57</td>
+                                <td></td>
+                                <td class="number">20</td>
+								<td></td>
+                                <td class="number">25</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П2</b></td>
+                                <td class="number">57</td>
+                                <td class="gray"></td>
+                                <td class="number">22</td>
+                                <td class="number">42</td>
+                                <td class="number">8</td>
+								<td></td>
+                                <td class="number">21</td>
+                            </tr>
+                            <tr>
+                                <td><b>П3</b></td>
+                                <td></td>
+                                <td class="number">22</td>
+                                <td class="gray"></td>
+								<td></td>
+                                <td class="number">23</td>
+                                <td></td>
+                                <td class="number">8</td>
+                            </tr>
+                            <tr>
+                                <td><b>П4</b></td>
+								<td class="number">20</td>
+                                <td class="number">42</td>
+							    <td></td>
+                                <td class="gray"></td>
+							    <td></td>                                
+								<td class="number">7</td>
+                                <td class="number">33</td>                                                               
+                            </tr>
+                            <tr>
+                                <td><b>П5</b></td>
+							    <td></td>                                
+                                <td class="number">8</td>
+                                <td class="number">23</td>
+							    <td></td>                                
+                                <td class="gray"></td>
+                                <td></td>
+							    <td></td>                                
+                            </tr>
+                            <tr>
+                                <td><b>П6</b></td>
+                                <td class="number">25</td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">7</td> 
+                                <td></td>
+                                <td class="gray"></td>
+                                <td class="number">9</td>
+
+								
+                            </tr>
+                            <tr>
+                                <td><b>П7</b></td>
+								<td></td>
+                                <td class="number">21</td>
+                                <td class="number">8</td>
+                                <td class="number">33</td>
+                                <td></td>
+                                <td class="number">9</td>
+                                <td class="gray"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\3.png" style="max-width:50%; margin:9px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(15971)">Показать решение</button>
+        
+        <div class="solution" id="solution15971">
+            <p class="left_margin"><b>Решение.</b></p>
+            <p class="left_margin">На карте есть только один пункт с 5 дорогами, это Г. В таблице же это П2.
+
+На карте есть только один пункт с 2 дорогами, это Б. В таблице же это П5.
+
+А  — пункт, из которого выходит 3 дороги, который связан и с Г, и с Б. Из всех пунктов в таблице только П3 под это подходит.
+
+Таким образом, Г  =  П2, А  =  П3. Длина дороги между П2 и П3  — 22.</p>
+            <p>Ответ: 22.</p>
+            
+        </div>
+
+        
+
+    </div>
+
+    <hr>
+
+    <!-- Задача 4 -->
+    <div class="problem_container" id="problem_16030">
+        <div class="problem_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 4</b></p>
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке справа схема дорог Н-⁠ского района изображена в виде графа, в таблице содержатся сведения о длинах этих дорог (в километрах).
+
+Так как таблицу и схему рисовали независимо друг от друга, нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите длину дороги из пункта Б в пункт Г. В ответе запишите целое число.
+
+
+</p>
+        </div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+				<table>
+					<tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25"><b>П1</b></td>
+                                <td width="25"><b>П2</b></td>
+                                <td width="25"><b>П3</b></td>
+                                <td width="25"><b>П4</b></td>
+                                <td width="25"><b>П5</b></td>
+                                <td width="25"><b>П6</b></td>
+                                <td width="25"><b>П7</b></td>
+                                <td width="25"><b>П8</b></td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td><b>П1</b></td>
+                                <td class="gray"></td>
+                                <td class="number">15</td>
+                                <td></td>
+                                <td class="number">20</td>
+								<td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">25</td>
+                            </tr>
+                            <tr>
+                                <td><b>П2</b></td>
+                                <td class="number">15</td>
+                                <td class="gray"></td>
+                                <td class="number">25</td>
+								<td></td>
+                                <td></td>
+                                <td></td>
+								<td></td>
+								<td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П3</b></td>
+                                <td></td>
+                                <td class="number">25</td>
+                                <td class="gray"></td>
+								<td></td>
+								<td></td>
+                                <td class="number">24</td>
+                                <td></td>
+                                <td class="number">22</td>
+                            </tr>
+                            <tr>
+                                <td><b>П4</b></td>
+								<td class="number">20</td>
+							    <td></td>
+							    <td></td>
+                                <td class="gray"></td>
+							    <td></td>
+							    <td></td>                                                                
+								<td class="number">12</td>
+							    <td></td>                                
+                            </tr>
+                            <tr>
+                                <td><b>П5</b></td>
+							    <td></td>                                
+                                <td></td>
+							    <td></td> 
+							    <td></td>                                
+                                <td class="gray"></td>
+                                <td class="number">13</td>
+                                <td class="number">16</td>
+                                <td class="number">17</td>                                
+                            </tr>
+                            <tr>
+                                <td><b>П6</b></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">24</td>
+                                <td></td>
+                                <td class="number">13</td> 
+                                <td class="gray"></td>
+                                <td></td>
+                                <td class="number">15</td>
+
+								
+                            </tr>
+                            <tr>
+                                <td><b>П7</b></td>
+                                <td></td>
+							    <td></td> 
+							    <td></td> 
+                                <td class="number">12</td>
+                                <td class="number">26</td>
+                                <td></td>
+                                <td class="gray"></td>
+                                <td></td>
+                            </tr>
+							<tr>
+                                <td><b>П8</b></td>
+                                <td class="number">18</td>
+                                <td></td>
+                                <td class="number">22</td>
+							    <td></td> 
+                                <td class="number">17</td>
+                                <td class="number">15</td>
+                                <td></td>
+                                <td class="gray"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\4.png" style="max-width:40%; margin:9px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(16030)">Показать решение</button>
+        
+        <div class="solution" id="solution16030">
+            <p class="left_margin"><b>Решение.</b></p>
+            <p class="left_margin">Сопоставим населённые пункты графа и населённые пункты в таблице.
+
+Из Б ведут три дороги. Из пунктов П1, П3, П5, П6 также ведут три дороги. Заметим, что из Б дороги идут в пункты с тремя, четырьмя и тремя дорогами. Сопоставляя с таблицей, получим, что Б соответствует пункту П6.
+
+Из Г ведут четыре дороги. Только из пункта П8 ведут четыре дороги, следовательно, пункт П8  — это и есть Г.
+
+Длина дороги из П6 в П8 равна 15.</p>      
+     <p>Ответ: 15.</p>
+            
+
+        </div>
+        
+
+        
+
+    </div>
+
+    <hr>
+
+    <!-- Задача 5 -->
+    <div class="problem_container" id="problem_23901">
+        <div class="problem_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 5</b></p>
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке справа схема дорог Н-⁠ского района изображена в виде графа; в таблице слева содержатся сведения о протяжённости каждой из этих дорог (в километрах).
+Так как таблицу и схему рисовали независимо друг от друга, то нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите, какова длина дороги из пункта Б в пункт В. В ответе запишите целое число  — так, как оно указано в таблице.
+</p>
+        </div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+				<table>
+					<tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25"><b>П1</b></td>
+                                <td width="25"><b>П2</b></td>
+                                <td width="25"><b>П3</b></td>
+                                <td width="25"><b>П4</b></td>
+                                <td width="25"><b>П5</b></td>
+                                <td width="25"><b>П6</b></td>
+
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td><b>П1</b></td>
+                                <td class="gray"></td>
+                                <td class="number">10</td>
+                                <td></td>
+								<td></td>
+                                <td class="number">8</td>
+                                <td class="number">5</td>
+                            </tr>
+                            <tr>
+                                <td><b>П2</b></td>
+                                <td class="number">10</td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td class="number">20</td>
+                                <td class="number">12</td>
+								<td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П3</b></td>
+                                <td></td>
+                                <td></td>
+                                <td class="gray"></td>
+                                <td class="number">4</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П4</b></td>
+							    <td></td>
+								<td class="number">20</td>
+                                <td class="number">4</td>
+                                <td class="gray"></td>
+								<td class="number">15</td>
+							    <td></td>                                
+                            </tr>
+                            <tr>
+                                <td><b>П5</b></td>
+                                <td class="number">8</td>
+                                <td class="number">12</td>
+							    <td></td>                                
+                                <td class="number">15</td>
+                                <td class="gray"></td>
+                                <td class="number">7</td>
+                            </tr>
+                            <tr>
+                                <td><b>П6</b></td>
+                                <td class="number">5</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">7</td> 
+                                <td class="gray"></td>								
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\5.png" style="max-width:50%; margin:10px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(23901)">Показать решение</button>
+        
+        <div class="solution" id="solution23901">
+            <p class="left_margin"><b>Решение.</b></p>
+            <p class="left_margin">Сопоставим населённые пункты графа и населённые пункты в таблице.
+
+Из Б ведут три дороги. Из пунктов П1, П2, П4 также ведут три дороги.
+
+Из Е ведёт одна дорога  — в Д. Заметим из таблицы, что из пункта П3 ведёт одна дорога в пункт П4, следовательно, П3  — это пункт Е, а П4  — пункт Д.
+
+Из В ведут четыре дороги. Только из пункта П5 ведут четыре дороги, следовательно, пункт П5  — это и есть В.
+
+Из пункта А ведут две дороги: в пункт Б и пункт В. Из таблицы видно, что только пункт П6 имеет ровно две дороги из него: в П1 и П5. Как замечено ранее, П5 соответствует пункту В, следовательно, Б  — это пункт П1.
+
+Таким образом, длина дороги из Б в В равна 8.</p>
+            <p>Ответ: 8.</p>
+        </div>
+
+        
+    </div>
+
+    <hr>
+
+    <!-- Задачи 6-9 (сокращённо для примера, можно развернуть по аналогии) -->
+    <div class="problem_container">
+        <div class="problem_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 6</b></p>
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке справа схема дорог Н-⁠ского района изображена в виде графа; в таблице слева содержатся сведения о протяжённости каждой из этих дорог (в километрах).
+
+</p>
+            <p>Так как таблицу и схему рисовали независимо друг от друга, то нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите, какова протяжённость дороги из пункта Д в пункт Е. В ответе запишите целое число  — так, как оно указано в таблице.
+
+</p>
+        </div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+				<table>
+					<tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25"><b>П1</b></td>
+                                <td width="25"><b>П2</b></td>
+                                <td width="25"><b>П3</b></td>
+                                <td width="25"><b>П4</b></td>
+                                <td width="25"><b>П5</b></td>
+                                <td width="25"><b>П6</b></td>
+                                <td width="25"><b>П7</b></td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td><b>П1</b></td>
+                                <td class="gray"></td>
+                                <td class="number">20</td>
+                                <td></td>
+                                <td class="number">15</td>
+                                <td class="number">10</td>
+                                <td class="number">8</td>
+                                <td class="number">9</td>
+                            </tr>
+                            <tr>
+                                <td><b>П2</b></td>
+                                <td class="number">20</td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td class="number">11</td>
+								<td></td>
+                                <td class="number">25</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П3</b></td>
+                                <td></td>
+                                <td></td>
+                                <td class="gray"></td>
+								<td></td>
+                                <td class="number">5</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П4</b></td>
+								<td class="number">15</td>
+                                <td class="number">11</td>
+							    <td></td>
+                                <td class="gray"></td>
+							    <td></td>                                
+                                <td></td>
+                                <td></td>                                                             
+                            </tr>
+                            <tr>
+                                <td><b>П5</b></td>
+                                <td class="number">10</td>
+                                <td></td>
+                                <td class="number">5</td> 
+                                <td></td>
+                                <td class="gray"></td>
+                                <td class="number">7</td>
+                                <td class="number">6</td>                              
+                            </tr>
+                            <tr>
+                                <td><b>П6</b></td>
+                                <td class="number">8</td>
+                                <td class="number">25</td> 
+                                <td></td>
+                                <td></td>
+                                <td class="number">7</td>
+                                <td class="gray"></td>
+                                <td></td>
+
+								
+                            </tr>
+                            <tr>
+                                <td><b>П7</b></td>
+                                <td class="number">9</td>
+								<td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">6</td>
+                                <td></td>
+                                <td class="gray"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\6.png" style="max-width:50%; margin:9px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(26995)">Показать решение</button>
+        
+        <div class="solution" id="solution26995">
+            <p class="left_margin"><b>Решение.</b></p>
+			<p class="left_margin">Сопоставим населённые пункты графа и населённые пункты в таблице.
+
+Из Ж ведут пять дорог. Только из пункта П1 ведут пять дорог.
+
+Из А ведёт одна дорога. Только из пункта П3 ведёт одна дорога.
+
+Из Б ведёт четыре дороги. Только из пункта П5 ведёт четыре дороги.
+
+Из В ведут две дороги: одна  — в Ж, другая  — в Б. Из пункта П7 также ведут две дороги: одна  — в Ж, другая  — в Б, следовательно, пункт П7  — это пункт В.
+
+Из пункта П4 ведут две дороги: одна  — в Ж, другая  — в пункт П2, на графе осталась только дорога Г, соответствующая данным условиям. Таким образом, пункт П4  — это пункт Г, а пункт П2  — это пункт Д.
+
+Остались только пункты Е и П6, значит, пункт Е и есть пункт П6.
+
+Таким образом, длина дороги из пункта Д в пункт Е равна 25.</p>
+            <p>Ответ: 25.</p>
+			
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="problem_container">
+        <div class="problem_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 7</b></p>
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке схема дорог Н-⁠ского района изображена в виде графа, в таблице содержатся сведения о длине этих дорог в километрах.
+Так как таблицу и схему рисовали независимо друг от друга, то нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите длину дороги из пункта Б в пункт Е. В ответе запишите целое число.
+
+ВНИМАНИЕ! Длины отрезков на схеме не отражают длины дорог.			</p>
+        </div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+				<table>
+					<tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25"><b>П1</b></td>
+                                <td width="25"><b>П2</b></td>
+                                <td width="25"><b>П3</b></td>
+                                <td width="25"><b>П4</b></td>
+                                <td width="25"><b>П5</b></td>
+                                <td width="25"><b>П6</b></td>
+                                <td width="25"><b>П7</b></td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td><b>П1</b></td>
+                                <td class="gray"></td>
+                                <td class="number">10</td>
+                                <td></td>
+                                <td></td>
+								<td></td>
+                                <td></td>
+                                <td class="number">12</td>
+                            </tr>
+                            <tr>
+                                <td><b>П2</b></td>
+                                <td class="number">10</td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td></td>
+								<td></td>
+                                <td></td>
+                                <td class="number">8</td>
+                            </tr>
+                            <tr>
+                                <td><b>П3</b></td>
+                                <td></td>
+								<td></td>
+                                <td class="gray"></td>
+								<td></td>
+                                <td class="number">11</td>
+                                <td class="number">15</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П4</b></td>
+								<td></td>
+								<td></td>
+								<td></td>								
+                                <td class="gray"></td>
+							    <td></td>                                
+								<td class="number">5</td>
+								<td></td>
+							</tr>
+                            <tr>
+                                <td><b>П5</b></td>
+							    <td></td>                                
+								<td></td>
+                                <td class="number">11</td>
+							    <td></td>                                
+                                <td class="gray"></td>
+                                <td class="number">13</td>
+                                <td class="number">6</td>
+                               
+                            </tr>
+                            <tr>
+                                <td><b>П6</b></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">15</td>
+                                <td class="number">5</td> 
+                                <td class="number">13</td>
+                                <td class="gray"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П7</b></td>
+                                <td class="number">12</td>
+                                <td class="number">8</td>
+								<td></td>
+                                <td></td>
+                                <td class="number">6</td>
+                                <td></td>
+                                <td class="gray"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\7.png" style="max-width:100%; margin:10px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(28014)">Показать решение</button>
+        
+        <div class="solution" id="solution28014">
+            <p class="left_margin"><b>Решение.</b></p> 
+			<p class="left_margin">1.  Из В идет единственная дорога, значит, В соответствует П4.
+
+2.  Единственная дорога из В идет в Б, а так как единственная дорога из П4 идет в П6, значит, Б соответствует П6.
+
+3.  К  — единственная вершина, имеющая два ребра и ведущая при этом в Б, значит, П3 соответствует К.
+
+4.  Е  — единственная вершина, имеющая ребро с Б и К, значит, Е соответствует П5.
+
+Тогда ответ  — дорога из П5 в П6, которая равна 13.</p>
+ <p>Ответ: 13.</p>
+        </div>
+        
+
+    </div>
+
+    <hr>
+
+    <div class="problem_container">
+        <div class="problem_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 8</b></p>
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке схема дорог Н-⁠ского района изображена в виде графа, в таблице содержатся сведения о длине этих дорог в километрах.Так как таблицу и схему рисовали независимо друг от друга, то нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите длину дороги из пункта Б в пункт Г.
+
+ВНИМАНИЕ! Длины отрезков на схеме не отражают длины дорог.
+			
+</p>			</div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+                    <table>
+					<tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25"><b>П1</b></td>
+                                <td width="25"><b>П2</b></td>
+                                <td width="25"><b>П3</b></td>
+                                <td width="25"><b>П4</b></td>
+                                <td width="25"><b>П5</b></td>
+                                <td width="25"><b>П6</b></td>
+                                <td width="25"><b>П7</b></td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td><b>П1</b></td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td class="number">10</td>
+                                <td></td>
+								<td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П2</b></td>
+                                <td></td>
+                                <td class="gray"></td>
+                                <td class="number">20</td>
+                                <td></td>
+								<td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П3</b></td>
+                                <td class="number">10</td>
+                                <td class="number">20</td>   
+                                <td class="gray"></td>
+                                <td class="number">8</td>   
+								<td></td>
+								<td></td>
+                                <td></td>
+
+                            </tr>
+                            <tr>
+                                <td><b>П4</b></td>
+								<td></td>
+								<td></td>
+								<td class="number">8</td>
+                                <td class="gray"></td>
+								<td class="number">15</td>
+								<td class="number">12</td>
+								<td></td>
+							</tr>
+                            <tr>
+                                <td><b>П5</b></td>
+							    <td></td>                                
+								<td></td>
+							    <td></td>                                
+                                <td class="number">15</td>
+                                <td class="gray"></td>
+								<td></td>
+							    <td></td>  
+                               
+                            </tr>
+                            <tr>
+                                <td><b>П6</b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">12</td>
+                                <td></td>
+                                <td class="gray"></td>
+                                <td class="number">18</td>
+                            </tr>
+                            <tr>
+                                <td><b>П7</b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">18</td>
+                                <td class="gray"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\8.png" style="max-width:100%; margin:10px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(29546)">Показать решение</button>
+        
+        <div class="solution" id="solution29546">
+            <p class="left_margin"><b>Решение.</b></p>
+			<p class="left_margin">1.  Поскольку E  — единственная вершина, из которой ведут 2 дороги, то ей соответствует П6.
+
+2.  Из Е можно добраться до Г, в то же время Г  — одна из двух вершин, степень которой равна 3. Значит, Г соответствует П4.
+
+3.  Из П4 нужна дорога, которая приведет в пункт, откуда больше никуда нельзя добраться (так как другие 2 ребра из Г ведут в вершины, откуда еще можно добраться в другие вершины). Значит, путь из Г в Б соответствует пути из П4 в П5, а его длина  — 15.
+
+ 
+</p>
+            <p>Ответ: 15.</p>
+
+        </div>
+        
+
+    </div>
+
+    <hr>
+
+    <div class="problem_container">
+        <div class="problem_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 9</b></p>
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке схема дорог Н-⁠ского района изображена в виде графа, в таблице содержатся сведения о длине этих дорог в километрах.
+
+ Так как таблицу и схему рисовали независимо друг от друга, нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите длину дороги от пункта В до пункта Е. В ответе запишите целое число.</p>        </div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+                    <table>
+                       <tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25"><b>П1</b></td>
+                                <td width="25"><b>П2</b></td>
+                                <td width="25"><b>П3</b></td>
+                                <td width="25"><b>П4</b></td>
+                                <td width="25"><b>П5</b></td>
+                                <td width="25"><b>П6</b></td>
+                                <td width="25"><b>П7</b></td>
+                                <td width="25"><b>П8</b></td>
+                            </tr>
+                            <tr>
+                                <td><b>П1</b></td>
+                                <td class="gray"></td>
+                                <td class="number">15</td>
+                                <td></td>
+                                <td class="number">20</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">18</td>
+                            </tr>
+                            <tr>
+                                <td><b>П2</b></td>
+                                <td class="number">15</td>
+                                <td class="gray"></td>
+                                <td class="number">25</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П3</b></td>
+                                <td></td>
+                                <td class="number">25</td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">24</td>
+                                <td></td>
+                                <td class="number">22</td>
+
+                            </tr>
+                            <tr>
+                                <td><b>П4</b></td>
+                                <td class="number">20</td>
+                                <td></td>
+                                <td></td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">12</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П5</b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="gray"></td>
+                                <td class="number">13</td>
+                                <td class="number">16</td>
+                                <td class="number">17</td>
+                            </tr>
+                            <tr>
+                                <td><b>П6</b></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">24</td>
+                                <td></td>
+                                <td class="number">13</td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td class="number">15</td>
+                            </tr>
+                            <tr>
+                                <td><b>П7</b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">12</td>
+                                <td class="number">16</td>
+                                <td></td>
+                                <td class="gray"></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П8</b></td>
+                                <td class="number">18</td>
+                                <td></td>
+                                <td class="number">22</td>
+                                <td></td>
+                                <td class="number">17</td>
+                                <td class="number">15</td>
+                                <td></td>
+                                <td class="gray"></td>
+                            </tr>
+							
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\9.png" style="max-width:100%; margin:10px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(31027)">Показать решение</button>
+        
+        <div class="solution" id="solution31027">
+            <p class="left_margin"><b>Решение.</b></p>
+			<p class="left_margin">1.  Поскольку Г  — единственная вершина, степень которой равна 4, то ей соответствует П8.
+
+2.  B  — единственная вершина степени 2, у которой оба ребра ведут в вершину, которая имеет ребро с Г. Тогда B соответствует П2.
+
+3.  Можно найти E  — это вершина, у которой есть ребро в Г и В, но при этом, в отличие от А, третье ребро ведет в вершину, из которой нет ребра в Г. Тогда Е  — это П1. Дорога из П2 в П1 равна 15.
+
+ <p>
+            <p>Ответ: 15.</p>
+        </div>
+        
+
+    </div>
+	
+	<hr>
+	
+
+    <div class="problem_container">
+        <div class="problem_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 10</b></p>
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке схема дорог Н-⁠ского района изображена в виде графа, в таблице содержатся сведения о длине этих дорог в километрах.Так как таблицу и схему рисовали независимо друг от друга, то нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите длину дороги из пункта Г в пункт Д. В ответе запишите целое число.
+
+ВНИМАНИЕ! Длины отрезков на схеме не отражают длины дорог.
+ </p>
+        </div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+                    <table>
+					<tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25">П1</td>
+                                <td width="25">П2</td>
+                                <td width="25">П3</td>
+                                <td width="25">П4</td>
+                                <td width="25">П5</td>
+                                <td width="25">П6</td>
+								<td width="25">П7</td>
+                            </tr>
+                            <tr>
+                                <td>П1</td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td class="number">15</td>
+                                <td></td>
+								<td></td>
+								<td></td>
+								<td class="number">20</td>
+                            </tr>
+                            <tr>
+                                <td>П2</td>
+                                <td></td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td></td>
+								<td></td>
+                                <td class="number">22</td>
+                                <td class="number">18</td>
+                            </tr>
+                            <tr>
+                                <td>П3</td>
+                                <td class="number">15</td>
+                                <td></td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td></td>
+								<td></td>
+                                <td class="number">10</td>
+                            </tr>
+                            <tr>
+                                <td>П4</td>
+                                <td></td>
+								<td></td>
+								<td></td>
+                                <td class="gray"></td>
+                                <td class="number">9</td>
+                                <td class="number">8</td>
+								<td></td>
+                            </tr>
+                            <tr>
+                                <td>П5</td>
+                                <td></td>
+								<td></td>
+							    <td></td>
+                                <td class="number">9</td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td class="number">12</td>
+                            </tr>
+                            <tr>
+                                <td>П6</td>
+                                <td></td>
+                                <td class="number">22</td>
+                                <td></td>
+                                <td class="number">8</td>
+                                <td></td>
+                                <td class="gray"></td>
+                                <td class="number">14</td>
+								
+                            </tr>
+                            <tr>
+                                <td>П7</td>
+                                <td class="number">20</td>
+                                <td class="number">18</td>
+                                <td class="number">10</td>
+                                <td></td>
+                                <td class="number">12</td>
+                                <td class="number">14</td>
+                                <td class="gray"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\10.png" style="max-width:100%; margin:10px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(29547)">Показать решение</button>
+        
+        <div class="solution" id="solution29547">
+            <p class="left_margin"><b>Решение.</b></p>
+			<p class="left_margin">1.  Г  — единственная вершина, степень которой 5, значит, Г соответствует П7.
+
+2.  А  — единственная вершина, степень которой 3, значит, А соответствует П6.
+
+3.  B  — единственная вершина, имеющая ребро в А и в Г одновременно, значит, B  — это П2.
+
+4.  Методом исключения найдем вершину Б  — это П4 (это третья вершина из А).
+
+5.  Тогда Д  — единственная вершина, имеющая ребро в Г и Б, степень которой 2, значит, Д  — это П5.
+
+Тогда ответ  — дорога из П7 в П5, ее длина равна 12.
+</p>
+            <p>Ответ: 12.</p>
+
+        </div>
+		
+		<hr>
+        
+
+    </div>
+
+	<hr>
+	
+
+    <div class="problem_container">
+        <div class="problem_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 11</b></p>
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке справа схема дорог Н-⁠ского района изображена в виде графа; в таблице слева содержатся сведения о протяжённости каждой из этих дорог (в километрах).Так как таблицу и схему рисовали независимо друг от друга, то нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите, какова длина дороги из пункта А в пункт Г. В ответе запишите целое число  — так, как оно указано в таблице.
+
+
+ </p>
+        </div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+				<table>
+					<tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25"><b>П1</b></td>
+                                <td width="25"><b>П2</b></td>
+                                <td width="25"><b>П3</b></td>
+                                <td width="25"><b>П4</b></td>
+                                <td width="25"><b>П5</b></td>
+                                <td width="25"><b>П6</b></td>
+                                <td width="25"><b>П7</b></td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td><b>П1</b></td>
+                                <td class="gray"></td>
+                                <td class="number">7</td>
+                                <td></td>
+								<td></td>
+                                <td></td>
+								<td></td>
+                                <td></td>						
+                            </tr>
+                            <tr>
+                                <td><b>П2</b></td>
+                                <td class="number">7</td>
+                                <td class="gray"></td>
+                                <td class="number">8</td>
+                                <td></td>
+                                <td class="number">3</td>
+                                <td class="number">4</td>
+								<td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П3</b></td>
+                                <td></td>
+                                <td class="number">8</td>
+                                <td class="gray"></td>
+                                <td class="number">11</td>
+                                <td class="number">6</td>
+								<td></td>
+								<td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П4</b></td>
+                                <td></td>
+								<td></td>                                                                
+                                <td class="number">11</td>
+                                <td class="gray"></td>
+                                <td class="number">5</td>
+								<td></td>                                                                
+								<td></td>                                                                
+                            </tr>
+                            <tr>
+                                <td><b>П5</b></td>
+							    <td></td>
+                                <td class="number">3</td>
+                                <td class="number">6</td>
+                                <td class="number">5</td>
+                                <td class="gray"></td>
+                                <td></td>
+                                <td class="number">9</td>
+                            </tr>
+                            <tr>
+                                <td><b>П6</b></td>
+                                <td></td>
+                                <td class="number">4</td>
+								<td></td>                                                                
+								<td></td> 
+                                <td></td>
+                                <td class="gray"></td>
+                                <td></td>
+								
+                            </tr>
+                            <tr>
+                                <td><b>П7</b></td>
+								<td></td> 
+                                <td></td>
+								<td></td>
+                                <td></td>
+                                <td class="number">9</td>
+                                <td></td>
+                                <td class="gray"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\11.png" style="max-width:100%; margin:9px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(29548)">Показать решение</button>
+        
+        <div class="solution" id="solution29548">
+            <p class="left_margin"><b>Решение.</b></p>
+			<p class="left_margin">Сопоставим населённые пункты графа и населённые пункты в таблице.
+
+Из А ведут три дороги. Только из пункта П3 ведут три дороги, следовательно, пункт П3  — это А.
+
+Из К ведёт одна дорога  — в Г. Заметим из таблицы, что из пункта П7 ведёт одна дорога в пункт П5, следовательно, П7  — это пункт К, а П5  — пункт Г.
+
+Таким образом, длина дороги из А в Г равна длине дороги из П3 в П5  — 6.
+</p>
+            <p>Ответ: 6.</p>
+
+        </div>
+		
+        
+
+    </div>
+	
+	<hr>
+
+    <div class="problem_container">
+        <div class="problem_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">
+                <p><b>Тип 1 № 12</b></p>
+                (1 балл)
+            </div>
+        </div>
+        
+        <div class="problem_text left_margin">
+            <p>На рисунке схема дорог изображена в виде графа, в таблице содержатся сведения о длине этих дорог в километрах.
+Так как таблицу и схему рисовали независимо друг от друга, то нумерация населённых пунктов в таблице никак не связана с буквенными обозначениями на графе. Определите длину дороги из пункта Б в пункт Г. В ответе запишите целое число.
+
+ВНИМАНИЕ. Длины отрезков на схеме не отражают длины дорог.
+
+
+ </p>
+        </div>
+        
+        <div class="wrap_flex_table">
+            <div class="wrap_flex_table_col">
+                <div class="wrap_scroll_table">
+				<table>
+					<tbody>
+                            <tr>
+                                <td width="25"></td>
+                                <td width="25"><b>П1</b></td>
+                                <td width="25"><b>П2</b></td>
+                                <td width="25"><b>П3</b></td>
+                                <td width="25"><b>П4</b></td>
+                                <td width="25"><b>П5</b></td>
+                                <td width="25"><b>П6</b></td>
+                                <td width="25"><b>П7</b></td>
+                                <td width="25"><b>П8</b></td>
+                            </tr>
+                            </tr>
+                            <tr>
+                                <td><b>П1</b></td>
+                                <td class="gray"></td>
+                                <td></td>
+								<td></td>
+                                <td class="number">37</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">23</td>
+                            </tr>
+                            <tr>
+                                <td><b>П2</b></td>
+                                <td></td>
+                                <td class="gray"></td>
+                                <td class="number">25</td>
+                                <td></td>
+								<td></td>
+                                <td class="number">44</td>
+                                <td></td>
+                                <td class="number">46</td>
+                            </tr>
+                            <tr>
+                                <td><b>П3</b></td>
+                                <td></td>
+                                <td class="number">25</td>
+                                <td class="gray"></td>
+                                <td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П4</b></td>
+								<td class="number">37</td>
+							    <td></td>
+							    <td></td>                                
+                                <td class="gray"></td>
+                                <td class="number">34</td>
+                                <td></td>
+                                <td class="number">42</td>
+                                <td></td>								
+                            </tr>
+                            <tr>
+                                <td><b>П5</b></td>
+								<td></td>
+								<td></td>
+								<td></td>
+                                <td class="number">34</td>
+                                <td class="gray"></td>
+                                <td class="number">24</td>
+                                <td class="number">28</td>
+								<td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П6</b></td>
+                                <td></td>
+                                <td class="number">44</td>
+                                <td></td>
+                                <td></td>
+                                <td class="number">24</td>
+                                <td class="gray"></td>
+                                <td class="number">29</td>
+								<td></td>
+                            </tr>
+                            <tr>
+                                <td><b>П7</b></td>
+								<td></td>
+                                <td></td>
+								<td></td>
+                                <td class="number">42</td>
+                                <td class="number">28</td> 
+                                <td class="number">29</td>
+                                <td class="gray"></td>
+                                <td class="number">31</td>
+                            </tr>
+	                        <tr>
+                                <td><b>П8</b></td>
+                                <td class="number">23</td>
+                                <td class="number">46</td>
+								<td></td>
+                                <td></td>
+								<td></td>
+								<td></td>
+                                <td class="number">31</td>
+                                <td class="gray"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="wrap_flex_table_col">
+                <img src="/ege-informatics\practic\images\t1.2\12.png" style="max-width:100%; margin:9px;">
+            </div>
+        </div>
+        
+        <button class="toggle_solution" onclick="toggleSolution(29549)">Показать решение</button>
+        
+        <div class="solution" id="solution29549">
+            <p class="left_margin"><b>Решение.</b></p>
+			<p class="left_margin">1.  Г  — единственная вершина, степень которой 4, значит, Г соответствует П7.
+
+2.  Л  — единственная вершина, степень которой 1, значит, Л соответствует П3.
+
+3.  К  — единственная вершина, имеющая ребро с Л, значит, К соответствует П2.
+
+4.  В  — единственная вершина, степень которой 2, значит, В соответствует П1.
+
+5.  Из пункта В (П1) можно идти либо в П4, либо в П8. И из пункта К( П2) можно идти либо в П6, либо в П8. Следовательно, Е соответствует П8, так как находится между В и К. А также А соответствует П4, Д соответствует П6.
+
+6.  Методом исключения найдем вершину Б  — это П5.
+
+Тогда ответ  — дорога из П5 в П7, ее длина равна 28.
+
+ </p>
+            <p>Ответ: 28.</p>
+
+
+        </div>
+		        
+
+    </div>
+	
+	<hr>
+	
+    <script>
+        // Функция для показа/скрытия решения
+        function toggleSolution(problemId) {
+            const solution = document.getElementById(`solution${problemId}`);
+            const button = event.target;
+            
+            if (solution.classList.contains('show')) {
+                solution.classList.remove('show');
+                button.textContent = 'Показать решение';
+            } else {
+                solution.classList.add('show');
+                button.textContent = 'Скрыть решение';
+            }
+        }
+        
+        // Функция для показа информации о задании
+        function showInfo(problemId) {
+            alert(`Информация о задании ${problemId}\n\nТип: Неоднозначное соотнесение таблицы и графа\nРаздел: Анализ информационных моделей\nБаллы: 1`);
+        }
+        
+        // Пагинация (для демонстрации)
+        document.querySelectorAll('.page_num').forEach(page => {
+            page.addEventListener('click', function() {
+                document.querySelectorAll('.page_num').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                // В реальном приложении здесь будет загрузка другой страницы
+                alert(`Переход на страницу ${this.textContent}`);
+            });
+        });
+        
+        // Автоматически скрываем все решения при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.solution').forEach(solution => {
+                solution.classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>	

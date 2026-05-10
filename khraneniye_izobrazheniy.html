@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тип 7: Хранение изображений. Расчёт объёма памяти</title>
+    <style>
+        /* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: #000;
+            background-color: #fff;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .problem_container {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+        .prob_header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .prob_num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #4a6baf;
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .prob_nums {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .prob_nums a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .prob_nums a:hover {
+            text-decoration: underline;
+        }
+
+        /* ★ ТЕКСТ ЗАДАНИЯ ★ */
+        .problem_text {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .left_margin {
+            margin-left: 0;
+        }
+
+        /* ★ РЕШЕНИЕ ★ */
+        .solution {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #4a6baf;
+            font-size: 14px;
+            display: none;
+        }
+
+        .solution_text {
+            line-height: 1.6;
+        }
+
+        .solution_text center {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .code_block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px;
+            border-radius: 3px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .code_block pre {
+            margin: 0;
+            color: #ecf0f1;
+            white-space: pre-wrap;
+        }
+
+        hr {
+            margin: 15px 0;
+            border: none;
+            border-top: 1px dashed #999;
+        }
+
+        /* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+        .btn_show_solution {
+            padding: 8px 16px;
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .btn_show_solution:hover {
+            background-color: #e67e22;
+        }
+
+        /* ★ ИСТОЧНИК ★ */
+        .source_info {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+
+        .source_info span, .source_info a {
+            color: #666;
+        }
+
+        .source_info a:hover {
+            color: #0066cc;
+        }
+
+        /* ★ ОТВЕТ ★ */
+        .answer {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f4ff;
+            border-left: 3px solid #4a6baf;
+            font-weight: bold;
+        }
+
+        /* ★ АДАПТИВНОСТЬ ★ */
+        @media (max-width: 768px) {
+            .btn_show_solution {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        .new_header {
+            padding-top: 3px;
+            vertical-align: middle;
+            width: 100%;
+            line-height: 25px;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #006;
+            font-weight: bold;
+        }
+        
+        .flex-img {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .flex-img img {
+            max-width: 100%;
+        }
+        
+        .tex {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="new_header">
+        <b>Тип 7. Хранение изображений. Расчёт объёма памяти</b>
+    </div>
+
+    <div class="container">
+        <!-- Задача 1 (9759) -->
+        <div class="problem_container" id="problem_9759">
+            <div class="prob_header">
+                <div class="prob_num">1</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 9759</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Какой минимальный объём памяти (в Кбайт) нужно зарезервировать, чтобы можно было сохранить любое растровое изображение размером 128 × 128 пикселей при условии, что в изображении могут использоваться 256 различных цветов? В ответе запишите только целое число, единицу измерения писать не нужно.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('9759')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock9759">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Один пиксель кодируется 8 битами памяти, так как 2⁸ = 256. Всего 128·128 = 2⁷·2⁷ = 2¹⁴ пикселей. Тогда объем памяти, занимаемый изображением: 2¹⁴·8 = 2¹⁷ бит = 2¹⁴ байт = 2⁴ Кбайт = 16 Кбайт.</p>
+                    <p><b>Ответ:</b> 16.</p>
+                </div>
+            </div>
+            
+
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 2 (2411) -->
+        <div class="problem_container" id="problem_2411">
+            <div class="prob_header">
+                <div class="prob_num">2</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 2411</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Сколько секунд потребуется обычному модему, передающему сообщения со скоростью 28800 бит/с, чтобы передать цветное растровое изображение размером 640 х 480 пикселей, при условии, что цвет каждого пикселя кодируется тремя байтами?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('2411')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock2411">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Найдем объем файла: Q = 640·480·3 байт = 921600 байт = 7372800 бит. Тогда время t = Q/q = 7372800 / 28800 = 256 с.</p>
+                    <p><b>Ответ:</b> 256.</p>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 3 (11345) -->
+        <div class="problem_container" id="problem_11345">
+            <div class="prob_header">
+                <div class="prob_num">3</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 11345</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Для хранения произвольного растрового изображения размером 1024 × 1024 пикселей отведено 512 Кбайт памяти, при этом для каждого пикселя хранится двоичное число — код цвета этого пикселя. Для каждого пикселя для хранения кода выделено одинаковое количество бит. Сжатие данных не производится. Какое максимальное количество цветов можно использовать в изображении?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('11345')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock11345">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 1024·1024·x = 512·2¹⁰·2³ бит, откуда x = 2⁹·2¹⁰·2³ : 2²⁰ = 2² бита = 4 бита. Значит, в изображении можно использовать не более 2⁴ = 16 цветов.</p>
+                    <p><b>Ответ:</b> 16.</p>
+                </div>
+            </div>
+            
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 4 (13736) -->
+        <div class="problem_container" id="problem_13736">
+            <div class="prob_header">
+                <div class="prob_num">4</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 13736</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Автоматическая фотокамера производит растровые изображения размером 640 × 480 пикселей. При этом объём файла с изображением не может превышать 320 Кбайт, упаковка данных не производится. Какое максимальное количество цветов можно использовать в палитре?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('13736')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock13736">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 640·480·x ≤ 320·2¹⁰·2³ бит, откуда x ≤ 2⁵·2¹⁰·2³ : (2¹¹·15), находим x = 8 бит. Значит, в изображении можно использовать не более 2⁸ = 256 цветов.</p>
+                    <p><b>Ответ:</b> 256.</p>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 5 (14695) -->
+        <div class="problem_container" id="problem_14695">
+            <div class="prob_header">
+                <div class="prob_num">5</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 14695</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Автоматическая фотокамера производит растровые изображения размером 800 х 600 пикселей. При этом объём файла с изображением не может превышать 600 Кбайт, упаковка данных не производится. Какое максимальное количество цветов можно использовать в палитре?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('14695')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock14695">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 800·600·x ≤ 600·2¹³ бит, откуда x ≤ 10,24 бита = 10 бит. Значит, в изображении можно использовать не более 2¹⁰ = 1024 цветов.</p>
+                    <p><b>Ответ:</b> 1024.</p>
+                </div>
+            </div>
+            
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 6 (15104) -->
+        <div class="problem_container" id="problem_15104">
+            <div class="prob_header">
+                <div class="prob_num">6</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 15104</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Автоматическая фотокамера производит растровые изображения размером 300 на 200 пикселей. При этом объём файла с изображением не может превышать 30 Кбайт, упаковка данных не производится. Какое максимальное количество цветов можно использовать в палитре?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('15104')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock15104">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 300·200·x ≤ 30·2¹³ бит, откуда x ≤ 4,096 бита = 4 бит. Значит, в изображении можно использовать не более 2⁴ = 16 цветов.</p>
+                    <p><b>Ответ:</b> 16.</p>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 7 (15131) -->
+        <div class="problem_container" id="problem_15131">
+            <div class="prob_header">
+                <div class="prob_num">7</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 15131</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Автоматическая фотокамера производит растровые изображения размером 600 на 450 пикселей. При этом объём файла с изображением не может превышать 90 Кбайт, упаковка данных не производится. Какое максимальное количество цветов можно использовать в палитре?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('15131')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock15131">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 600·450·x ≤ 90·2¹³ бит, откуда x ≤ 2,73 бита = 2 бит. Значит, в изображении можно использовать не более 2² = 4 цвета.</p>
+                    <p><b>Ответ:</b> 4.</p>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 8 (15625) -->
+        <div class="problem_container" id="problem_15625">
+            <div class="prob_header">
+                <div class="prob_num">8</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 15625</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Графический файл с разрешением 1024 х 600 на жестком диске занимает не более 120 КБайт. Определите максимальное количество цветов, которое может использоваться для кодирования данного изображения.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('15625')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock15625">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 1024·600·x ≤ 120·2¹⁰·2³ бит, откуда x ≤ 1,6 бит, находим x = 1 бит. Значит, в изображении можно использовать не более двух цветов.</p>
+                    <p><b>Ответ:</b> 2.</p>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 9 (15849) -->
+        <div class="problem_container" id="problem_15849">
+            <div class="prob_header">
+                <div class="prob_num">9</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 15849</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Автоматическая камера производит растровые изображения размером 600 на 1000 пикселей. Для кодирования цвета каждого пикселя используется одинаковое количество бит, коды пикселей записываются в файл один за другим без промежутков. Объём файла с изображением не может превышать 250 Кбайт без учёта размера заголовка файла. Какое максимальное количество цветов можно использовать в палитре?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('15849')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock15849">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 600·1000·x < 250·2¹³ бит, откуда x < 3,41 бита = 3 бита. Значит, в изображении можно использовать не более 2³ = 8 цветов.</p>
+                    <p><b>Ответ:</b> 8.</p>
+                </div>
+            </div>
+            
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 10 (15919) -->
+        <div class="problem_container" id="problem_15919">
+            <div class="prob_header">
+                <div class="prob_num">10</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 15919</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Автоматическая фотокамера производит растровые изображения размером 1600 на 1200 пикселей. При этом объём файла с изображением не может превышать 1 Мбайт, упаковка данных не производится. Какое максимальное количество цветов можно использовать в палитре?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('15919')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock15919">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 1600·1200·x ≤ 1·2²³ бит, откуда x ≤ 4,369 бита = 4 бита. Значит, в изображении можно использовать не более 2⁴ = 16 цветов.</p>
+                    <p><b>Ответ:</b> 16.</p>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 11 (17327) -->
+        <div class="problem_container" id="problem_17327">
+            <div class="prob_header">
+                <div class="prob_num">11</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 17327</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Автоматическая фотокамера с 400 Кбайт видеопамяти производит растровые изображения c фиксированным разрешением и 16-цветной палитрой. Сколько цветов можно будет использовать в палитре, если увеличить видеопамять до 800 Кбайт?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('17327')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock17327">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Количество цветов находится по формуле N = 2ⁱ. Значит, i₁ = log₂N₁ = 4 = 400/K. Следовательно, i₂ = 2·i₁ = 8. Значит, если увеличить видеопамять до 800 Кбайт, в палитре можно будет использовать 2⁸ = 256 цветов.</p>
+                    <p><b>Ответ:</b> 256.</p>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 12 (18490) -->
+        <div class="problem_container" id="problem_18490">
+            <div class="prob_header">
+                <div class="prob_num">12</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 18490</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Автоматическая фотокамера делает фотографии высокого разрешения с палитрой, содержащей 2²⁴ = 16 777 216 цветов. Средний размер фотографии составляет 12 Мбайт. Для хранения в базе данных фотографии преобразуют в чёрно-белый формат с палитрой, содержащей 256 цветов. Другие преобразования и дополнительные методы сжатия не используются. Сколько Мбайт составляет средний размер преобразованной фотографии?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('18490')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock18490">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>В исходной картинке на каждый пиксель выделяется 24 бита. После преобразования каждый пиксель уменьшается до 8 бит. Заметим, что это в три раза меньше. Значит, и средний размер изображения будет в три раза меньше: 12:3 = 4 Мбайт.</p>
+                    <p><b>Ответ:</b> 4.</p>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 13 (18557) -->
+        <div class="problem_container" id="problem_18557">
+            <div class="prob_header">
+                <div class="prob_num">13</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 18557</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Для хранения в информационной системе документы сканируются с разрешением 600 dpi и цветовой системой, содержащей 2²⁴ = 16 777 216 цветов. Методы сжатия изображений не используются. Средний размер отсканированного документа составляет 12 Мбайт. В целях экономии было решено перейти на разрешение 300 dpi и цветовую систему, содержащую 2¹⁶ = 65 536 цветов. Сколько Мбайт будет составлять средний размер документа, отсканированного с изменёнными параметрами?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('18557')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock18557">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Разрешение изображения изменилось с 600 dpi на 300 dpi. Это значит, что оно изменилось в 600·600/(300·300) = 4 раза. Глубина цвета была изменена в 24/16 = 1,5 раза. Следовательно, средний размер документа, отсканированного с изменёнными параметрами, равняется 12 / (4·1,5) = 2 Мбайт.</p>
+                    <p><b>Ответ:</b> 2.</p>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 14 (18711) -->
+        <div class="problem_container" id="problem_18711">
+            <div class="prob_header">
+                <div class="prob_num">14</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 18711</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Автоматическая фотокамера производит растровые изображения размером 128 на 320 пикселей. При этом объём файла с изображением не может превышать 40 Кбайт, упаковка данных не производится. Какое максимальное количество цветов можно использовать в палитре?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('18711')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock18711">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 128·320·x < 40·2¹³ бит, откуда x < 8 бит. Значит, в изображении можно использовать не более 2⁸ = 256 цветов.</p>
+                    <p><b>Ответ:</b> 256.</p>
+                </div>
+            </div>
+           
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 15 (26952) -->
+        <div class="problem_container" id="problem_26952">
+            <div class="prob_header">
+                <div class="prob_num">15</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 26952</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>На снимок размером 1200 на 1024 пикселей в памяти выделено не более 1000 Кбайт. Найдите максимально возможное количество цветов в палитре изображения.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('26952')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock26952">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 1200·1024·x < 1000·2¹³ бит, откуда x = 6 бит. Значит, в изображении можно использовать не более 2⁶ = 64 цвета.</p>
+                    <p><b>Ответ:</b> 64.</p>
+                </div>
+            </div>
+			
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 16 (26981) -->
+        <div class="problem_container" id="problem_26981">
+            <div class="prob_header">
+                <div class="prob_num">16</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 26981</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Камера делает фотоснимки размером 250 × 300 пикселей. На хранение одного кадра отводится 40 Кбайт. Найдите максимально возможное количество цветов в палитре изображения.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('26981')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock26981">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 250·300·x < 40·2¹³ бит, откуда x = 4 бита. Значит, в изображении можно использовать не более 2⁴ = 16 цветов.</p>
+                    <p><b>Ответ:</b> 16.</p>
+                </div>
+            </div>
+			
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 17 (27378) -->
+        <div class="problem_container" id="problem_27378">
+            <div class="prob_header">
+                <div class="prob_num">17</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 27378</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Для проведения эксперимента создаются изображения, содержащие случайные наборы цветных пикселей. Размер изображения — 640 x 480 пк, при сохранении изображения каждый пиксель кодируется одинаковым числом битов, все коды пикселей записываются подряд, методы сжатия не используются. Размер файла не должен превышать 280 Кбайт, при этом 40 Кбайт необходимо выделить для служебной информации. Какое максимальное количество различных цветов и оттенков можно использовать в изображении?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('27378')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock27378">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 640·480·x < 240·2¹³ бит, откуда x = 6 бит. Значит, в изображении можно использовать не более 2⁶ = 64 цвета.</p>
+                    <p><b>Ответ:</b> 64.</p>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 18 (28684) -->
+        <div class="problem_container" id="problem_28684">
+            <div class="prob_header">
+                <div class="prob_num">18</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 28684</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>В информационной системе хранятся изображения размером 160 x 128 пикселей, содержащие не более 64 различных цветов. Коды пикселей записываются подряд, никакая дополнительная информация об изображении не сохраняется, данные не сжимаются. Сколько Кбайт нужно выделить для хранения одного изображения? В ответе укажите только целое число — количество Кбайт, единицу измерения указывать не надо.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('28684')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock28684">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Один пиксель кодируется 6 битами памяти, так как 2⁶ = 64. Всего 160·128 пикселей. Тогда объем памяти, занимаемый одним изображением, будет равен 160·128·6 бит = 20·128·6 байт = 15360 байт = 15 Кбайт.</p>
+                    <p><b>Ответ:</b> 15.</p>
+                </div>
+            </div>
+			
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 19 (33179) -->
+        <div class="problem_container" id="problem_33179">
+            <div class="prob_header">
+                <div class="prob_num">19</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 33179</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Для хранения в информационной системе документы сканируются с разрешением 300 dpi и цветовой системой, содержащей 2¹⁶ = 65 536 цветов. Методы сжатия изображений не используются. Средний размер отсканированного документа составляет 9 Мбайт. В целях экономии было решено перейти на разрешение 200 dpi и цветовую систему, содержащую 256 цветов. Сколько Мбайт будет составлять средний размер документа, отсканированного с изменёнными параметрами?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('33179')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock33179">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Разрешение изображения изменилось с 300 dpi на 200 dpi. Это значит, что оно изменилось в 200·200/(300·300) = 4/9 раза. Количество цветов в палитре было изменено в 8/16 = 0,5 раза. Следовательно, средний размер документа, отсканированного с изменёнными параметрами, равняется 9·(4/9)·0,5 = 2 Мбайт.</p>
+                    <p><b>Ответ:</b> 2.</p>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 20 (35465) -->
+        <div class="problem_container" id="problem_35465">
+            <div class="prob_header">
+                <div class="prob_num">20</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 35465</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>В информационной системе хранятся изображения размером 1024 × 768 пикселей. Методы сжатия изображений не используются. Каждое изображение дополняется служебной информацией, которая занимает 1280 Кбайт. Для хранения 2048 изображений потребовалось 4 Гбайт. Сколько цветов использовано в палитре каждого изображения?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('35465')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock35465">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Для хранения одного изображения, включая служебную информацию, потребуется 4·1024·1024/2048 = 2048 Кбайт. Без учёта служебной информации на хранение одного изображения потребуется 2048 − 1280 = 768 Кбайт. Тогда один пиксель кодируется 768·1024·8/(1024·768) = 8 битами. Следовательно, в палитре используется 2⁸ = 256 цветов.</p>
+                    <p><b>Ответ:</b> 256.</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+    <div class="container">
+        <!-- Задача 21 (35981) -->
+        <div class="problem_container" id="problem_35981">
+            <div class="prob_header">
+                <div class="prob_num">21</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 35981</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>В информационной системе хранятся изображения размером 2048 × 1536 пк. При кодировании используется алгоритм сжатия изображений, позволяющий уменьшить размер памяти для хранения одного изображения в среднем в 8 раз по сравнению с независимым кодированием каждого пикселя. Каждое изображение дополняется служебной информацией, которая занимает 128 Кбайт. Для хранения 32 изображений потребовалось 16 Мбайт. Сколько цветов использовано в палитре каждого изображения?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('35981')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock35981">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Поскольку для хранения 32 изображений потребовалось 16 Мбайт, для хранения одного изображения потребуется 0,5 Мбайт или 512 Кбайт. Для хранения одного изображения, включая служебную информацию, потребуется (2048·1536·x)/(8·8·1024) + 128 = 512 Кбайт. Тогда один пиксель кодируется x = 8 битами. Следовательно, в палитре каждого изображения используется 2⁸ = 256 цветов.</p>
+                    <p><b>Ответ:</b> 256.</p>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    <div class="container">
+        <!-- Задача 22 (36020) -->
+        <div class="problem_container" id="problem_36020">
+            <div class="prob_header">
+                <div class="prob_num">22</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 36020</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Для хранения произвольного растрового изображения размером 1536 × 2048 пикселей отведено не более 6 Мбайт памяти без учёта размера заголовка файла. Для кодирования цвета каждого пикселя используется одинаковое количество бит, коды пикселей записываются в файл один за другим без промежутков. Какое максимальное количество цветов можно использовать в изображении?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('36020')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock36020">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём растрового изображения находится как произведение количества пикселей в изображении на объём памяти x, необходимый для хранения цвета одного пикселя: 1536·2048·x ≤ 6·2²³ бит, откуда x = 16 бит. Значит, в изображении можно использовать не более 2¹⁶ = 65536 цветов.</p>
+                    <p><b>Ответ:</b> 65536.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+        function toggleSolution(problemNumber) {
+            const solution = document.getElementById('solutionBlock' + problemNumber);
+            const btn = event.target;
+            
+            if (solution.style.display === 'none' || solution.style.display === '') {
+                solution.style.display = 'block';
+                btn.textContent = 'Скрыть решение';
+            } else {
+                solution.style.display = 'none';
+                btn.textContent = 'Показать решение';
+            }
+        }
+    </script>
+</body>
+</html>

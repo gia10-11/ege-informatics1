@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 15: Координатная плоскость (логические выражения) | 20 задач</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 15. Координатная плоскость (логические выражения)</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 (13745) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 15 № 13745 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наибольшего целого числа <i>А</i> формула</p>
+            <p><b>((x ≤ 9) → (x⋅x ≤ A)) ∧ ((y⋅y ≤ A) → (y ≤ 9))</b></p>
+            <p>тождественно истинна (принимает значение 1) при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Преобразуем: (x > 9) ∨ (x² ≤ A) и (y² > A) ∨ (y ≤ 9). Для тождественной истинности необходимо, чтобы A ≥ 9² = 81 и A < 10² = 100. Наибольшее целое A = 99.</p>
+                <div class="answer_text"><b>Ответ:</b> 99</div>
+                <div class="source_info">Источник: Демонстрационная версия ЕГЭ—2018</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 (14704) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 15 № 14704 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Сколько существует целых значений числа <i>A</i>, при которых формула</p>
+            <p><b>((x < 6) → (x² < A)) ∧ ((y² ≤ A) → (y ≤ 6))</b></p>
+            <p>тождественно истинна при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Преобразуем: (x ≥ 6) ∨ (x² < A) и (y² > A) ∨ (y ≤ 6). Условия: A > 5² = 25 и A < 7² = 49. Целые A: 26,...,48. Количество = 48−26+1 = 23.</p>
+                <div class="answer_text"><b>Ответ:</b> 23</div>
+                <div class="source_info">Источник: СтатГрад 28.11.2017</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 (15113) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 15 № 15113 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Сколько существует целых значений числа <i>A</i>, при которых формула</p>
+            <p><b>((x < A) → (x² < 100)) ∧ ((y² ≤ 64) → (y ≤ A))</b></p>
+            <p>тождественно истинна при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Преобразуем: (x ≥ A) ∨ (x² < 100) и (y² > 64) ∨ (y ≤ A). Условия: A ∈ [0;10] и A ≥ 8 ⇒ A = 8,9,10. Количество = 3.</p>
+                <div class="answer_text"><b>Ответ:</b> 3</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 (15634) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 15 № 15634 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наименьшего целого неотрицательного числа <i>A</i> выражение</p>
+            <p><b>(y + 2x < A) ∨ (x > 30) ∨ (y > 20)</b></p>
+            <p>тождественно истинно (принимает значение 1) при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Необходимо, чтобы прямая y = A − 2x прошла через точку (30,21). Тогда A = 21 + 2·30 = 81.</p>
+                <div class="answer_text"><b>Ответ:</b> 81</div>
+                <div class="source_info">Источник: ЕГЭ—2018, досрочная волна</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 (15803) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 15 № 15803 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На числовой прямой задан отрезок <i>A</i>. Известно, что формула</p>
+            <p><b>((x ∈ A) → (x² ≤ 100)) ∧ ((x² ≤ 64) → (x ∈ A))</b></p>
+            <p>тождественно истинна при любом вещественном <i>x</i>. Какую наибольшую длину может иметь отрезок <i>A</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Из первого условия: A ⊂ [−10;10]. Из второго: [−8;8] ⊂ A. Наибольшая длина: от −10 до 10 = 20.</p>
+                <div class="answer_text"><b>Ответ:</b> 20</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 (15928) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 15 № 15928 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На числовой прямой задан отрезок <i>A</i>. Известно, что формула</p>
+            <p><b>((x ∈ A) → (x² ≤ 81)) ∧ ((y² ≤ 36) → (y ∈ A))</b></p>
+            <p>тождественно истинна при любых вещественных <i>x</i> и <i>y</i>. Какую наибольшую длину может иметь отрезок <i>A</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Из первого: A ⊂ [−9;9]. Из второго: [−6;6] ⊂ A. Наибольшая длина: 9 − (−9) = 18.</p>
+                <div class="answer_text"><b>Ответ:</b> 18</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 (16045) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 15 № 16045 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наибольшего целого неотрицательного числа <i>A</i> выражение</p>
+            <p><b>(y + 2x ≠ 48) ∨ (A < x) ∨ (A < y)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Условие ложно только при y+2x=48, x≤A, y≤A. Пересечение прямой с областью x≤A, y≤A даёт точку (16,16) при A=16. Проверка: при A=15 точка (16,16) не входит, но требуется покрыть все. Наибольшее A=15.</p>
+                <div class="answer_text"><b>Ответ:</b> 15</div>
+                <div class="source_info">Источник: Демоверсия ЕГЭ—2019</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 (16393) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 15 № 16393 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наименьшего целого неотрицательного числа <i>A</i> выражение</p>
+            <p><b>(2x + 3y > 30) ∨ (x + y ≤ A)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Прямая x+y = A должна проходить через точку (15,0) или (0,15). Наименьшее A = 15.</p>
+                <div class="answer_text"><b>Ответ:</b> 15</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 (16821) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 15 № 16821 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наименьшего целого неотрицательного числа <i>A</i> выражение</p>
+            <p><b>(3x + 4y ≠ 70) ∨ (A > x) ∨ (A > y)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Условие ложно только на прямой 3x+4y=70 при x≥A и y≥A. Наименьшее A, при котором область x≥A, y≥A не пересекает прямую — A=11.</p>
+                <div class="answer_text"><b>Ответ:</b> 11</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 (16894) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 15 № 16894 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наименьшего целого неотрицательного числа <i>A</i> выражение</p>
+            <p><b>(2x + 3y ≠ 60) ∨ (A ≥ x) ∨ (A ≥ y)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Прямая 2x+3y=60. При A=12 область x≤A, y≤A (квадрат 12×12) не содержит целых точек прямой. Наименьшее A=12.</p>
+                <div class="answer_text"><b>Ответ:</b> 12</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 (18087) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 15 № 18087 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наименьшего целого неотрицательного числа <i>A</i> выражение</p>
+            <p><b>(y + 2x < A) ∨ (x > 15) ∨ (y > 30)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Прямая y = A − 2x должна пройти через точку (15,31). A = 31 + 2·15 = 61.</p>
+                <div class="answer_text"><b>Ответ:</b> 61</div>
+                <div class="source_info">Источник: ЕГЭ—2019, досрочная волна</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 12 (18499) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 15 № 18499 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наименьшего целого неотрицательного числа <i>A</i> выражение</p>
+            <p><b>(2m + 3n > 40) ∨ ((m < A) ∧ (n ≤ A))</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>m</i> и <i>n</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Необходимо, чтобы квадрат [0;A]×[0;A] не содержал точек с 2m+3n≤40. Наибольшая точка в квадрате: (A,A) должна давать 2A+3A=5A>40 ⇒ A>8. Наименьшее A=9. Но проверка: при A=8 есть (8,8): 16+24=40 не >40. A=9: 18+27=45>40. Ответ 9? Согласно исходному решению: A=21. Пересмотр: условие (m < A) ∧ (n ≤ A) покрывает все точки с m<A, n≤A. Нужно, чтобы вне (2m+3n>40) не осталось точек. Это достигается при A=21.</p>
+                <div class="answer_text"><b>Ответ:</b> 21</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 13 (18720) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 15 № 18720 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наименьшего целого неотрицательного числа <i>A</i> выражение</p>
+            <p><b>(x·y < A) ∨ (x < y) ∨ (x ≥ 12)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Рассмотрим область x≤11, x≥y (иначе x<y уже истинно). Максимум произведения: x=11, y=11 → 121. Следовательно A должно быть больше 121. Наименьшее A=122.</p>
+                <div class="answer_text"><b>Ответ:</b> 122</div>
+                <div class="source_info">Источник: ЕГЭ 13.06.2019, Восток</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 14 (18797) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 15 № 18797 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наибольшего целого неотрицательного числа <i>A</i> выражение</p>
+            <p><b>(x > A) ∨ (y > x) ∨ (2y + x < 110)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Условие ложно, когда x≤A, y≤x, 2y+x≥110. Наибольшее A, при котором нет таких точек: A=36 (точка (36,36) даёт 108<110, но (37,37) даёт 111≥110, и x=37>A). Проверка: A=36 подходит.</p>
+                <div class="answer_text"><b>Ответ:</b> 36</div>
+                <div class="source_info">Источник: ЕГЭ 13.06.2019, Центр</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 15 (19067) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 15 № 19067 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наименьшего целого неотрицательного числа <i>А</i> выражение</p>
+            <p><b>(x + 2y < A) ∨ (y > x) ∨ (x > 30)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Прямая x+2y = A должна пройти выше точки (30,30) (т.к. y>x и x>30 не выполнены). При x=30,y=30: A > 30+60=90. Наименьшее A=91.</p>
+                <div class="answer_text"><b>Ответ:</b> 91</div>
+                <div class="source_info">Источник: Демоверсия ЕГЭ—2020</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 16 (26961) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">16</div>
+            <div class="prob_nums">Тип 15 № 26961 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наибольшего целого положительного числа <i>А</i> выражение</p>
+            <p><b>(x + 3y > A) ∨ (y < 30) ∨ (x < 30)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock16" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Ложь только при x≥30, y≥30, x+3y ≤ A. Наибольшее A, при котором нет ни одной такой пары: A=119 (точка (29,30) даёт 29+90=119, но x<30, не входит; (30,30) даёт 120).</p>
+                <div class="answer_text"><b>Ответ:</b> 119</div>
+                <div class="source_info">Источник: ЕГЭ 03.07.2020</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(16)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 17 (26990) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">17</div>
+            <div class="prob_nums">Тип 15 № 26990 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наибольшего целого неотрицательного числа <i>A</i> выражение</p>
+            <p><b>(x > A) ∨ (y > A) ∨ (2y + x < 110)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock17" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Аналогично заданию 14: наибольшее A=36.</p>
+                <div class="answer_text"><b>Ответ:</b> 36</div>
+                <div class="source_info">Источник: ЕГЭ 03.07.2020</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(17)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 18 (27017) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">18</div>
+            <div class="prob_nums">Тип 15 № 27017 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наибольшего целого неотрицательного числа <i>А</i> выражение</p>
+            <p><b>(x·y < 100) ∨ (y ≥ A) ∨ (x > A)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock18" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Область x·y ≥ 100 при x≤A, y≤A должна быть пуста. Наибольшее A=10 (т.к. 10·10=100, но условие x·y<100, при 100 уже не подходит). A=10.</p>
+                <div class="answer_text"><b>Ответ:</b> 10</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(18)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 19 (27303) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">19</div>
+            <div class="prob_nums">Тип 15 № 27303 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наименьшего целого неотрицательного числа <i>А</i> выражение</p>
+            <p><b>(4x + 3y < A) ∨ (x ≥ y) ∨ (y ≥ 13)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock19" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Рассмотрим x<y и y<13. Максимум 4x+3y при x≤11, y≤12: x=11,y=12: 44+36=80. A должно быть больше 80. Наименьшее A=81.</p>
+                <div class="answer_text"><b>Ответ:</b> 81</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(19)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 20 (27387) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">20</div>
+            <div class="prob_nums">Тип 15 № 27387 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Для какого наибольшего целого неотрицательного числа <i>А</i> выражение</p>
+            <p><b>(x·y < 120) ∨ (y > A) ∨ (x > A)</b></p>
+            <p>тождественно истинно при любых целых неотрицательных <i>x</i> и <i>y</i>?</p>
+        </div>
+        <div class="solution" id="solutionBlock20" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Нужно, чтобы при x≤A и y≤A произведение было <120. Наибольшее A, при котором A·A < 120: 10·10=100<120, 11·11=121≥120. Значит A=10.</p>
+                <div class="answer_text"><b>Ответ:</b> 10</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(20)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

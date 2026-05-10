@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 9: Работа с таблицами</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ ИНСТРУКЦИЯ ★ */
+.instruction_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+/* ★ БЛОК ОТВЕТА ★ */
+.answer_block {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 3px;
+}
+
+.answer_block h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.answer_form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.answer_input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.answer_input:focus {
+    border-color: #4a6baf;
+    outline: none;
+}
+
+.btn_check {
+    padding: 8px 20px;
+    background-color: #4a6baf;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_check:hover {
+    background-color: #3a5a9f;
+}
+
+.result_message {
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.result_message.correct {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.result_message.incorrect {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+.btn_download {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.btn_download:hover {
+    background-color: #2980b9;
+}
+
+.btn_secondary {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #95a5a6;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.btn_secondary:hover {
+    background-color: #7f8c8d;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.source_info span {
+    color: #666;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .answer_form {
+        flex-direction: column;
+    }
+    
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_check,
+    .btn_show_solution,
+    .btn_download,
+    .btn_secondary {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 9. Работа с электронными таблицами</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 9 № 38588 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Откройте файл электронной таблицы, содержащей в каждой строке три натуральных числа.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.1.ods " target="_blank">Задание 9</a></p></center>
+            <p>Выясните, какое количество троек чисел может являться сторонами треугольника, то есть удовлетворяет неравенству треугольника. В ответе запишите только число.</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Неравенство треугольника будет выполнено для всех сторон треугольника, если длина наибольшей стороны треугольника будет меньше суммы длин двух других сторон.</p>
+                <p>В ячейке D1 запишем формулу <b>=МАКС(A1:C1)</b> и скопируем её во все ячейки диапазона D2:D5000.</p>
+                <p>В ячейке E1 запишем формулу <b>=СУММ(A1:C1)-МАКС(A1:C1)</b> и скопируем её во все ячейки диапазона E2:E5000. Таким образом, получим длину наибольшей стороны и сумму двух других сторон для каждой тройки чисел.</p>
+                <p>После этого в ячейку F1 запишем формулу <b>=ЕСЛИ(D1&lt;E1;1;0)</b> и скопируем её во все ячейки диапазона F2:F5000.</p>
+                <p>Теперь, воспользовавшись формулой <b>=СУММ(F1:F5000)</b>, получим ответ.</p>
+                <div class="answer_text"><b>Ответ:</b> 2453</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 9 № 38943 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Откройте файл электронной таблицы, содержащей в каждой строке три натуральных числа.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.2.ods " target="_blank">Задание 9</a></p></center>
+            <p>Определите, сколько среди заданных троек чисел таких, которые могут быть сторонами остроугольного треугольника.</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Треугольник является остроугольным, если квадрат длины наибольшей стороны треугольника меньше суммы квадратов длин двух других сторон.</p>
+                <p>В ячейке D1 запишем формулу <b>=(МАКС(A1:C1))^2</b> и скопируем её во все ячейки диапазона D2:D5000.</p>
+                <p>В ячейке E1 запишем формулу <b>=(МИН(A1:C1))^2+(СУММ(A1:C1)-МИН(A1:C1)-МАКС(A1:C1))^2</b> и скопируем её во все ячейки диапазона E2:E5000.</p>
+                <p>После этого в ячейку F1 запишем формулу <b>=ЕСЛИ(D1&lt;E1;1;0)</b> и скопируем её во все ячейки диапазона F2:F5000.</p>
+                <p>Теперь, воспользовавшись формулой <b>=СУММ(F1:F5000)</b>, получим ответ.</p>
+                <div class="answer_text"><b>Ответ:</b> 1074</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 9 № 40725 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В каждой строке электронной таблицы записаны три натуральных числа, задающих длины трёх взаимно перпендикулярных рёбер прямоугольного параллелепипеда. Определите, сколько в таблице троек, для которых у заданного ими параллелепипеда можно так выбрать три грани с общей вершиной, что сумма площадей двух из них будет меньше площади третьей.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.3.ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Для нахождения количества параллелепипедов, удовлетворяющих условию, необходимо найти площадь наибольшей грани и сумму площадей двух других граней.</p>
+                <p>В ячейку D1 запишем формулу <b>=МАКС(A1:C1)*(СУММ(A1:C1)-МАКС(A1:C1)-МИН(A1:C1))</b> и скопируем её во все ячейки диапазона D2:D5000.</p>
+                <p>В ячейку E1 запишем формулу <b>=МАКС(A1:C1)*МИН(A1:C1)+(СУММ(A1:C1)-МАКС(A1:C1)-МИН(A1:C1))*МИН(A1:C1)</b> и скопируем её во все ячейки диапазона E2:E5000.</p>
+                <p>В ячейку F1 запишем формулу <b>=ЕСЛИ(D1&gt;E1;1;0)</b> и скопируем её во все ячейки диапазона F2:F5000.</p>
+                <p>Окончательно с помощью формулы <b>=СУММ(F1:F5000)</b> получим ответ.</p>
+                <div class="answer_text"><b>Ответ:</b> 3119</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 9 № 45243 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Откройте файл электронной таблицы, содержащей в каждой строке пять натуральных чисел.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.4.ods " target="_blank">Задание 9</a></p></center>
+            <p>Определите количество строк таблицы, в которых квадрат суммы максимального и минимального чисел в строке больше суммы квадратов трёх оставшихся.</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>В ячейке F1 запишем формулу <b>=(МАКС(A1:E1)+МИН(A1:E1))^2</b> и скопируем её во все ячейки диапазона F2:F3200.</p>
+                <p>В ячейке G1 запишем формулу <b>=СУММКВ(A1:E1)-МАКС(A1:E1)^2-МИН(A1:E1)^2</b> и скопируем её во все ячейки диапазона G2:G3200.</p>
+                <p>В ячейке H1 запишем формулу <b>=ЕСЛИ(F1&gt;G1;1;0)</b> и скопируем её во все ячейки диапазона H2:H3200.</p>
+                <p>Таким образом, с помощью формулы <b>=СУММ(H1:H3200)</b> получим ответ.</p>
+                <div class="answer_text"><b>Ответ:</b> 2640</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 9 № 46967 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В каждой строке электронной таблицы записаны четыре натуральных числа. Определите, сколько в таблице таких четвёрок, из которых можно выбрать три числа, которые не могут быть сторонами никакого треугольника, в том числе вырожденного.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.5.ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Если наибольшее число из четырёх больше суммы двух наименьших чисел в строке, то в такой четвёрке чисел можно выбрать три числа, которые не могут быть сторонами никакого треугольника.</p>
+                <p>В ячейку E1 запишем формулу <b>=МАКС(A1:D1)</b> и скопируем её во все ячейки диапазона E2:E5000.</p>
+                <p>В ячейку F1 запишем формулу <b>=МИН(A1:D1)</b> и скопируем её во все ячейки диапазона F2:F5000.</p>
+                <p>В ячейку G1 запишем формулу <b>=НАИМЕНЬШИЙ(A1:D1;2)</b> и скопируем её во все ячейки диапазона G2:G5000.</p>
+                <p>В ячейку H1 запишем формулу <b>=ЕСЛИ(E1&gt;F1+G1;1;0)</b> и скопируем её во все ячейки диапазона H2:H5000.</p>
+                <p>Окончательно с помощью формулы <b>=СУММ(H1:H5000)</b> получим ответ.</p>
+                <div class="answer_text"><b>Ответ:</b> 3094</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 9 № 47213 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Откройте файл электронной таблицы, содержащей в каждой строке шесть натуральных чисел. Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:</p>
+            <p>— в строке только одно число повторяется ровно два раза, остальные числа различны;</p>
+            <p>— среднее арифметическое неповторяющихся чисел строки не больше суммы повторяющихся чисел.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.6.ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>В ячейку G1 помещаем формулу <b>=СЧЁТЕСЛИ($A1:$F1;A1)</b> и копируем её на диапазон G1:L6400. Данная формула выдаст в ячейках количество раз, которое встречается в строке каждое число.</p>
+                <p>В ячейку M1 запишем формулу <b>=СУММ(G1:L1)-7</b> и скопируем ее на диапазон M1:M6400. Если значение в ячейке равно 1, то в строке есть повторяющиеся числа, причем только одно число повторяется ровно два раза, остальные числа различны.</p>
+                <p>В ячейку N1 запишем формулу <b>=ЕСЛИ(G1 = 2;A1;0)</b> и скопируем её на диапазон N1:S6400.</p>
+                <p>В ячейку T1 запишем формулу <b>=ЕСЛИ(M1 = 1; СУММ(A1:F1);0)</b> и скопируем её на диапазон T1:T6400.</p>
+                <p>В ячейку U1 запишем формулу <b>=СУММ(N1:S1)</b> и скопируем её на диапазон U1:U6400.</p>
+                <p>В ячейку V1 запишем формулу <b>=(T1-U1)/4</b> и скопируем её на диапазон V1:V6400.</p>
+                <p>В ячейку W1 запишем формулу <b>=ЕСЛИ(И(V1&lt;=U1;M1 = 1);1;0)</b> и скопируем её на диапазон W1:W6400.</p>
+                <p>В ячейке X1 посчитаем все строки, удовлетворяющие условиям задачи, с помощью формулы <b>=СУММ(W1:W6400)</b> и получим ответ.</p>
+                <div class="answer_text"><b>Ответ:</b> 2241</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 9 № 48430 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В каждой строке электронной таблицы записаны шесть натуральных чисел. Определите, сколько в таблице строк, для которых выполнены следующие условия:</p>
+            <p>— в строке встречается ровно четыре различных числа; два из них по два раза, два — по одному;</p>
+            <p>— сумма повторяющихся чисел (без учёта повторений, то есть каждое число входит в сумму один раз) меньше суммы неповторяющихся.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.7.ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>В ячейку G1 запишем формулу <b>=ЕСЛИ(СЧЁТЕСЛИ($A1:$F1;A1)=2; A1;"")</b>. Скопируем формулу на диапазон G1:L6400.</p>
+                <p>В ячейку М1 запишем формулу <b>=ЕСЛИ(G1="";A1;"")</b> и скопируем ее на диапазон M1:R6400.</p>
+                <p>В столбце S будем считать количество строк, удовлетворяющих решению. Введем формулу: <b>=ЕСЛИ(СЧЁТЕСЛИ(G1:L1;"")=2;ЕСЛИ(СУММ(G1:L1)/2&lt;СУММ(M1:R1);1;0);0)</b> и скопируем ее на весь диапазон S1:S6400.</p>
+                <p>Подсчитаем количество строк, удовлетворяющих условию, формулой: <b>=СУММ(S1:S6400).</b></p>
+                <div class="answer_text"><b>Ответ:</b> 351</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 9 № 51978 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В каждой строке электронной таблицы записаны пять целых положительных чисел. Определите, сколько в таблице строк, для которых выполнены следующие условия:</p>
+            <p>— все числа в строке различны;</p>
+            <p>— нечётных чисел больше, чем чётных;</p>
+            <p>— сумма нечётных чисел меньше суммы чётных.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.8.ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>В ячейке F1 введем формулу: <b>=ЕСЛИ(СЧЁТЕСЛИ($A1:$E1;A1)=1;1;0)</b> и скопируем её во все ячейки диапазона F1:J6400.</p>
+                <p>В ячейке K1 введем формулу <b>=СУММ(F1:J1)</b> и скопируем её во все ячейки диапазона K1:K6400. Если значение в ячейке К равно 5, значит, все числа в строке различны.</p>
+                <p>В ячейке L1 введем формулу: <b>=ЕСЛИ(ЕЧЁТН(A1)=ИСТИНА;A1;0)</b> и скопируем её во все ячейки диапазона L1:P6400.</p>
+                <p>В ячейке Q1 введем формулу: <b>=ЕСЛИ(НЕ(ЕЧЁТН(A1))=ИСТИНА;A1;0)</b> и скопируем её во все ячейки диапазона Q1:U6400.</p>
+                <p>В столбце V посчитаем количество чётных чисел: <b>=СЧЁТЕСЛИ(L1:P1;"&lt;&gt;0")</b>.</p>
+                <p>В столбце W посчитаем количество нечётных чисел: <b>=СЧЁТЕСЛИ(Q1:U1;"&lt;&gt;0")</b>.</p>
+                <p>В столбце X сравним количество чётных и нечётных чисел: <b>=ЕСЛИ(W1&gt;V1;1;0)</b>.</p>
+                <p>В столбце Y сравним сумму чётных и нечётных чисел: <b>=ЕСЛИ(СУММ(L1:P1)&gt;СУММ(Q1:U1);1;0)</b>.</p>
+                <p>В столбце Z проверим ячейки на выполнение условия задачи: <b>=ЕСЛИ(И(K1=5;X1=1;Y1=1);1;0)</b>.</p>
+                <p>Окончательно с помощью формулы <b>=СУММ(Z1:Z6400)</b> получим ответ.</p>
+                <div class="answer_text"><b>Ответ:</b> 303</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 9 № 55596 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В каждой строке электронной таблицы записаны шесть натуральных чисел. Назовём ячейку таблицы хорошей, если для неё выполняются условия:</p>
+            <p>— число в данной ячейке не встречается в других ячейках этой же строки;</p>
+            <p>— число в данной ячейке ровно 45 раз встречается в других строках таблицы.</p>
+            <p>Определите количество строк таблицы, содержащих хотя бы одну хорошую ячейку.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.9ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>В ячейку G1 впишем <b>=СЧЁТЕСЛИ($A1:$F1;A1)</b> и растянем до ячейки L1 и вниз, до самого конца таблицы.</p>
+                <p>В ячейку M1 впишем формулу: <b>=СЧЁТЕСЛИ($A:$F;A1)</b> и скопируем формулу до ячейки R6000.</p>
+                <p>В ячейку S1 введем формулу и скопируем ее до ячейки X6000: <b>=ЕСЛИ(И(G1=1;M1=46);1;0)</b>.</p>
+                <p>В столбце Y будем считать количество хороших ячеек в строке: <b>=СУММ(S1:X1)</b>.</p>
+                <p>В столбце Z будем считать количество строк, содержащих хорошие ячейки: <b>=ЕСЛИ(Y1&gt;=1;1;0)</b>.</p>
+                <p>Окончательно находим количество искомых строк с помощью формулы <b>=СУММ(Z1:Z6000)</b>.</p>
+                <div class="answer_text"><b>Ответ:</b> 445</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 9 № 55805 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Откройте файл электронной таблицы, содержащей в каждой строке пять натуральных чисел. Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:</p>
+            <p>— каждое число в строке встречается по одному разу,</p>
+            <p>— утроенная сумма максимального и минимального значений не превышает удвоенной суммы оставшихся чисел.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.10.ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>В ячейку F1 запишем формулу: <b>=СЧЁТЕСЛИ($A1:$E1;A1)</b> и скопируем её во все ячейки диапазона F1:J3200.</p>
+                <p>В ячейке К1 запишем формулу <b>=СУММ(F1:J1)</b>. Если число в ячейке равно 5, то в ряду все числа встречаются один раз.</p>
+                <p>В ячейке L1 посчитаем утроенную сумму максимального и минимального значений: <b>=ЕСЛИ(K1=5;3*(МАКС(A1:E1)+МИН(A1:E1));0)</b>.</p>
+                <p>В ячейке M1 посчитаем удвоенную сумму оставшихся чисел: <b>=ЕСЛИ(K1=5;2*(СУММ(A1:E1)-МАКС(A1:E1)-МИН(A1:E1));0)</b>.</p>
+                <p>В ячейке N1 запишем формулу: <b>=ЕСЛИ(K1=5;ЕСЛИ(L1&lt;=M1;1;0);0)</b>.</p>
+                <p>Окончательно с помощью формулы <b>=СУММ(N1:N3200)</b> получим ответ.</p>
+                <div class="answer_text"><b>Ответ:</b> 853</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 9 № 56509 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В каждой строке электронной таблицы записаны шесть натуральных чисел. Определите, сколько в таблице строк, для которых выполнены следующие условия:</p>
+            <p>— в строке есть как повторяющиеся, так и неповторяющиеся числа;</p>
+            <p>— среднее арифметическое всех неповторяющихся чисел строки больше, чем среднее арифметическое всех повторяющихся чисел этой строки.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.11.ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>В ячейку G1 впишем <b>=СЧЁТЕСЛИ($A1:$F1; A1)</b> и растянем до ячейки L1 и вниз, до самого конца таблицы.</p>
+                <p>Найдем количество удовлетворяющих нас строк, впишем <b>=ЕСЛИ(И(СУММ(G1:L1)&gt;6; ИЛИ(G1=1; H1 = 1; I1 = 1; J1 = 1; K1 = 1; L1 = 1)); 1; 0)</b> в ячейку M1.</p>
+                <p>В ячейку N1 вписываем: <b>=ЕСЛИ(G1 = 1; A1; " ")</b> и протягиваем до S1 и до конца таблицы.</p>
+                <p>В ячейку T1 записываем: <b>=ЕСЛИ(M1 = 1; СРЗНАЧ(N1:S1);" ")</b>.</p>
+                <p>Аналогично находим среднее арифметическое для повторяющихся чисел (для них <b>=ЕСЛИ(G1 &gt; 1; A1; " ")</b>).</p>
+                <p>Окончательно находим количество искомых строк с помощью формулы <b>=СУММ(AB1:AB6400)</b>.</p>
+                <div class="answer_text"><b>Ответ:</b> 2102</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 12 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 9 № 57416 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Откройте файл электронной таблицы, содержащей в каждой строке пять натуральных чисел. Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:</p>
+            <p>— в строке все числа различны;</p>
+            <p>— удвоенная сумма максимального и минимального чисел строки не больше суммы оставшихся трёх её чисел.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.12.ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>В ячейку F1 запишем формулу: <b>=СЧЁТЕСЛИ($A1:$E1;A1)</b> и скопируем её во все ячейки диапазона F1:J16000.</p>
+                <p>В ячейке К1 запишем формулу <b>=СУММ(F1:J1)</b>. Если число в ячейке равно 5, то в ряду все числа встречаются один раз.</p>
+                <p>В ячейке L1 посчитаем удвоенную сумму максимального и минимального значений: <b>=ЕСЛИ(K1=5;2*(МАКС(A1:E1)+МИН(A1:E1));0)</b>.</p>
+                <p>В ячейке M1 посчитаем сумму оставшихся чисел: <b>=ЕСЛИ(K1=5;(СУММ(A1:E1)-МАКС(A1:E1)-МИН(A1:E1));0)</b>.</p>
+                <p>В ячейке N1 запишем формулу: <b>=ЕСЛИ(K1=5;ЕСЛИ(L1&lt;=M1;1;0);0)</b>.</p>
+                <p>Окончательно с помощью формулы <b>=СУММ(N1:N16000)</b> получим ответ.</p>
+                <div class="answer_text"><b>Ответ:</b> 607</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 13 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 9 № 58321 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Откройте файл электронной таблицы, содержащей в каждой строке четыре натуральных числа. Определите количество строк таблицы, содержащих числа, для которых выполнены оба условия:</p>
+            <p>— наименьшее из четырёх чисел более чем в шесть раз меньше суммы трёх других;</p>
+            <p>— произведение наибольшего и наименьшего числа больше произведения оставшихся чисел.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.13.ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>В ячейку E1 введем формулу <b>=МИН(A1:D1)</b> для нахождения минимального значения.</p>
+                <p>В ячейку F1 введем формулу <b>=СУММ(A1:D1)-МИН(A1:D1)</b> для поиска суммы оставшихся трех чисел.</p>
+                <p>В ячейку G1 введем формулу <b>=ЕСЛИ(F1&gt;6*E1;1;0)</b> для поиска ячеек, удовлетворяющих первому условию.</p>
+                <p>В ячейку H1 введем формулу: <b>=ЕСЛИ(МАКС(A1:D1)*МИН(A1:D1)&gt;НАИБОЛЬШИЙ(A1:D1;2)*НАИМЕНЬШИЙ(A1:D1;2);1;0)</b>.</p>
+                <p>В ячейку I1 введем формулу: <b>=ЕСЛИ(И(G1=1;H1=1);1;0)</b>.</p>
+                <p>Теперь найдём количество строк, удовлетворяющих условию, введя формулу <b>=СУММ(I1:I1000)</b>.</p>
+                <div class="answer_text"><b>Ответ:</b> 118</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 14 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 9 № 58322 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Откройте файл электронной таблицы, содержащей в каждой строке четыре натуральных числа. Определите количество строк таблицы, содержащих числа, для которых выполнено хотя бы одно из условий:</p>
+            <p>— квадрат наибольшего из четырёх чисел больше произведения трёх других;</p>
+            <p>— будучи упорядоченными, четыре числа образуют арифметическую прогрессию.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.14.ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>В ячейку E1 введем формулу <b>=МАКС(A1:D1)^2</b> для нахождения квадрата максимального значения.</p>
+                <p>В ячейку F1 введем формулу <b>=ПРОИЗВЕД(A1:D1)/МАКС(A1:D1)</b> для поиска произведения оставшихся трех чисел.</p>
+                <p>В ячейку G1 введем формулу <b>=ЕСЛИ(E1&gt;F1;1;0)</b> для поиска ячеек, удовлетворяющих первому условию.</p>
+                <p>Для поиска ячеек, удовлетворяющих второму условию, в ячейку H1 введем формулу: <b>=СЧЁТЕСЛИ(A1:D1;МИН(A1:D1)+(МАКС(A1:D1)-МИН(A1:D1))/3)</b>.</p>
+                <p>В ячейку I1 введем формулу: <b>=СЧЁТЕСЛИ(A1:D1;МИН(A1:D1)+2*(МАКС(A1:D1)-МИН(A1:D1))/3)</b>.</p>
+                <p>В ячейку J1 введем формулу: <b>=ЕСЛИ(И(H1=1;I1=1);1;0)</b>.</p>
+                <p>В ячейку K1 введем формулу: <b>=ЕСЛИ(ИЛИ(G1=1;J1=1);1;0)</b>.</p>
+                <p>Теперь найдём количество строк, удовлетворяющих условию, введя формулу <b>=СУММ(K1:K1000)</b>.</p>
+                <div class="answer_text"><b>Ответ:</b> 61</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 15 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 9 № 58517 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В каждой строке электронной таблицы записаны шесть натуральных чисел. Определите количество строк таблицы, содержащих числа, для которых одновременно выполнены все следующие условия:</p>
+            <p>— минимальное число встречается в строке ровно один раз;</p>
+            <p>— хотя бы одно число в строке повторяется более одного раза;</p>
+            <p>— максимальное число в строке превышает среднее арифметическое остальных пяти чисел этой строки более чем в три раза.</p>
+            <center><p><a href="/ege-informatics/practic/files/t9/9.15.ods " target="_blank">Задание 9</a></p></center>
+        </div>
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>В ячейку G1 введем формулу <b>=МИН(A1:F1)</b> и скопируем ее до ячейки G6000.</p>
+                <p>В ячейке H1 проверим, сколько раз встречалось минимальное число в строке: <b>=СЧЁТЕСЛИ($A1:$F1;G1)</b>.</p>
+                <p>В ячейку I1 впишем <b>=СЧЁТЕСЛИ($A1:$F1;A1)</b> и растянем до ячейки N1 и вниз.</p>
+                <p>В ячейку O1 впишем формулу: <b>=СУММ(I1:N1)</b>.</p>
+                <p>В столбце P посчитаем максимальное число в строке: <b>=МАКС(A1:F1)</b>.</p>
+                <p>В столбце Q посчитаем среднее арифметическое чисел строки без учета максимального числа: <b>=(СУММ(A1:F1)-P1)/5</b>.</p>
+                <p>В столбце R будем проверять строки, где максимальное число превышает среднее арифметическое остальных пяти чисел более чем в три раза: <b>=ЕСЛИ(P1&gt;Q1*3;1;0)</b>.</p>
+                <p>В столбце S будем писать 1, если строка удовлетворяет всем условиям задачи: <b>=ЕСЛИ(И(H1=1;O1&gt;6;R1=1);1;0)</b>.</p>
+                <p>Окончательно находим количество искомых строк с помощью формулы <b>=СУММ(S1:S6000)</b>.</p>
+                <div class="answer_text"><b>Ответ:</b> 49</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

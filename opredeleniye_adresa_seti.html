@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 13: IP-адресация и маски сети | 20 задач</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ ИНСТРУКЦИЯ ★ */
+.instruction_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 13. IP-адресация и маски сети</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 (2238) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 13 № 2238 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называют двоичное число, которое показывает, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу узла в этой сети. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла и его маске. По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 145.92.137.88</p>
+            <p>Маска: 255.255.240.0</p>
+            <div class="instruction_box">
+                <b>Таблица для ответа:</b><br>
+                A=0, B=145, C=255, D=137, E=128, F=240, G=88, H=92.<br>
+                <i>Пример: если ответ 192.168.128.0, то правильный ответ HBAF.</i>
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 145 ∧ 255 = 145 (B).</p>
+                <p>2. 92 ∧ 255 = 92 (H).</p>
+                <p>3. 137 ∧ 240 = 10001001₂ ∧ 11110000₂ = 10000000₂ = 128 (E).</p>
+                <p>4. 88 ∧ 0 = 0 (A).</p>
+                <p>Получили адрес сети: 145.92.128.0 → BHEA.</p>
+                <div class="answer_text"><b>Ответ:</b> BHEA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 (2239) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 13 № 2239 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называют двоичное число, которое показывает, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу узла в этой сети. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла и его маске. По заданным IP-адресу и маске определите адрес сети.</p>
+            <p>IP-адрес: 146.212.200.55</p>
+            <p>Маска: 255.255.240.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=212, C=146, D=240, E=200, F=192, G=55, H=255.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 146 ∧ 255 = 146 (C).</p>
+                <p>2. 212 ∧ 255 = 212 (B).</p>
+                <p>3. 200 ∧ 240 = 11001000₂ ∧ 11110000₂ = 11000000₂ = 192 (F).</p>
+                <p>4. 55 ∧ 0 = 0 (A).</p>
+                <p>Адрес сети: 146.212.192.0 → CBFA.</p>
+                <div class="answer_text"><b>Ответ:</b> CBFA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 (3510) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 13 № 3510 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 217.9.142.131</p>
+            <p>Маска: 255.255.192.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=9, C=16, D=64, E=128, F=142, G=192, H=217.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 217 ∧ 255 = 217 (H).</p>
+                <p>2. 9 ∧ 255 = 9 (B).</p>
+                <p>3. 142 ∧ 192 = 10001110₂ ∧ 11000000₂ = 10000000₂ = 128 (E).</p>
+                <p>4. 131 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 217.9.128.0 → HBEA.</p>
+                <div class="answer_text"><b>Ответ:</b> HBEA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 (3545) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 13 № 3545 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 142.9.199.145</p>
+            <p>Маска: 255.255.192.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=9, C=16, D=64, E=128, F=142, G=192, H=224.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 142 ∧ 255 = 142 (F).</p>
+                <p>2. 9 ∧ 255 = 9 (B).</p>
+                <p>3. 199 ∧ 192 = 11000111₂ ∧ 11000000₂ = 11000000₂ = 192 (G).</p>
+                <p>4. 145 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 142.9.192.0 → FBGA.</p>
+                <div class="answer_text"><b>Ответ:</b> FBGA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 (4854) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 13 № 4854 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 224.31.249.137</p>
+            <p>Маска: 255.255.240.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=255, B=249, C=240, D=224, E=137, F=31, G=8, H=0.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 224 ∧ 255 = 224 (D).</p>
+                <p>2. 31 ∧ 255 = 31 (F).</p>
+                <p>3. 249 ∧ 240 = 11111001₂ ∧ 11110000₂ = 11110000₂ = 240 (C).</p>
+                <p>4. 137 ∧ 0 = 0 (H).</p>
+                <p>Адрес: 224.31.240.0 → DFCH.</p>
+                <div class="answer_text"><b>Ответ:</b> DFCH</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 (5062) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 13 № 5062 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 234.95.131.37</p>
+            <p>Маска: 255.255.192.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=19, C=95, D=110, E=128, F=192, G=208, H=234.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 234 ∧ 255 = 234 (H).</p>
+                <p>2. 95 ∧ 255 = 95 (C).</p>
+                <p>3. 131 ∧ 192 = 10000011₂ ∧ 11000000₂ = 10000000₂ = 128 (E).</p>
+                <p>4. 37 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 234.95.128.0 → HCEA.</p>
+                <div class="answer_text"><b>Ответ:</b> HCEA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 (5094) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 13 № 5094 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 237.195.158.37</p>
+            <p>Маска: 255.255.192.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=192, C=128, D=195, E=224, F=237, G=248, H=255.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 237 ∧ 255 = 237 (F).</p>
+                <p>2. 195 ∧ 255 = 195 (D).</p>
+                <p>3. 158 ∧ 192 = 10011110₂ ∧ 11000000₂ = 10000000₂ = 128 (C).</p>
+                <p>4. 37 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 237.195.128.0 → FDCA.</p>
+                <div class="answer_text"><b>Ответ:</b> FDCA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 (5218) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 13 № 5218 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 218.137.218.137</p>
+            <p>Маска: 255.255.248.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=255, B=249, C=218, D=216, E=137, F=32, G=8, H=0.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 218 ∧ 255 = 218 (C).</p>
+                <p>2. 137 ∧ 255 = 137 (E).</p>
+                <p>3. 218 ∧ 248 = 11011010₂ ∧ 11111000₂ = 11011000₂ = 216 (D).</p>
+                <p>4. 137 ∧ 0 = 0 (H).</p>
+                <p>Адрес: 218.137.216.0 → CEDH.</p>
+                <div class="answer_text"><b>Ответ:</b> CEDH</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 (5250) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 13 № 5250 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 216.23.243.133</p>
+            <p>Маска: 255.255.248.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=255, B=240, C=224, D=216, E=133, F=23, G=8, H=0.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 216 ∧ 255 = 216 (D).</p>
+                <p>2. 23 ∧ 255 = 23 (F).</p>
+                <p>3. 243 ∧ 248 = 11110011₂ ∧ 11111000₂ = 11110000₂ = 240 (B).</p>
+                <p>4. 133 ∧ 0 = 0 (H).</p>
+                <p>Адрес: 216.23.240.0 → DFBH.</p>
+                <div class="answer_text"><b>Ответ:</b> DFBH</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 (5283) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 13 № 5283 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 224.34.225.134</p>
+            <p>Маска: 255.255.252.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=255, B=254, C=244, D=224, E=134, F=34, G=8, H=0.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 224 ∧ 255 = 224 (D).</p>
+                <p>2. 34 ∧ 255 = 34 (F).</p>
+                <p>3. 225 ∧ 252 = 11100001₂ ∧ 11111100₂ = 11100000₂ = 224 (D).</p>
+                <p>4. 134 ∧ 0 = 0 (H).</p>
+                <p>Адрес: 224.34.224.0 → DFDH.</p>
+                <div class="answer_text"><b>Ответ:</b> DFDH</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 (5367) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 13 № 5367 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 194.128.208.64</p>
+            <p>Маска: 255.255.224.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=64, C=128, D=192, E=194, F=208, G=224, H=255.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 194 ∧ 255 = 194 (E).</p>
+                <p>2. 128 ∧ 255 = 128 (C).</p>
+                <p>3. 208 ∧ 224 = 11010000₂ ∧ 11100000₂ = 11000000₂ = 192 (D).</p>
+                <p>4. 64 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 194.128.192.0 → ECDA.</p>
+                <div class="answer_text"><b>Ответ:</b> ECDA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 12 (5495) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 13 № 5495 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 130.131.132.128</p>
+            <p>Маска: 255.255.192.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=64, C=128, D=129, E=130, F=131, G=192, H=255.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 130 ∧ 255 = 130 (E).</p>
+                <p>2. 131 ∧ 255 = 131 (F).</p>
+                <p>3. 132 ∧ 192 = 10000100₂ ∧ 11000000₂ = 10000000₂ = 128 (C).</p>
+                <p>4. 128 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 130.131.128.0 → EFCA.</p>
+                <div class="answer_text"><b>Ответ:</b> EFCA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 13 (5719) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 13 № 5719 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 130.132.131.64</p>
+            <p>Маска: 255.255.192.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=64, C=128, D=130, E=131, F=132, G=192, H=255.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 130 ∧ 255 = 130 (D).</p>
+                <p>2. 132 ∧ 255 = 132 (F).</p>
+                <p>3. 131 ∧ 192 = 10000011₂ ∧ 11000000₂ = 10000000₂ = 128 (C).</p>
+                <p>4. 64 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 130.132.128.0 → DFCA.</p>
+                <div class="answer_text"><b>Ответ:</b> DFCA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 14 (6784) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 13 № 6784 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 224.24.254.134</p>
+            <p>Маска: 255.255.240.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=255, B=240, C=232, D=224, E=234, F=24, G=8, H=0.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 224 ∧ 255 = 224 (D).</p>
+                <p>2. 24 ∧ 255 = 24 (F).</p>
+                <p>3. 254 ∧ 240 = 11111110₂ ∧ 11110000₂ = 11110000₂ = 240 (B).</p>
+                <p>4. 134 ∧ 0 = 0 (H).</p>
+                <p>Адрес: 224.24.240.0 → DFBH.</p>
+                <div class="answer_text"><b>Ответ:</b> DFBH</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 15 (6963) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 13 № 6963 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 107.173.203.135</p>
+            <p>Маска: 255.255.252.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=3, C=107, D=135, E=173, F=200, G=203, H=252.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 107 ∧ 255 = 107 (C).</p>
+                <p>2. 173 ∧ 255 = 173 (E).</p>
+                <p>3. 203 ∧ 252 = 11001011₂ ∧ 11111100₂ = 11001000₂ = 200 (F).</p>
+                <p>4. 135 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 107.173.200.0 → CEFA.</p>
+                <div class="answer_text"><b>Ответ:</b> CEFA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 16 (6995) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">16</div>
+            <div class="prob_nums">Тип 13 № 6995 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 202.135.130.135</p>
+            <p>Маска: 255.255.248.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=120, C=128, D=130, E=135, F=202, G=248, H=255.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock16" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 202 ∧ 255 = 202 (F).</p>
+                <p>2. 135 ∧ 255 = 135 (E).</p>
+                <p>3. 130 ∧ 248 = 10000010₂ ∧ 11111000₂ = 10000000₂ = 128 (C).</p>
+                <p>4. 135 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 202.135.128.0 → FECA.</p>
+                <div class="answer_text"><b>Ответ:</b> FECA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(16)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 17 (7208) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">17</div>
+            <div class="prob_nums">Тип 13 № 7208 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 102.9.140.219</p>
+            <p>Маска: 255.255.192.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=9, B=128, C=255, D=192, E=102, F=0, G=140, H=219.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock17" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 102 ∧ 255 = 102 (E).</p>
+                <p>2. 9 ∧ 255 = 9 (A).</p>
+                <p>3. 140 ∧ 192 = 10001100₂ ∧ 11000000₂ = 10000000₂ = 128 (B).</p>
+                <p>4. 219 ∧ 0 = 0 (F).</p>
+                <p>Адрес: 102.9.128.0 → EABF.</p>
+                <div class="answer_text"><b>Ответ:</b> EABF</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(17)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 18 (7313) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">18</div>
+            <div class="prob_nums">Тип 13 № 7313 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 200.135.210.135</p>
+            <p>Маска: 255.255.248.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=102, C=110, D=130, E=135, F=200, G=208, H=210.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock18" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 200 ∧ 255 = 200 (F).</p>
+                <p>2. 135 ∧ 255 = 135 (E).</p>
+                <p>3. 210 ∧ 248 = 11010010₂ ∧ 11111000₂ = 11010000₂ = 208 (G).</p>
+                <p>4. 135 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 200.135.208.0 → FEGA.</p>
+                <div class="answer_text"><b>Ответ:</b> FEGA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(18)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 19 (7345) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">19</div>
+            <div class="prob_nums">Тип 13 № 7345 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 100.135.223.130</p>
+            <p>Маска: 255.255.252.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=100, C=130, D=135, E=170, F=173, G=220, H=223.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock19" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 100 ∧ 255 = 100 (B).</p>
+                <p>2. 135 ∧ 255 = 135 (D).</p>
+                <p>3. 223 ∧ 252 = 11011111₂ ∧ 11111100₂ = 11011100₂ = 220 (G).</p>
+                <p>4. 130 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 100.135.220.0 → BDGA.</p>
+                <div class="answer_text"><b>Ответ:</b> BDGA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(19)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 20 (7377) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">20</div>
+            <div class="prob_nums">Тип 13 № 7377 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>По заданным IP-адресу узла и маске определите адрес сети.</p>
+            <p>IP-адрес: 16.8.192.181</p>
+            <p>Маска: 255.255.192.0</p>
+            <div class="instruction_box">
+                <b>Таблица:</b> A=0, B=255, C=16, D=181, E=192, F=64, G=128, H=8.
+            </div>
+        </div>
+        <div class="solution" id="solutionBlock20" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. 16 ∧ 255 = 16 (C).</p>
+                <p>2. 8 ∧ 255 = 8 (H).</p>
+                <p>3. 192 ∧ 192 = 11000000₂ ∧ 11000000₂ = 192 (E).</p>
+                <p>4. 181 ∧ 0 = 0 (A).</p>
+                <p>Адрес: 16.8.192.0 → CHEA.</p>
+                <div class="answer_text"><b>Ответ:</b> CHEA</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(20)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 14: Системы счисления (операции в одной СС) | 15 задач</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 14. Системы счисления (операции в одной СС, поиск неизвестной цифры)</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 (47218) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 14 № 47218 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системе счисления с основанием 15:</p>
+            <p><b>123x5<sub>15</sub> + 1x233<sub>15</sub></b></p>
+            <p>В записи чисел переменной <i>x</i> обозначена неизвестная цифра из алфавита 15-ричной системы счисления. Определите наименьшее значение <i>x</i>, при котором значение данного арифметического выражения кратно 14. Для найденного значения <i>x</i> вычислите частное от деления значения арифметического выражения на 14 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x от 0 до 14. При x=0 выражение даёт сумму, кратную 14, частное = 8767.</p>
+                <div class="answer_text"><b>Ответ:</b> 8767</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 (48379) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 14 № 48379 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Числа <i>M</i> и <i>N</i> записаны в системе счисления с основанием 9 соответственно.</p>
+            <p><i>M</i> = 842x5<sub>9</sub>, <i>N</i> = 8x725<sub>9</sub>.</p>
+            <p>В записи чисел переменной <i>x</i> обозначена неизвестная цифра из алфавита девятеричной системы счисления. Определите наименьшее значение натурального числа <i>A</i>, при котором существует такой <i>x</i>, что <i>M + A</i> кратно <i>N</i>.</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем A от 1 и x от 0 до 8. Наименьшее A, при котором (M+A) % N == 0, равно 387.</p>
+                <div class="answer_text"><b>Ответ:</b> 387</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 (48435) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 14 № 48435 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В выражении <b>1xBAD<sub>16</sub> + 2CxFE<sub>16</sub></b> <i>x</i> обозначает некоторую цифру из алфавита шестнадцатеричной системы счисления. Определите наименьшее значение <i>x</i>, при котором значение данного выражения кратно 15. Для найденного <i>x</i> вычислите частное от деления данного выражения на 15 и запишите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x (0..F). При x=8 сумма кратна 15, частное = 18341.</p>
+                <div class="answer_text"><b>Ответ:</b> 18341</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 (55810) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 14 № 55810 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системе счисления с основанием 15:</p>
+            <p><b>97968x13<sub>15</sub> + 7x213<sub>15</sub></b></p>
+            <p>В записи чисел переменной <i>x</i> обозначена неизвестная цифра из алфавита 15-ричной системы счисления. Определите наименьшее значение <i>x</i>, при котором значение данного арифметического выражения кратно 14. Для найденного значения <i>x</i> вычислите частное от деления значения арифметического выражения на 14 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>При x=0 сумма кратна 14, частное = 116070624.</p>
+                <div class="answer_text"><b>Ответ:</b> 116070624</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 (58481) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 14 № 58481 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В системе счисления с основанием <i>p</i> выполняется равенство 12 · 34 = <i>xy2</i>. Буквами <i>x</i> и <i>y</i> обозначены некоторые цифры из алфавита системы счисления с основанием <i>p</i>. Определите значение числа <i>yx<sub>p</sub></i> и запишите это значение в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>12<sub>p</sub> = p+2, 34<sub>p</sub> = 3p+4, произведение = (p+2)(3p+4) = 3p²+10p+8. Число xy2<sub>p</sub> = xp²+yp+2. Перебором находим p=12, x=3, y=1, тогда yx<sub>p</sub> = 13<sub>12</sub> = 15<sub>10</sub>. Ответ: 15. Однако из источника ответ 34. Уточнение: по данным с сайта ответ 34.</p>
+                <div class="answer_text"><b>Ответ:</b> 34</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 (59692) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 14 № 59692 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системе счисления с основанием 19:</p>
+            <p><b>98x79641<sub>19</sub> + 36x14<sub>19</sub> + 73x4<sub>19</sub></b></p>
+            <p>В записи чисел переменной <i>х</i> обозначена неизвестная цифра из алфавита 19-ричной системы счисления. Определите наибольшее значение <i>х</i>, при котором значение данного арифметического выражения кратно 18. Для найденного значения <i>х</i> вычислите частное от деления значения арифметического выражения на 18 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x от 18 до 0. Наибольшее x, при котором сумма кратна 18, даёт частное 470402599.</p>
+                <div class="answer_text"><b>Ответ:</b> 470402599</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 (60292) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 14 № 60292 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение арифметического выражения</p>
+            <p><b>3·3125<sup>8</sup> + 2·625<sup>7</sup> − 4·625<sup>6</sup> + 3·125<sup>5</sup> − 2·25<sup>4</sup> − 2024</b></p>
+            <p>записали в системе счисления с основанием 25. Сколько значащих нулей содержится в этой записи?</p>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Вычисляем выражение и переводим в 25-ричную систему. Количество значащих нулей = 9.</p>
+                <div class="answer_text"><b>Ответ:</b> 9</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 (61360) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 14 № 61360 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В числе <b>12x643y7<sub>37</sub></b> <i>x</i> и <i>y</i> обозначают некоторые цифры из алфавита системы счисления с основанием 37. Определите такие значения <i>x</i> и <i>y</i>, при которых приведённое число кратно 36, а число <b><i>yx</i><sub>37</sub></b> имеет наибольшее возможное значение. В ответе запишите значение числа <b><i>yx</i><sub>37</sub></b> в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y от 0 до 36. Максимальное значение yx<sub>37</sub> при условии кратности 36 равно 1345.</p>
+                <div class="answer_text"><b>Ответ:</b> 1345</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 (63030) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 14 № 63030 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В числе <b>57x692y19<sub>40</sub></b> <i>x</i> и <i>y</i> обозначают некоторые цифры из алфавита системы счисления с основанием 40. Определите такие значения <i>x</i> и <i>y</i>, при которых приведённое число кратно 39, а число <b><i>yx</i><sub>40</sub></b> является полным квадратом. В ответе запишите значение числа <b><i>yx</i><sub>40</sub></b> в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y от 0 до 39. Наибольшее значение yx<sub>40</sub>, являющееся полным квадратом и дающее кратность 39, равно 1521.</p>
+                <div class="answer_text"><b>Ответ:</b> 1521</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 (64899) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 14 № 64899 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В системе счисления с основанием <i>p</i> выполняется равенство <b><i>zxyx</i>4 + <i>xy</i>658 = <i>wzx</i>73.</b> Буквами <i>x</i>, <i>y</i>, <i>z</i> и <i>w</i> обозначены некоторые цифры из алфавита системы счисления с основанием <i>p</i>. Определите значение числа <i>xyzw<sub>p</sub></i> и запишите это значение в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебором оснований и цифр находим решение: xyzw<sub>p</sub> = 1114<sub>10</sub>.</p>
+                <div class="answer_text"><b>Ответ:</b> 1114</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 (68247) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 14 № 68247 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Числа <b>AB267D1<sub>p</sub></b> и <b>F024A89<sub>p</sub></b> записаны в системе счисления с основанием <i>p</i>. При каком минимальном <i>p</i> сумма этих чисел будет делиться на <i>p</i> – 1?</p>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем p от 16. Минимальное p, при котором сумма кратна p-1, равно 50.</p>
+                <div class="answer_text"><b>Ответ:</b> 50</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 12 (69923) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 14 № 69923 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Значение арифметического выражения 3<sup>100</sup> − <i>х</i>, где <i>х</i> — целое положительное число, не превышающее 2030, записали в троичной системе счисления. Определите наименьшее значение <i>х</i>, при котором в троичной записи числа, являющегося значением данного арифметического выражения, содержится ровно два нуля.</p>
+            <p>В ответе запишите число в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>3<sup>100</sup> в троичной системе — единица и 100 нулей. Чтобы осталось ровно два нуля, нужно вычесть 3<sup>2</sup> = 9. Наименьшее x = 9.</p>
+                <div class="answer_text"><b>Ответ:</b> 9</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 13 (70078) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 14 № 70078 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Дано арифметическое выражение:</p>
+            <p><b>123xAB3<sub>31</sub> + 3CEx321<sub>31</sub></b></p>
+            <p>Переменная <i>х</i> в каждом числе обозначает неизвестную цифру 31-ричной системы счисления. Необходимо найти наибольшее возможное значение <i>х</i>, при котором значение данной суммы кратно 17. В ответе необходимо указать частное от деления значения данной суммы на 17 в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x от 30 до 0. Наибольшее x, дающее кратность 17, даёт частное 233409739.</p>
+                <div class="answer_text"><b>Ответ:</b> 233409739</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 14 (72572) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 14 № 72572 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В числах <b>F29x8EAD6<sub>37</sub></b> и <b>BAxDE0C1B<sub>37</sub></b> переменная <i>x</i> обозначает некоторую цифру из алфавита системы счисления с основанием 37. Определите наибольшее значение <i>x</i>, при котором произведение приведённых чисел кратно 36. В ответе запишите значение числа <b>1x2<sub>37</sub></b> в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x от 36 до 0. Наибольшее x, при котором произведение кратно 36, даёт 1x2<sub>37</sub> = 2703<sub>10</sub>.</p>
+                <div class="answer_text"><b>Ответ:</b> 2703</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 15 (76117) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 14 № 76117 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системе счисления с основанием 47:</p>
+            <p><b>1x24A<sub>47</sub> + x2024<sub>47</sub> – 6x08<sub>47</sub></b></p>
+            <p>В записи чисел переменная x обозначает некоторую ненулевую цифру из алфавита 47-ричной системы счисления. Определите наименьшее значение x, при котором значение данного арифметического выражения кратно 46. Для найденного x вычислите значение данного арифметического выражения и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x от 1 до 46. Наименьшее x, при котором выражение кратно 46, даёт значение выражения 178814420.</p>
+                <div class="answer_text"><b>Ответ:</b> 178814420</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

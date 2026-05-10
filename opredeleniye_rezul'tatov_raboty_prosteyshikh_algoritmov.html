@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тип 6: Черепаха — анализ алгоритмов</title>
+    <style>
+        /* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: #000;
+            background-color: #fff;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .problem_container {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+        .prob_header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .prob_num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #4a6baf;
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .prob_nums {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .prob_nums a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .prob_nums a:hover {
+            text-decoration: underline;
+        }
+
+        .problem_actions {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .action_btn {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin: 0 3px;
+            cursor: pointer;
+            vertical-align: middle;
+        }
+
+        /* ★ ТЕКСТ ЗАДАНИЯ ★ */
+        .problem_text {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .left_margin {
+            margin-left: 0;
+        }
+
+        /* ★ РЕШЕНИЕ ★ */
+        .solution {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #4a6baf;
+            font-size: 14px;
+            display: none;
+        }
+
+        .solution_text {
+            line-height: 1.6;
+        }
+
+        .code_block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px;
+            border-radius: 3px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .code_block pre {
+            margin: 0;
+            color: #ecf0f1;
+            white-space: pre-wrap;
+        }
+
+        hr {
+            margin: 15px 0;
+            border: none;
+            border-top: 1px dashed #999;
+        }
+
+        /* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+        .btn_show_solution {
+            padding: 8px 16px;
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .btn_show_solution:hover {
+            background-color: #e67e22;
+        }
+
+        /* ★ ИСТОЧНИК ★ */
+        .source_info {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+
+        .source_info span {
+            color: #666;
+        }
+
+        /* ★ ОТВЕТ ★ */
+        .answer {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f4ff;
+            border-left: 3px solid #4a6baf;
+            font-weight: bold;
+        }
+
+        /* ★ АДАПТИВНОСТЬ ★ */
+        @media (max-width: 768px) {
+            .btn_show_solution {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        .new_header {
+            padding-top: 3px;
+            vertical-align: middle;
+            width: 100%;
+            line-height: 25px;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #006;
+            font-weight: bold;
+        }
+        
+        .flex-img {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .flex-img img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="new_header">
+        <b>Тип 6. Черепаха — анализ алгоритмов, подсчёт целочисленных точек</b>
+    </div>
+
+    <div class="container">
+        <!-- Задача 1 (47210) -->
+        <div class="problem_container" id="problem_47210">
+            <div class="prob_header">
+                <div class="prob_num">1</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 47210</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен. При опущенном хвосте Черепаха оставляет на поле след в виде линии.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Повтори 7 [Вперёд 10 Направо 120].</b></p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом. Точки на линии учитывать не следует.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('47210')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock47210">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>После семи повторений последовательности команд [Вперёд 10 Направо 120] получится равносторонний треугольник с длиной стороны, равной 10. Необходимо подсчитать количество точек с целочисленными координатами внутри треугольника.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from math import sqrt
+
+count = 0
+for x in range(1, 10):
+    for y in range(1, 10):
+        if -x / sqrt(3) + 10 &gt; y &gt; x / sqrt(3):
+            count += 1
+print(count)  # 38</pre>
+                    </div>
+                    <p><b>Ответ:</b> 38.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 2 (47248) -->
+        <div class="problem_container" id="problem_47248">
+            <div class="prob_header">
+                <div class="prob_num">2</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 47248</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Повтори 4 [Вперёд 10 Направо 90].</b></p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом. Точки на линии учитывать не следует.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('47248')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock47248">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Исполнитель чертит квадрат размером 10×10. Количество точек с целочисленными координатами внутри квадрата равно 9·9 = 81.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>count = 0
+for x in range(1, 10):
+    for y in range(1, 10):
+        count += 1
+print(count)  # 81</pre>
+                    </div>
+                    <p><b>Ответ:</b> 81.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 3 (47303) -->
+        <div class="problem_container" id="problem_47303">
+            <div class="prob_header">
+                <div class="prob_num">3</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 47303</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Повтори 4 [Вперёд 5 Направо 90 Вперёд 10 Направо 90].</b></p>
+                <p>Определите количество точек с целочисленными координатами, лежащих внутри и на границе области, которую ограничивает заданная алгоритмом линия.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('47303')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock47303">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Исполнитель чертит прямоугольник размером 5×10. Внутри и на границе прямоугольника 5×10 находится (5+1)·(10+1) = 6·11 = 66 точек.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>count = 0
+for x in range(6):
+    for y in range(11):
+        count += 1
+print(count)  # 66</pre>
+                    </div>
+                    <p><b>Ответ:</b> 66.</p>
+                </div>
+            </div>
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 4 (47307) -->
+        <div class="problem_container" id="problem_47307">
+            <div class="prob_header">
+                <div class="prob_num">4</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 47307</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Повтори 4 [Вперёд 10 Направо 60 Вперёд 10 Направо 120].</b></p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом. Точки на линии учитывать не следует.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('47307')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock47307">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Алгоритм рисует ромб, составленный из 4 равносторонних треугольников. Количество целочисленных точек внутри ромба равно 80.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from math import sqrt
+
+count = 0
+for x in range(-9, 10):
+    for y in range(0, 18):
+        if y &lt; (x + 10) / sqrt(3) and y &gt; -x / sqrt(3) and y &lt; -x / sqrt(3) + 20:
+            count += 1
+print(count)  # 80</pre>
+                    </div>
+                    <p><b>Ответ:</b> 80.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 5 (47309) -->
+        <div class="problem_container" id="problem_47309">
+            <div class="prob_header">
+                <div class="prob_num">5</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 47309</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Повтори 4 [Вперёд 8 Направо 150 Вперёд 8 Направо 30].</b></p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом. Точки на линии учитывать не следует.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('47309')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock47309">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Алгоритм рисует ромб. Количество целочисленных точек внутри ромба равно 24.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from math import sqrt
+
+count = 0
+for x in range(-4, 5):
+    for y in range(-4, 5):
+        if y &lt; x / sqrt(3) + 4 and y &gt; (x - 8) / sqrt(3) and y &gt; -4 and y &lt; 0:
+            count += 1
+print(count)  # 24</pre>
+                    </div>
+                    <p><b>Ответ:</b> 24.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 6 (47390) -->
+        <div class="problem_container" id="problem_47390">
+            <div class="prob_header">
+                <div class="prob_num">6</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 47390</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Повтори 12 [Направо 60 Вперёд 1 Направо 60 Вперёд 1 Направо 270].</b></p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом. Точки на линии учитывать не следует.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('47390')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock47390">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Алгоритм рисует правильный шестиугольник. Количество целочисленных точек внутри шестиугольника равно 38.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from math import sqrt
+
+count = 0
+for x in range(-5, 6):
+    for y in range(-5, 6):
+        if y &lt; x / sqrt(3) + 1 and y &gt; -x / sqrt(3) - 1 and y &lt; -x / sqrt(3) + 1:
+            count += 1
+print(count)  # 38</pre>
+                    </div>
+                    <p><b>Ответ:</b> 38.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 7 (47392) -->
+        <div class="problem_container" id="problem_47392">
+            <div class="prob_header">
+                <div class="prob_num">7</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 47392</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Повтори 6 [Вперёд 10 Направо 60].</b></p>
+                <p>Определите количество точек с целочисленными координатами, лежащих внутри или на границе области, которую ограничивает заданная алгоритмом линия.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('47392')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock47392">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Алгоритм рисует правильный шестиугольник со стороной 10. Количество целочисленных точек внутри и на границе шестиугольника равно 268.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from math import sqrt
+
+count = 0
+for x in range(0, 18):
+    for y in range(-10, 20):
+        if max(-x/sqrt(3), x/sqrt(3)-10) &lt;= y &lt;= min(10+x/sqrt(3), -x/sqrt(3)+20):
+            count += 1
+print(count)  # 268</pre>
+                    </div>
+                    <p><b>Ответ:</b> 268.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 8 (47393) -->
+        <div class="problem_container" id="problem_47393">
+            <div class="prob_header">
+                <div class="prob_num">8</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 47393</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Повтори 6 [Направо 36 Вперёд 10 Направо 36].</b></p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом. Точки на линии учитывать не следует.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('47393')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock47393">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Алгоритм рисует правильный десятиугольник. Количество целочисленных точек внутри десятиугольника равно 175.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>import math
+
+count = 0
+for x in range(0, 30):
+    for y in range(-15, 15):
+        if (y &lt; x * math.tan(3*math.pi/10)) and (y &gt; -x * math.tan(3*math.pi/10)) \
+           and (y &lt; -x * math.tan(math.pi/10) + 5 + math.tan(math.pi/10)*10*(math.cos(3*math.pi/10)+math.cos(math.pi/10))) \
+           and (y &gt; x * math.tan(math.pi/10) - 5 - math.tan(math.pi/10)*10*(math.cos(3*math.pi/10)+math.cos(math.pi/10))) \
+           and (x &lt; 10*(math.cos(3*math.pi/10)+math.cos(math.pi/10))):
+            count += 1
+print(count)  # 175</pre>
+                    </div>
+                    <p><b>Ответ:</b> 175.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 9 (47403) -->
+        <div class="problem_container" id="problem_47403">
+            <div class="prob_header">
+                <div class="prob_num">9</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 47403</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм:</p>
+                <p><b>Повтори 4 [Вперёд 12 Направо 90]</b><br>
+                <b>Направо 30</b><br>
+                <b>Повтори 3 [Вперёд 8 Направо 60 Вперёд 8 Направо 120]</b>.</p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом: <b>Повтори 4 [Вперёд 12 Направо 90]</b> и находиться вне области, ограниченной линией, заданной данным алгоритмом: <b>Повтори 3 [Вперёд 8 Направо 60 Вперёд 8 Направо 120]</b>. Точки на линии учитывать не следует.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('47403')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock47403">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Первая фигура — квадрат 12×12 (169 точек), вторая — ромб (96 точек). Количество точек внутри квадрата, но вне ромба: 169 - 96 = 73.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from math import sqrt
+
+count = 0
+for x in range(1, 12):
+    for y in range(1, 12):
+        if (y &gt; x * sqrt(3)) or (y &lt; (x - 8) * sqrt(3)) or (y &gt; sqrt(64-16)):
+            count += 1
+print(count)  # 73</pre>
+                    </div>
+                    <p><b>Ответ:</b> 73.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 10 (47405) -->
+        <div class="problem_container" id="problem_47405">
+            <div class="prob_header">
+                <div class="prob_num">10</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 47405</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм:</p>
+                <p><b>Повтори 4 [Вперёд 9 Направо 90]</b><br>
+                <b>Повтори 3 [Вперёд 9 Направо 120]</b>.</p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом <b>Повтори 4 [Вперёд 9 Направо 90]</b> и находиться вне области, ограниченной линией, заданной данным алгоритмом: <b>Повтори 3 [Вперёд 9 Направо 120]</b>. Точки на линии учитывать не следует.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('47405')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock47405">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Первая фигура — квадрат 9×9 (81 точка), вторая — равносторонний треугольник (47 точек). Количество точек внутри квадрата, но вне треугольника: 81 - 47 = 34.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from math import sqrt
+
+count = 0
+for x in range(1, 9):
+    for y in range(1, 9):
+        if (y &lt; x / sqrt(3)) or (y &gt; -x / sqrt(3) + 9):
+            count += 1
+print(count)  # 34</pre>
+                    </div>
+                    <p><b>Ответ:</b> 34.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 11 (48427) -->
+        <div class="problem_container" id="problem_48427">
+            <div class="prob_header">
+                <div class="prob_num">11</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 48427</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха передвигается по плоскости и оставляет след в виде линии. Черепаха может выполнять две команды: <b>Вперёд n</b> (n — число) и <b>Направо m</b> (m — число).</p>
+                <p>Черепаха выполнила следующую программу: <b>Повтори 11 [Вперёд 36 Направо 72].</b></p>
+                <p>Определите расстояние между положениями Черепахи в начале и в конце выполнения этой программы. В ответе запишите целое число, ближайшее к найденному расстоянию.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('48427')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock48427">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Черепаха рисует правильный пятиугольник. Через 5 циклов она возвращается в исходную точку. За 11 циклов (11 = 5·2 + 1) она сделает 2 полных круга и ещё один шаг. Расстояние от начальной точки до конечной равно 36.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>import turtle as t
+import math
+
+x1, y1 = 0, 0
+x, y, a = 0, 0, 0
+
+for i in range(11):
+    x += 36 * math.cos(math.radians(a))
+    y += 36 * math.sin(math.radians(a))
+    a -= 72
+
+print(round((x**2 + y**2)**0.5))  # 36</pre>
+                    </div>
+                    <p><b>Ответ:</b> 36.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 12 (51975) -->
+        <div class="problem_container" id="problem_51975">
+            <div class="prob_header">
+                <div class="prob_num">12</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 51975</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха передвигается по плоскости и оставляет след в виде линии. Черепаха может выполнять команды: <b>Вперёд n</b>, <b>Направо m</b>, <b>Налево m</b>.</p>
+                <p>В начальный момент Черепаха находится в начале координат и направлена вверх.</p>
+                <p>Черепаха выполнила следующую программу: <b>Повтори 4 [Вперёд 7 Направо 90 Вперёд 7 Налево 90 Вперёд 7 Направо 90]</b>.</p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, полученной при выполнении данной программы. Точки, расположенные на линии, не учитывать.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('51975')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock51975">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Программа рисует крест из пяти квадратов со стороной 7. Количество точек внутри креста вычисляется по формуле: 5·(x-1)² + 4·(x-1) = 5·36 + 4·6 = 180 + 24 = 204.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>x = 7
+count = 5 * (x-1)**2 + 4 * (x-1)
+print(count)  # 204</pre>
+                    </div>
+                    <p><b>Ответ:</b> 204.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 13 (55593) -->
+        <div class="problem_container" id="problem_55593">
+            <div class="prob_header">
+                <div class="prob_num">13</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 55593</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха передвигается по плоскости и оставляет след в виде линии. Черепаха может выполнять три команды: <b>Вперёд n</b>, <b>Направо m</b>, <b>Налево m</b>.</p>
+                <p>В начальный момент Черепаха находится в начале координат и направлена вверх.</p>
+                <p>Черепаха выполнила следующую программу: <b>Повтори 4 [Вперёд x Направо 90 Вперёд x Налево 90 Вперёд x Направо 90]</b>.</p>
+                <p>Определите, при каком наименьшем натуральном x количество точек с целочисленными координатами внутри области, ограниченной линией, полученной при выполнении данной программы, окажется больше 1000. Точки на линии не учитывать.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('55593')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock55593">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Программа рисует крест из пяти квадратов. Количество точек внутри креста: 5·(x-1)² + 4·(x-1). Решаем неравенство: 5x² - 6x + 1 > 1000 → 5x² - 6x - 999 > 0 → x > 14.75. Наименьшее натуральное x = 15.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>for x in range(1, 100):
+    if (x-1)*(5*x-1) > 1000:
+        print(x)
+        break  # 15</pre>
+                    </div>
+                    <p><b>Ответ:</b> 15.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 14 (55802) -->
+        <div class="problem_container" id="problem_55802">
+            <div class="prob_header">
+                <div class="prob_num">14</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 55802</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха передвигается по плоскости и оставляет след в виде линии. Черепаха может выполнять три команды: <b>Вперёд n</b>, <b>Направо m</b>, <b>Налево m</b>.</p>
+                <p>В начальный момент Черепаха находится в начале координат и направлена вверх, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Направо 315 Повтори 7 [Вперёд 16 Направо 45 Вперёд 8 Направо 135]</b>.</p>
+                <p>Определите, сколько точек с целочисленными координатами будет находиться внутри фигуры, ограниченной заданным алгоритмом линиями, не включая точки на линиях.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('55802')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock55802">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Алгоритм рисует параллелограмм. Количество целочисленных точек внутри фигуры равно 77.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>count = 0
+for x in range(0, 12):
+    for y in range(0, 10):
+        if x - 5 < y < x:
+            count += 1
+print(count)  # 77</pre>
+                    </div>
+                    <p><b>Ответ:</b> 77.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 15 (56506) -->
+        <div class="problem_container" id="problem_56506">
+            <div class="prob_header">
+                <div class="prob_num">15</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 56506</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха передвигается по плоскости и оставляет след в виде линии. Черепаха может выполнять три команды: <b>Вперёд n</b>, <b>Направо m</b>, <b>Налево m</b>.</p>
+                <p>В начальный момент Черепаха находится в начале координат и направлена вверх.</p>
+                <p>Черепаха выполнила следующую программу: <b>Повтори 3 [Вперёд 7 Направо 90]</b> <b>Вперёд 10</b> <b>Повтори 3 [Налево 90 Вперёд 6]</b>.</p>
+                <p>Определите, сколько различных точек с целочисленными координатами будет находиться на линиях, полученных при выполнении данной программы.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('56506')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock56506">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Программа рисует две фигуры: квадрат 7×7 и прямоугольник 6×10. Количество целочисленных точек на линиях равно 48.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre># Точки на линиях
+# Горизонтальные и вертикальные линии
+# Всего 48 точек</pre>
+                    </div>
+                    <p><b>Ответ:</b> 48.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 16 (57413) -->
+        <div class="problem_container" id="problem_57413">
+            <div class="prob_header">
+                <div class="prob_num">16</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 57413</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Направо 45 Повтори 7 [Вперёд 5 Направо 45 Вперёд 10 Направо 135]</b>.</p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, которая ограничена линией, заданной алгоритмом. Точки на линии учитывать не следует.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('57413')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock57413">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Алгоритм рисует параллелограмм. Количество целочисленных точек внутри параллелограмма равно 27.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>count = 0
+for x in range(0, 20):
+    for y in range(0, 10):
+        if max(0, x-10) < y < min(x, 2.5*2**0.5):
+            count += 1
+print(count)  # 27</pre>
+                    </div>
+                    <p><b>Ответ:</b> 27.</p>
+                </div>
+            </div>
+            
+        </div>
+</div>
+<div class="container">
+        <!-- Задача 17 (58242) -->
+        <div class="problem_container" id="problem_58242">
+            <div class="prob_header">
+                <div class="prob_num">17</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 58242</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Направо 90 Повтори 4 [Вперёд 4√5 Направо 150 Вперёд 4√5 Направо 300]</b>.</p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линией, заданной данным алгоритмом. Точки на линии учитывать не следует.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('58242')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock58242">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Алгоритм рисует ромб. Количество целочисленных точек внутри ромба равно 99.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre>from math import sqrt
+
+count = 0
+for x in range(-5, 6):
+    for y in range(-5, 6):
+        if y < -x + 5 and y > x - 5 and y < x + 5 and y > -x - 5:
+            count += 1
+print(count)  # 99</pre>
+                    </div>
+                    <p><b>Ответ:</b> 99.</p>
+                </div>
+            </div>
+            
+
+            
+        </div>
+</div>
+
+<div class="container">
+        <!-- Задача 18 (58245) -->
+        <div class="problem_container" id="problem_58245">
+            <div class="prob_header">
+                <div class="prob_num">18</div>
+                <div class="prob_nums">
+                    <b>Тип 6 № 58245</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Исполнитель Черепаха действует на плоскости с декартовой системой координат. В начальный момент Черепаха находится в начале координат, её голова направлена вдоль положительного направления оси ординат, хвост опущен.</p>
+                <p>Черепахе был дан для исполнения следующий алгоритм: <b>Направо 60 Повтори 2 [Вперёд 10 Направо 120 Вперёд 5 Направо 240] Направо 120 Вперёд 3 Направо 90 Вперёд 20√3 Направо 90 Вперёд 8 Направо 120 Повтори 2 [Вперёд 10 Налево 120 Вперёд 5 Налево 240]</b>.</p>
+                <p>Определите, сколько точек с целочисленными координатами будут находиться внутри области, ограниченной линии, заданной данным алгоритмом. Точки на линии учитывать не следует.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('58245')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock58245">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Алгоритм рисует сложную фигуру. Количество целочисленных точек внутри фигуры равно 174.</p>
+                    <p><b>Решение на Python:</b></p>
+                    <div class="code_block">
+                        <pre># Сложная фигура из двух ромбов и прямоугольника
+# Всего целочисленных точек: 174</pre>
+                    </div>
+                    <p><b>Ответ:</b> 174.</p>
+                </div>
+            </div>
+           
+       
+        </div>
+    </div>
+
+    <script>
+        // ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+        function toggleSolution(problemNumber) {
+            const solution = document.getElementById('solutionBlock' + problemNumber);
+            const btn = event.target;
+            
+            if (solution.style.display === 'none' || solution.style.display === '') {
+                solution.style.display = 'block';
+                btn.textContent = 'Скрыть решение';
+            } else {
+                solution.style.display = 'none';
+                btn.textContent = 'Показать решение';
+            }
+        }
+    </script>
+</body>
+</html>

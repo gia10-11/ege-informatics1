@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 12: Исполнитель Редактор | 20 задач</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ ИНСТРУКЦИЯ ★ */
+.instruction_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 12. Исполнитель Редактор</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 12 № 9365 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её. Редактор может выполнять две команды, в обеих командах <i>v</i> и <i>w</i> обозначают цепочки цифр.</p>
+            <p>А) <b>заменить</b> (<i>v</i>, <i>w</i>). Эта команда заменяет в строке первое слева вхождение цепочки <i>v</i> на цепочку <i>w</i>.</p>
+            <p>Б) <b>нашлось</b> (<i>v</i>). Эта команда проверяет, встречается ли цепочка <i>v</i> в строке.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (222) ИЛИ нашлось (888)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (222)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (222, 8)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ заменить (888, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из 68 идущих подряд цифр 8? В ответе запишите полученную строку.</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит 9 первых восьмёрок на три двойки, а затем заменит эти три двойки обратно на одну восьмёрку. То есть за четыре повторения цикла из строки убирается 8 восьмёрок. За восемь таких групп по четыре повторения, то есть за 8·4 = 32 повторения цикла из строки уберётся 8·8 = 64 восьмёрки, и останется 4 восьмёрки. Первые три из них будут заменены на двойку.</p>
+                <div class="answer_text"><b>Ответ:</b> 28</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 12 № 10290 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её. Редактор может выполнять две команды: <b>заменить</b> (<i>v</i>, <i>w</i>) и <b>нашлось</b> (<i>v</i>).</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (18) ИЛИ нашлось (288) ИЛИ нашлось (3888)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (18)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (18, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ ЕСЛИ нашлось (288)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (288, 3)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ заменить (3888, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из цифры 1, за которой следуют 80 идущих подряд цифр 8? В ответе запишите полученную строку.</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>По ходу работы программы строка будет меняться так: 1888... → 2888... → 3888... → 1888... При этом за три итерации цикла будет убираться 6 восьмёрок. Тогда после 13 повторений по 3 итерации, то есть после 39 итераций, из строки будет убрано 13·6 = 78 восьмёрок и она примет вид 188. После чего цикл отработает ещё раз и заменит 188 на 28.</p>
+                <div class="answer_text"><b>Ответ:</b> 28</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 12 № 10388 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (722) ИЛИ нашлось (557)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (722)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (722, 57)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ заменить (557, 72)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>На вход этой программе подаётся строка, состоящая из 55 цифр; последняя цифра в строке — цифра 7, а остальные цифры — пятёрки. Какая строка получится в результате применения программы к этой строке? В ответе запишите полученную строку.</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Строка содержит 54 пятёрки и семёрку. По ходу работы программы строка будет меняться так: ...5557 → ...55572 → ...555722 → ...5557. При этом за 3 итерации цикла будет убираться 3 пятёрки. Тогда после 17 раз по 3 итерации, то есть после 51 итерации, из строки будет убрано 17·3 = 51 пятёрка и она примет вид 5557. После чего цикл отработает ещё один раз и заменит 5557 на 572.</p>
+                <div class="answer_text"><b>Ответ:</b> 572</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 12 № 11243 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (19) ИЛИ нашлось (299) ИЛИ нашлось (3999)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (19, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (299, 3)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (3999, 1)<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>На вход этой программе подаётся строка длины 99, состоящая из цифры 1, за которой следуют 98 идущих подряд цифр 9. Какая строка получится в результате применения программы к этой строке? В ответе запишите полученную строку.</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит 19 на 2, затем 299 на 3, затем 3999 на 1. То есть на каждом шаге алгоритма удаляются шесть девяток. Поскольку 98 девяток образуют 16 групп по 6 девяток и ещё 2 девятки, получим строку: 199. Последнее преобразование строки: 199 → 29.</p>
+                <div class="answer_text"><b>Ответ:</b> 29</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 12 № 11310 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (19) ИЛИ нашлось (299) ИЛИ нашлось (3999)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (19)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (19, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (299)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (299, 3)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (3999)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (3999, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из 1 и 100 идущих подряд цифр 9? В ответе запишите полученную строку.</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит 19 на 2, затем 299 на 3, затем 3999 на 1. То есть на каждом шаге алгоритма удаляются шесть девяток. Поскольку 100 девяток образуют 16 групп по 6 девяток и ещё 4 девятки, получим строку: 19999. Последние преобразования строки: 19999 → 2999 → 39.</p>
+                <div class="answer_text"><b>Ответ:</b> 39</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 12 № 13490 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (81) ИЛИ нашлось (882) ИЛИ нашлось (8883)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (81)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (81, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ ЕСЛИ нашлось (882)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (882, 3)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ заменить (8883, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке длины 101, в которой первый и последний символ — это цифры 1, а остальные символы — цифры 8? В ответе запишите полученную строку.</p>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Первым делом алгоритм преобразует строку к виду 18......2 (81 в конце заменится на 2), потом 882 заменится на 3. Потом 8883 заменится на 1. То есть строка превратится в исходную, но сократится на 6 восьмёрок. В итоге это сокращение произойдёт 16 раз и останется 18881. Эта строка изменится на 1882, а 1882 изменится на 13.</p>
+                <div class="answer_text"><b>Ответ:</b> 13</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 12 № 14700 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (111) ИЛИ нашлось (222)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (111)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (111, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (222)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (222, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке вида 1…12…2 (7 единиц, затем 7 двоек)? В ответе запишите полученную строку.</p>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит первые шесть единиц на две двойки и первые шесть двоек, следующих за единицами, на две единицы. После этого останется строка 221112. Далее три единицы заменятся на двойку и первые три двойки заменятся на единицу и останется строка 12.</p>
+                <div class="answer_text"><b>Ответ:</b> 12</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 12 № 15109 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (11)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (222)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (222, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ заменить (11, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из 77 единиц?</p>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит 6 первых единиц на три двойки, а затем заменит эти три двойки обратно на одну единицу. То есть шесть подряд идущих единиц заменяются на одну. Так, из 77 единиц = 12 групп по 6 единиц и еще пять единиц — всего 17 единиц. Снова заменятся 2 группы по 6 единиц, итого осталось 7 единиц. Шесть первых будут заменены на три двойки и останется строка 2221.</p>
+                <div class="answer_text"><b>Ответ:</b> 2221</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 12 № 15630 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (10) ИЛИ нашлось (1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (10)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (10, 001)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ заменить (1, 00)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из одной единицы и 75 стоящих справа от нее нулей? В ответе запишите сколько нулей будет в конечной строке.</p>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Рассмотрим пример. Возьмём исходную комбинацию 100. Далее 10 заменим на 001, получится 0010. Потом еще раз, получим 00001. И на последнем шаге 1 заменим на 00. В итоге получается 000000. Сделаем вывод: на каждом шаге в строке добавляются два нуля слева от единицы и удаляется один нуль справа от неё. Число нулей удвоилось. Последним шагом единица заменяется на два нуля. Применим этот алгоритм на комбинацию с единицей и 75 нулями. На предпоследнем шаге нули удвоятся 75·2 = 150, то есть будет строка из 150 нулей и одна единица. Последняя единица заменится на два нуля. Таким образом, нулей будет 150 + 2 = 152.</p>
+                <div class="answer_text"><b>Ответ:</b> 152</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 12 № 15799 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (111)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (11, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (22, 1)<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из 100 единиц?</p>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит четыре первых единицы на две двойки, а затем заменит эти две двойки обратно на одну единицу. То есть четыре подряд идущих единиц заменяются на одну. Так, из 100 единиц — 25 групп по 4 единицы, всего — 25 единиц. Далее алгоритм заменит 6 групп по четыре единицы и останутся 7 подряд идущих единиц. После этого первые 4 единицы заменятся на одну и останется последовательность из четырёх единиц. Далее первые две единицы заменятся на двойку и получится строка 211.</p>
+                <div class="answer_text"><b>Ответ:</b> 211</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 12 № 15854 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (10) ИЛИ нашлось (1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (10)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (10, 001)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (1, 000)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Определите количество нулей в строке, получившейся в результате применения приведённой программы к входной строке, состоящей из единицы, за которой следуют 80 нулей подряд. В ответе запишите только количество нулей в получившейся строке.</p>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Рассмотрим пример. Возьмём исходную комбинацию 100. Далее 10 заменим на 001, получится 0010. Потом еще раз, получим 00001. И на последнем шаге 1 заменим на 000. В итоге получается 0000000. Сделаем вывод: на каждом шаге в строке добавляются два нуля слева от единицы и удаляется один нуль справа от неё. Число нулей удвоилось. Последним шагом единица заменяется на три нуля. Применим этот алгоритм на комбинацию с единицей и 80 нулями. На предпоследнем шаге нули удвоятся 80·2 = 160, то есть будет строка из 160 нулей и одна единица. Последняя единица заменится на три нуля. Таким образом, нулей будет 160 + 3 = 163.</p>
+                <div class="answer_text"><b>Ответ:</b> 163</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 12 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 12 № 15924 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (1111)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (1111, 22)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (222, 1)<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из 101 единицы?</p>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит восемь первых единиц на четыре двойки, а затем заменит эти четыре двойки на одну единицу и двойку. То есть восемь подряд идущих единиц заменяются на строку 12. Далее алгоритм заменит 8 групп по 12 единиц и останется строка из 21 единицы. После этого первые 12 единиц заменятся на две и останется последовательность из одиннадцати единиц. Далее при первом проходе цикла первые четыре единицы заменятся на 22, в строке останется еще 7 единиц, при следующем проходе цикла первые четыре единицы заменятся на 22, и в этом же проходе цикла следующей командой получившиеся четыре двойки заменятся на 12. Получится строка 12111.</p>
+                <div class="answer_text"><b>Ответ:</b> 12111</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 13 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 12 № 15982 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (11111) ИЛИ нашлось (888)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (11111)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (11111, 88)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (888)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (888, 8)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из 82 единиц?</p>
+        </div>
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит пять первых единиц на две восьмёрки. То есть пять подряд идущих единиц заменяются на строку 88. Далее алгоритм заменит 16 групп по 5 единиц и останется строка из 32 восьмёрок и двух единиц. После этого восьмёрки будут заменяться по такому принципу: три подряд идущих восьмёрки будут заменяться на одну. Далее алгоритм заменит 32 подряд идущих восьмёрки на две и останется строка 8811.</p>
+                <div class="answer_text"><b>Ответ:</b> 8811</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 14 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 12 № 16389 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (11111)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (222, 1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (111, 2)<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из 77 единиц?</p>
+        </div>
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит девять первых единиц на три двойки, а затем заменит эти три двойки на одну единицу, после чего алгоритм заменит эту единицу и следующие за ней две единицы на двойку. То есть одиннадцать подряд идущих единиц заменяются на строку 2. Далее ещё 22 единицы заменятся на строку 22. После этого три подряд идущих двойки заменятся на единицу, которая вместе со следующими после ней двумя единицами заменятся на двойку. Таким образом, останется строка из двойки и 42 единиц. Далее алгоритм заменит ещё 33 единицы на три двойки. После этого строка 222 заменится на единицу, которая вместе со следующими после ней двумя единицами заменятся на двойку. Таким образом, останется строка из двойки и 18 единиц. Далее алгоритм заменит 11 единиц на двойку и останется строка из двух двоек и 7 единиц. После этого ещё три единицы заменятся на двойку. Таким образом, после применения данного алгоритма к строке из 77 единиц останется строка 2221111.</p>
+                <div class="answer_text"><b>Ответ:</b> 2221111</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 15 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 12 № 16817 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (11111)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (111, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (222, 1)<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из 80 единиц?</p>
+        </div>
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит девять первых единиц на три двойки, а затем заменит эти три двойки на одну единицу. То есть девять подряд идущих единиц заменяются на одну. Далее алгоритм заменит 7 групп по 9 единиц и останется строка из 16 единиц. После этого первые 9 единиц заменятся на одну и останется последовательность из восьми единиц. Далее шесть единиц заменятся на строку 22 и остаётся строка 2211.</p>
+                <div class="answer_text"><b>Ответ:</b> 2211</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 16 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">16</div>
+            <div class="prob_nums">Тип 12 № 17332 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (111)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (111, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (222, 3)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (333, 1)<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из 66 единиц?</p>
+        </div>
+        <div class="solution" id="solutionBlock16" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит девять первых единиц на три двойки, а затем заменит эти три двойки на одну тройку. После этого алгоритм заменит ещё 18 единиц на две тройки и останется строка из 40 единиц. Далее алгоритм заменит ещё 27 единиц на одну и останется строка из 14 единиц. После этого первые девять единиц заменятся на тройку и останется строка 311111. Далее ещё 3 единицы заменятся на двойку и останется строка 3211.</p>
+                <div class="answer_text"><b>Ответ:</b> 3211</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(16)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 17 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">17</div>
+            <div class="prob_nums">Тип 12 № 18495 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (111)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (111, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;заменить (222, 1)<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке вида 1…12…2 (40 единиц и 40 двоек)? В ответе запишите полученную строку.</p>
+        </div>
+        <div class="solution" id="solutionBlock17" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Рассмотрим, как алгоритм преобразует первую половину строки. За первые два прохода цикла первые шесть единиц заменяются на две двойки. Затем на третьем проходе алгоритма три единицы заменяются ещё на одну двойку и три появившиеся в начале двойки заменяются на одну единицу. При этом за три таких цикла во второй половине строки шесть двоек заменяются на две единицы. Таким образом, из строки удаляется шесть единиц и шесть двоек. После шести троек циклов останется строка 11112222. Затем выполнится последний цикл и получится строка 2112.</p>
+                <div class="answer_text"><b>Ответ:</b> 2112</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(17)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 18 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">18</div>
+            <div class="prob_nums">Тип 12 № 18716 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (7777) ИЛИ нашлось (3333)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (3333)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (3333, 77)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;заменить (7777, 33)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Какая строка получится в результате применения приведённой программы к строке, состоящей из 79 семёрок?</p>
+        </div>
+        <div class="solution" id="solutionBlock18" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит восемь первых семёрок на четыре тройки, после чего эти четыре тройки будут заменены на две семёрки. Таким образом, алгоритм заменяет восемь подряд идущих семёрок на 2. Далее алгоритм заменит 9 групп по 8 семёрок и останется строка из 19 семёрок. Далее ещё 16 семёрок заменятся на четыре и останется строка из 7 семёрок. После этого четыре семёрки заменятся на две тройки, и останется строка 33777.</p>
+                <div class="answer_text"><b>Ответ:</b> 33777</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(18)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 19 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">19</div>
+            <div class="prob_nums">Тип 12 № 18820 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (999) ИЛИ нашлось (222)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (222)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (222, 9)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ИНАЧЕ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;заменить (999, 2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>Найдите сумму цифр в строке, которая получится в результате применения приведённой программы к строке, состоящей из 65 цифр 9.</p>
+        </div>
+        <div class="solution" id="solutionBlock19" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Данный алгоритм сначала заменит девять первых девяток на три двойки, после чего эти три двойки будут заменены на одну девятку, после чего первые три девятки заменятся на одну двойку. После этого алгоритм будет действовать по следующему принципу: сначала он заменит шесть следующих после двойки девяток на две двойки, далее алгоритм заменит три двойки на одну девятку, после чего три первых девятки заменятся на одну двойку. Таким образом, алгоритм будет заменять двойку и следующие за ней восемь девяток на одну двойку, пока не останется строка 2999999. В этой строке алгоритм заменит следующие после двойки шесть девяток на две двойки, после чего заменит три двойки на одну девятку. Сумма цифр в получившейся строке равна 9.</p>
+                <div class="answer_text"><b>Ответ:</b> 9</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(19)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 20 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">20</div>
+            <div class="prob_nums">Тип 12 № 23912 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Исполнитель Редактор получает на вход строку цифр и преобразует её.</p>
+            <div class="instruction_box">
+                <b>Программа:</b><br>
+                НАЧАЛО<br>
+                &nbsp;&nbsp;ПОКА нашлось (&gt;1) ИЛИ нашлось (&gt;2) ИЛИ нашлось (&gt;3)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (&gt;1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (&gt;1, 22&gt;)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (&gt;2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (&gt;2, 2&gt;)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;ЕСЛИ нашлось (&gt;3)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ТО заменить (&gt;3, 1&gt;)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;КОНЕЦ ЕСЛИ<br>
+                &nbsp;&nbsp;КОНЕЦ ПОКА<br>
+                КОНЕЦ
+            </div>
+            <p>На вход приведённой ниже программе поступает строка, начинающаяся с символа «&gt;», а затем содержащая 10 цифр 1, 20 цифр 2 и 30 цифр 3, расположенных в произвольном порядке. Определите сумму числовых значений цифр строки, получившейся в результате выполнения программы.</p>
+        </div>
+        <div class="solution" id="solutionBlock20" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Заметим, что расположение цифр в исходной строке не влияет на результат. Данный алгоритм сначала заменит 10 цифр 1 на 20 цифр 2. Далее пройдёт 20 цифр 2, не изменяя строку. После этого данный алгоритм заменит 30 цифр 3 на 30 цифр 1. Таким образом, сумма числовых значений цифр строки, получившейся в результате выполнения программы, равна 2·40 + 1·30 = 110.</p>
+                <div class="answer_text"><b>Ответ:</b> 110</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(20)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

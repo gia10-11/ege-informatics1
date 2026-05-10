@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск информации в реляционных базах данных</title>
+</head>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+.problem_actions {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.action_btn {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 3px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ ТАБЛИЦА ИСТИННОСТИ ★ */
+.table_container {
+    margin: 20px 0;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+}
+
+.truth_table, .example_table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+.truth_table th, .example_table th {
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+    padding: 8px 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.truth_table td, .example_table td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+.truth_table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* ★ ИНСТРУКЦИЯ ★ */
+.instruction_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+/* ★ ПРИМЕР ★ */
+.example_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #ffc107;
+    font-size: 14px;
+}
+
+.example_table {
+    margin: 10px auto;
+}
+
+.example_table th,
+.example_table td {
+    padding: 5px 10px;
+}
+
+/* ★ БЛОК ОТВЕТА ★ */
+.answer_block {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 3px;
+}
+
+.answer_block h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.answer_form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.answer_input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.answer_input:focus {
+    border-color: #4a6baf;
+    outline: none;
+}
+
+.btn_check {
+    padding: 8px 20px;
+    background-color: #4a6baf;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_check:hover {
+    background-color: #3a5a9f;
+}
+
+.result_message {
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.result_message.correct {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.result_message.incorrect {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_tables {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.solution_table {
+    border-collapse: collapse;
+}
+
+.solution_table th,
+.solution_table td {
+    border: 1px solid #999;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.code_block {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 12px;
+    border-radius: 3px;
+    font-family: monospace;
+    overflow-x: auto;
+    margin: 10px 0;
+    font-size: 13px;
+}
+
+.code_block pre {
+    margin: 0;
+    color: #ecf0f1;
+    white-space: pre-wrap;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+.btn_secondary {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #95a5a6;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.btn_secondary:hover {
+    background-color: #7f8c8d;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.source_info span {
+    color: #666;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .answer_form {
+        flex-direction: column;
+    }
+    
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_check,
+    .btn_show_solution,
+    .btn_secondary {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .solution_tables {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+<body>
+<div class="new_header" 
+align="center" 
+style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<p><b>Задания 3.Поиск информации в реляционных базах данных.</b></p></div>	
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">1</div>
+        <div class="prob_nums">
+            Тип 3 № 37415 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты» о поставках товаров в магазины районов города. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.1.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Движение товаров» содержит записи о поставках товаров в магазины в течение первой декады июня 2021 г., а также информацию о проданных товарах. Поле <i>Тип операции</i> содержит значение <i>Поступление</i> или <i>Продажа</i>, а в соответствующее поле <i>Количество упаковок, шт.</i> занесена информация о том, сколько упаковок товара поступило в магазин или было продано в течение дня.</p>
+        
+        <p>Таблица «Товар» содержит информацию об основных характеристиках каждого товара.</p>
+        <p>Таблица «Магазин» содержит информацию о местонахождении магазинов.</p>
+        
+        <p><img src="/ege-informatics/practic/images/t3/1.png" style="margin:10px auto;display:block;max-width:100%"></p>
+        
+        <p>Используя информацию из приведённой базы данных, определите, на сколько увеличилось количество упаковок яиц диетических, имеющихся в наличии в магазинах Заречного района за период с 1 по 10 июня.</p>
+        
+        <p>В ответе запишите только число.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock1" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Открыв файл, перейдём на лист «Магазин». Воспользуемся стандартными средствами редактора Microsoft Excel, требуется отфильтровать записи в таблице, оставив только записи для магазинов Заречного района. Получаем ID магазинов: M3, M9, M11, M14.</p>
+            
+            <p>Перейдём на лист «Товар». Найдём строку с товаром «Яйцо диетическое». Артикул товара — 15.</p>
+            
+            <p>Перейдём на лист «Движение товаров». Применим фильтр по столбцу «ID магазина» для M3, M9, M11, M14 и фильтр по артикулу 15. Получим таблицу с операциями.</p>
+            
+            <p>После сортировки по типу операции получим:</p>
+            <p>Поступления: 180+170+180+180+180+180+170+180 = 1420</p>
+            <p>Продажи: 108+76+108+90+36+0+24+12 = 454</p>
+            
+            <p>Используя формулу =СУММ(E2:E9)-СУММ(E10:E17), получаем ответ — 966.</p>
+            
+            <p><strong>Ответ:</strong> 966</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(1)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">2</div>
+        <div class="prob_nums">
+            Тип 3 № 37481 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты» о поставках товаров в магазины районов города. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.2.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Движение товаров» содержит записи о поставках товаров в магазины в течение первой декады июня 2021 г., а также информацию о проданных товарах.</p>
+        
+        <p>Таблица «Товар» содержит информацию об основных характеристиках каждого товара.</p>
+        <p>Таблица «Магазин» содержит информацию о местонахождении магазинов.</p>
+        
+        <p><img src="/ege-informatics/practic/images/t3/2.png" style="margin:10px auto;display:block;max-width:100%"></p>
+        
+        <p>Используя информацию из приведённой базы данных, определите, сколько килограммов паштета из куриной печени было продано в магазинах Заречного района за период с 1 по 10 июня включительно.</p>
+        
+        <p>В ответе запишите только число.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock2" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Открыв файл, перейдём на лист «Магазин». Отфильтруем записи для магазинов Заречного района. Получаем ID магазинов: M3, M9, M11, M14.</p>
+            
+            <p>Перейдём на лист «Товар». Найдём строку с товаром «Паштет из куриной печени». Артикул товара — 63. В упаковке 10 кг.</p>
+            
+            <p>Перейдём на лист «Движение товаров». Применим фильтр по ID магазинов Заречного района, по артикулу 63 и по типу операции «Продажа». Получим:</p>
+            <p>M11: 33 упаковки</p>
+            <p>M14: 27 упаковок</p>
+            <p>M3: 33 упаковки</p>
+            <p>M9: 27 упаковок</p>
+            
+            <p>Всего упаковок: 33+27+33+27 = 120 упаковок</p>
+            <p>В килограммах: 120 × 0,2 = 24 кг</p>
+            
+            <p><strong>Ответ:</strong> 24</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(2)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">3</div>
+        <div class="prob_nums">
+            Тип 3 № 37492 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты» о поставках товаров в магазины районов города. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.3.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Движение товаров» содержит записи о поставках товаров в магазины в течение первой декады июня 2021 г., а также информацию о проданных товарах.</p>
+        
+        <p>Таблица «Товар» содержит информацию об основных характеристиках каждого товара.</p>
+        <p>Таблица «Магазин» содержит информацию о местонахождении магазинов.</p>
+        
+        <p><img src="/ege-informatics/practic/images/t3/3.png" style="margin:10px auto;display:block;max-width:100%"></p>
+        
+        <p>Используя информацию из приведённой базы данных, определите, сколько рублей потребовалось магазинам Первомайского района для закупки яиц диетических за период с 1 по 10 июня включительно.</p>
+        
+        <p>В ответе запишите только число.</p>
+    </div>
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock3" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Открыв файл, перейдём на лист «Магазин». Отфильтруем записи для магазинов Первомайского района. Получаем ID магазинов: M2, M4, M7, M8, M12, M13, M16.</p>
+            
+            <p>Перейдём на лист «Товар». Найдём строку с товаром «Яйцо диетическое». Артикул товара — 15.</p>
+            
+            <p>Перейдём на лист «Движение товаров». Применим фильтр по ID магазинов Первомайского района, по артикулу 15 и по типу операции «Поступление». Получим 14 записей с количеством упаковок.</p>
+            
+            <p>Суммируем количество упаковок: 180+180+180+170+180+170+180+180+180+180+180+180+180+170 = 2490 упаковок</p>
+            
+            <p>Цена за упаковку: 70 рублей</p>
+            <p>Общая стоимость: 2490 × 70 = 174300 рублей</p>
+            
+            <p><strong>Ответ:</strong> 174300</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(3)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+
+
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">4</div>
+        <div class="prob_nums">
+            Тип 3 № 37494 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты» о поставках товаров в магазины районов города. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.4.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Движение товаров» содержит записи о поставках товаров в магазины в течение первой декады июня 2021 г., а также информацию о проданных товарах.</p>
+        
+        <p>Таблица «Товар» содержит информацию об основных характеристиках каждого товара.</p>
+        <p>Таблица «Магазин» содержит информацию о местонахождении магазинов.</p>
+        
+        <p><img src="/ege-informatics/practic/images/t3/4.png" style="margin:10px auto;display:block;max-width:100%"></p>
+        
+        <p>Используя информацию из приведённой базы данных, определите, сколько рублей выручили магазины Заречного района от продажи соды пищевой за период с 1 по 10 июня включительно.</p>
+        
+        <p>В ответе запишите только число.</p>
+    </div>
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock4" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Открыв файл, перейдём на лист «Магазин». Отфильтруем записи для магазинов Заречного района. Получаем ID магазинов: M3, M9, M11, M14.</p>
+            
+            <p>Перейдём на лист «Товар». Найдём строку с товаром «Сода пищевая». Артикул товара — 43.</p>
+            
+            <p>Перейдём на лист «Движение товаров». Применим фильтр по ID магазинов Заречного района, по артикулу 43 и по типу операции «Продажа». Получим:</p>
+            <p>M11: 21 упаковка</p>
+            <p>M14: 10 упаковок</p>
+            <p>M3: 18 упаковок</p>
+            <p>M9: 12 упаковок</p>
+            
+            <p>Всего упаковок: 21+10+18+12 = 61 упаковка</p>
+            <p>Цена за упаковку: 40 рублей</p>
+            <p>Общая выручка: 61 × 40 = 2440 рублей</p>
+            
+            <p><strong>Ответ:</strong> 2440</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(4)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+
+
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">5</div>
+        <div class="prob_nums">
+            Тип 3 № 38937 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты», содержащей информацию о поставках товаров и их продаже. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.5.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Движение товаров» содержит записи о поставках товаров в магазины города в первой декаде июня 2021 г. и о продаже товаров в этот же период.</p>
+        <p>Таблица «Товар» содержит данные о товарах.</p>
+        <p>Таблица «Магазин» содержит адреса магазинов.</p>
+        
+        <p><img src="/ege-informatics/practic/images/t3/5.png" style="margin:10px auto;display:block;max-width:100%"></p>
+        
+        <p>Используя информацию из приведённой базы данных, определите общую стоимость продуктов, поставленных за указанный период с макаронной фабрики в магазины Первомайского района.</p>
+        
+        <p>В ответе запишите только число.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock5" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <p>Открыв файл, перейдём на лист «Магазин». Отфильтруем записи для магазинов Первомайского района. Получаем ID магазинов: M2, M4, M7, M8, M12, M13, M16.</p>
+            
+            <p>Перейдём на лист «Товар». Найдём товары, поставляемые макаронной фабрикой. Артикулы: 24, 25, 26, 27.</p>
+            
+            <p>Перейдём на лист «Движение товаров». Применим фильтр по ID магазинов Первомайского района, по артикулам 24,25,26,27 и по типу операции «Поступление». Получим 28 записей.</p>
+            
+            <p>Для каждой записи вычислим стоимость (количество × цена) и просуммируем.</p>
+            
+            <p>Общая стоимость: 241080 рублей</p>
+            
+            <p><strong>Ответ:</strong> 241080</p>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(5)">
+            Показать решение
+        </button>
+    </div>
+</div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">6</div>
+        <div class="prob_nums">
+            Тип 3 № 40719 (1 балл)
+        </div>
+    </div>
+
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты», содержащей информацию о поставках товаров и их продаже. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.6.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Движение товаров» содержит записи о поставках товаров в магазины города в первой декаде июня 2021 г. и о продаже товаров в этот же период. Таблица «Товар» содержит данные о товарах. Таблица «Магазин» содержит адреса магазинов.</p>
+        
+        <p><img src="/ege-informatics/practic/images/t3/6.png" style="margin:10px auto;display:block;max-width:100%"></p>
+                
+        <p class="task_note">В ответе запишите только число.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock6" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <h4><i class="fas fa-calculator"></i> Пошаговое решение:</h4>
+            
+            <div class="solution_step">
+                <h5>Шаг 1. Находим магазины Октябрьского района</h5>
+                <p>Открываем файл, переходим на лист «Магазин». Включаем фильтр по столбцу «Район» и выбираем «Октябрьский». Получаем ID магазинов: M1, M5, M6, M10, M15.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 2. Находим артикулы всех видов кофе</h5>
+                <p>Переходим на лист «Товар». Используем поиск для нахождения товаров, содержащих слово «кофе». Находим артикулы:</p>
+                <ul>
+                    <li>46 — Кофе растворимый</li>
+                    <li>47 — Кофе в зёрнах</li>
+                    <li>48 — Кофе молотый</li>
+                </ul>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 3. Фильтруем движение товаров</h5>
+                <p>Переходим на лист «Движение товаров». Применяем фильтр:</p>
+                <ul>
+                    <li>По столбцу «ID магазина» выбираем M1, M5, M6, M10, M15</li>
+                    <li>По столбцу «Артикул» выбираем 46, 47, 48</li>
+                    <li>По столбцу «Тип операции» выбираем «Продажа»</li>
+                </ul>
+                <p>Получаем таблицу с операциями продажи кофе в магазинах Октябрьского района.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 4. Вычисляем выручку</h5>
+                <p>Для каждой продажи вычисляем выручку: Количество × Цена.</p>
+                
+                <h6>Продажи кофе растворимого (артикул 46):</h6>
+                <p>M1: 106 упаковок × 330 = 34980 руб<br>
+                M5: 106 × 330 = 34980 руб<br>
+                M6: 106 × 330 = 34980 руб<br>
+                M10: 106 × 330 = 34980 руб<br>
+                M15: 106 × 330 = 34980 руб<br>
+                <strong>Итого по артикулу 46:</strong> 5 × 34980 = 174900 руб</p>
+                
+                <h6>Продажи кофе в зёрнах (артикул 47):</h6>
+                <p>M1: 32 упаковки × 370 = 11840 руб<br>
+                M5: 32 × 370 = 11840 руб<br>
+                M6: 32 × 370 = 11840 руб<br>
+                M10: 32 × 370 = 11840 руб<br>
+                M15: 32 × 370 = 11840 руб<br>
+                <strong>Итого по артикулу 47:</strong> 5 × 11840 = 59200 руб</p>
+                
+                <h6>Продажи кофе молотого (артикул 48):</h6>
+                <p>M1: 80 упаковок × 180 = 14400 руб<br>
+                M5: 80 × 180 = 14400 руб<br>
+                M6: 80 × 180 = 14400 руб<br>
+                M10: 80 × 180 = 14400 руб<br>
+                M15: 80 × 180 = 14400 руб<br>
+                <strong>Итого по артикулу 48:</strong> 5 × 14400 = 72000 руб</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 5. Суммируем общую выручку</h5>
+                <p>Общая выручка = 174900 + 59200 + 72000 = <strong>306100 рублей</strong></p>
+            </div>
+            
+            <div class="solution_answer">
+                <p><strong>Ответ:</strong> 306100</p>
+            </div>
+            
+            <hr>
+            
+            <div class="excel_hint">
+                <h5><i class="fas fa-lightbulb"></i> Подсказка по Excel:</h5>
+                <p>Для быстрого решения можно использовать формулу:</p>
+                <pre class="excel_formula">=СУММЕСЛИМН(F:F; C:C; "M1"; D:D; 46) * G2 + ...</pre>
+                <p>Или создать сводную таблицу для суммирования выручки по продажам.</p>
+                <p><strong>Количество продаж:</strong><br>
+                - Кофе растворимый: 106 × 5 магазинов = 530 упаковок<br>
+                - Кофе в зёрнах: 32 × 5 магазинов = 160 упаковок<br>
+                - Кофе молотый: 80 × 5 магазинов = 400 упаковок<br>
+                <strong>Общая выручка:</strong> 530×330 + 160×370 + 400×180 = 174900 + 59200 + 72000 = 306100 руб</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(6)">
+            <i class="fas fa-eye"></i> Показать решение
+        </button>
+
+    </div>
+</div>
+
+</div>
+
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">7</div>
+        <div class="prob_nums">
+            Тип 3 № 40978 (1 балл)
+        </div>
+    </div>
+
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты», содержащей информацию о поставках товаров и их продаже. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.7.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Движение товаров» содержит записи о поставках товаров в магазины города в первой декаде июня 2021 г. и о продаже товаров в этот же период. Таблица «Товар» содержит данные о товарах. Таблица «Магазин» содержит адреса магазинов.</p>
+        
+        <p><img src="/ege-informatics/practic/images/t3/7.png" style="margin:10px auto;display:block;max-width:100%"></p>
+          
+        <p class="task_note">В ответе запишите только число.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock7" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <h4><i class="fas fa-calculator"></i> Пошаговое решение:</h4>
+            
+            <div class="solution_step">
+                <h5>Шаг 1. Находим магазины Первомайского района</h5>
+                <p>Открываем файл, переходим на лист «Магазин». Включаем фильтр по столбцу «Район» и выбираем «Первомайский». Получаем ID магазинов: M2, M4, M7, M8, M12, M13, M16.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 2. Находим артикулы всех видов сахара</h5>
+                <p>Переходим на лист «Товар». Используем поиск для нахождения товаров, содержащих слово «сахар». Находим артикулы:</p>
+                <ul>
+                    <li>28 — Сахар песок белый</li>
+                    <li>29 — Сахар демерара коричневый</li>
+                    <li>30 — Сахар рафинад быстрорастворимый</li>
+                </ul>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 3. Фильтруем движение товаров</h5>
+                <p>Переходим на лист «Движение товаров». Применяем фильтр:</p>
+                <ul>
+                    <li>По столбцу «ID магазина» выбираем M2, M4, M7, M8, M12, M13, M16</li>
+                    <li>По столбцу «Артикул» выбираем 28, 29, 30</li>
+                    <li>По столбцу «Тип операции» выбираем «Продажа»</li>
+                </ul>
+                <p>Получаем таблицу с операциями продажи сахара в магазинах Первомайского района.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 4. Вычисляем выручку</h5>
+                <p>Для каждой продажи вычисляем выручку: Количество × Цена.</p>
+                
+                <h6>Сахар песок белый (артикул 28, цена 38 руб):</h6>
+                <p>M2: 100 упаковок<br>
+                M4: 100 упаковок<br>
+                M7: 100 упаковок<br>
+                M8: 100 упаковок<br>
+                M12: 100 упаковок<br>
+                M13: 100 упаковок<br>
+                M16: 100 упаковок<br>
+                <strong>Всего упаковок:</strong> 7 × 100 = 700 упаковок<br>
+                <strong>Выручка:</strong> 700 × 38 = 26600 руб</p>
+                
+                <h6>Сахар демерара коричневый (артикул 29, цена 85 руб):</h6>
+                <p>M2: 20 упаковок<br>
+                M4: 20 упаковок<br>
+                M7: 20 упаковок<br>
+                M8: 20 упаковок<br>
+                M12: 20 упаковок<br>
+                M13: 20 упаковок<br>
+                M16: 20 упаковок<br>
+                <strong>Всего упаковок:</strong> 7 × 20 = 140 упаковок<br>
+                <strong>Выручка:</strong> 140 × 85 = 11900 руб</p>
+                
+                <h6>Сахар рафинад (артикул 30, цена 44 руб):</h6>
+                <p>M2: 80 упаковок<br>
+                M4: 80 упаковок<br>
+                M7: 80 упаковок<br>
+                M8: 80 упаковок<br>
+                M12: 80 упаковок<br>
+                M13: 80 упаковок<br>
+                M16: 80 упаковок<br>
+                <strong>Всего упаковок:</strong> 7 × 80 = 560 упаковок<br>
+                <strong>Выручка:</strong> 560 × 44 = 24640 руб</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 5. Суммируем общую выручку</h5>
+                <p>Общая выручка = 26600 + 11900 + 24640 = <strong>63140 рублей</strong></p>
+            </div>
+            
+            <div class="solution_answer">
+                <p><strong>Ответ:</strong> 63140</p>
+            </div>
+            
+            <hr>
+            
+            <div class="excel_hint">
+                <h5><i class="fas fa-lightbulb"></i> Подсказка по Excel:</h5>
+                <p>Для быстрого решения можно использовать формулу:</p>
+                <pre class="excel_formula">=СУММЕСЛИМН(F:F; C:C; "M2"; D:D; 28) * 38 + 
+ СУММЕСЛИМН(F:F; C:C; "M2"; D:D; 29) * 85 + 
+ СУММЕСЛИМН(F:F; C:C; "M2"; D:D; 30) * 44 + ...</pre>
+                <p>Или создать сводную таблицу для суммирования выручки по продажам.</p>
+                <p><strong>Количество продаж по каждому магазину одинаковое:</strong><br>
+                - Сахар песок: 100 упаковок × 7 магазинов = 700 упаковок<br>
+                - Сахар демерара: 20 упаковок × 7 магазинов = 140 упаковок<br>
+                - Сахар рафинад: 80 упаковок × 7 магазинов = 560 упаковок<br>
+                <strong>Общая выручка:</strong> 700×38 + 140×85 + 560×44 = 26600 + 11900 + 24640 = 63140 руб</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(7)">
+            <i class="fas fa-eye"></i> Показать решение
+        </button>
+
+    </div>
+</div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">8</div>
+        <div class="prob_nums">
+            Тип 3 № 45237 (1 балл)
+        </div>
+    </div>
+
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты» о поставках товаров в магазины районов города. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.8.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Движение товаров» содержит записи о поставках товаров в магазины в течение первой декады июня 2021 г., а также информацию о проданных товарах. Поле <i>Тип операции</i> содержит значение <i>Поступление</i> или <i>Продажа</i>, а в соответствующее поле <i>Количество упаковок, шт.</i> занесена информация о том, сколько упаковок товара поступило в магазин или было продано в течение дня.</p>
+        
+        <p>Таблица «Товар» содержит информацию об основных характеристиках каждого товара.</p>
+        <p>Таблица «Магазин» содержит информацию о местонахождении магазинов.</p>
+        
+        <p><img src="/ege-informatics/practic/files/t3/8.png" style="margin:10px auto;display:block;max-width:100%"></p>
+
+        <p class="task_note">В ответе запишите только число.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock8" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <h4><i class="fas fa-calculator"></i> Пошаговое решение:</h4>
+            
+            <div class="solution_step">
+                <h5>Шаг 1. Находим магазины Октябрьского района</h5>
+                <p>Открываем файл, переходим на лист «Магазин». Включаем фильтр по столбцу «Район» и выбираем «Октябрьский». Получаем ID магазинов: M1, M5, M6, M10, M15.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 2. Находим артикул соды пищевой</h5>
+                <p>Переходим на лист «Товар». Используем поиск для нахождения товара «Сода пищевая». Артикул товара — 43.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 3. Фильтруем движение товаров</h5>
+                <p>Переходим на лист «Движение товаров». Применяем фильтр:</p>
+                <ul>
+                    <li>По столбцу «ID магазина» выбираем M1, M5, M6, M10, M15</li>
+                    <li>По столбцу «Артикул» выбираем 43</li>
+                </ul>
+                <p>Получаем таблицу с операциями по соде пищевой в магазинах Октябрьского района за период с 1 по 8 июня.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 4. Сортируем по типу операции и считаем</h5>
+                
+                <h6>Поступления (03.06.2021):</h6>
+                <p>M1: 170 упаковок<br>
+                M5: 180 упаковок<br>
+                M6: 170 упаковок<br>
+                M10: 180 упаковок<br>
+                M15: 180 упаковок</p>
+                <p><strong>Сумма поступлений:</strong> 170+180+170+180+180 = 880 упаковок</p>
+                
+                <h6>Продажи (03.06.2021):</h6>
+                <p>M1: 24 упаковки<br>
+                M5: 19 упаковок<br>
+                M6: 8 упаковок<br>
+                M10: 28 упаковок<br>
+                M15: 12 упаковок</p>
+                <p><strong>Сумма продаж:</strong> 24+19+8+28+12 = 91 упаковка</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 5. Вычисляем увеличение наличия</h5>
+                <p>Используем формулу: Поступления - Продажи</p>
+                <p><strong>880 - 91 = 789 упаковок</strong></p>
+            </div>
+            
+            <div class="solution_answer">
+                <p><strong>Ответ:</strong> 789</p>
+            </div>
+            
+            <hr>
+            
+            <div class="excel_hint">
+                <h5><i class="fas fa-lightbulb"></i> Подсказка по Excel:</h5>
+                <p>Для быстрого решения можно использовать формулу:</p>
+                <pre class="excel_formula">=СУММЕСЛИ(F2:F11;"Поступление";E2:E11) - СУММЕСЛИ(F2:F11;"Продажа";E2:E11)</pre>
+                <p>где столбец E - количество упаковок, F - тип операции.</p>
+                <p><strong>Данные по магазинам:</strong><br>
+                M1: поступление 170, продажа 24 → +146<br>
+                M5: поступление 180, продажа 19 → +161<br>
+                M6: поступление 170, продажа 8 → +162<br>
+                M10: поступление 180, продажа 28 → +152<br>
+                M15: поступление 180, продажа 12 → +168<br>
+                <strong>Общее увеличение:</strong> 146+161+162+152+168 = 789</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(8)">
+            <i class="fas fa-eye"></i> Показать решение
+        </button>
+
+    </div>
+</div>
+
+</div>
+<div class="container">
+<div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">9</div>
+        <div class="prob_nums">
+            Тип 3 № 46961 (1 балл)
+        </div>
+    </div>
+
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты», содержащей информацию о поставках товаров и их продаже. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.9.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Движение товаров» содержит записи о поставках товаров в магазины города в первой декаде июня 2021 г. и о продаже товаров в этот же период. Таблица «Товар» содержит данные о товарах. Таблица «Магазин» содержит адреса магазинов.</p>
+        
+        <p><img src="/ege-informatics/practic/images/t3/9.png" style="margin:10px auto;display:block;max-width:100%"></p>
+        
+        <p class="task_note">В ответе запишите только число.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock9" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <h4><i class="fas fa-calculator"></i> Пошаговое решение:</h4>
+            
+            <div class="solution_step">
+                <h5>Шаг 1. Находим магазины Заречного района</h5>
+                <p>Открываем файл, переходим на лист «Магазин». Включаем фильтр по столбцу «Район» и выбираем «Заречный». Получаем ID магазинов: M3, M9, M11, M14.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 2. Находим артикулы всех видов сахара</h5>
+                <p>Переходим на лист «Товар». Используем поиск для нахождения товаров, содержащих слово «сахар». Находим артикулы:</p>
+                <ul>
+                    <li>28 — Сахар песок белый (1 кг в упаковке)</li>
+                    <li>29 — Сахар демерара коричневый (1 кг в упаковке)</li>
+                    <li>30 — Сахар рафинад быстрорастворимый (0,5 кг в упаковке)</li>
+                </ul>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 3. Фильтруем движение товаров</h5>
+                <p>Переходим на лист «Движение товаров». Применяем фильтр:</p>
+                <ul>
+                    <li>По столбцу «ID магазина» выбираем M3, M9, M11, M14</li>
+                    <li>По столбцу «Артикул» выбираем 28, 29, 30</li>
+                    <li>По столбцу «Тип операции» выбираем «Поступление»</li>
+                </ul>
+                <p>Получаем таблицу с операциями поступления сахара в магазинах Заречного района.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 4. Считаем поступления в упаковках</h5>
+                
+                <h6>Сахар песок белый (артикул 28):</h6>
+                <p>M3: 170 упаковок<br>
+                M9: 180 упаковок<br>
+                M11: 170 упаковок<br>
+                M14: 180 упаковок</p>
+                <p><strong>Всего упаковок:</strong> 170+180+170+180 = 700 упаковок<br>
+                <strong>В килограммах:</strong> 700 × 1 = 700 кг</p>
+                
+                <h6>Сахар демерара коричневый (артикул 29):</h6>
+                <p>M3: 180 упаковок<br>
+                M9: 180 упаковок<br>
+                M11: 180 упаковок<br>
+                M14: 170 упаковок</p>
+                <p><strong>Всего упаковок:</strong> 180+180+180+170 = 710 упаковок<br>
+                <strong>В килограммах:</strong> 710 × 1 = 710 кг</p>
+                
+                <h6>Сахар рафинад (артикул 30):</h6>
+                <p>M3: 180 упаковок<br>
+                M9: 170 упаковок<br>
+                M11: 180 упаковок<br>
+                M14: 180 упаковок</p>
+                <p><strong>Всего упаковок:</strong> 180+170+180+180 = 710 упаковок<br>
+                <strong>В килограммах:</strong> 710 × 0,5 = 355 кг</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 5. Суммируем общее количество килограммов</h5>
+                <p>Общее количество = 700 + 710 + 355 = <strong>1765 кг</strong></p>
+            </div>
+            
+            <div class="solution_answer">
+                <p><strong>Ответ:</strong> 1765</p>
+            </div>
+            
+            <hr>
+            
+            <div class="excel_hint">
+                <h5><i class="fas fa-lightbulb"></i> Подсказка по Excel:</h5>
+                <p>Для быстрого решения можно использовать формулу:</p>
+                <pre class="excel_formula">=СУММЕСЛИМН(F:F; C:C; "M3"; D:D; 28) * 1 + 
+ СУММЕСЛИМН(F:F; C:C; "M3"; D:D; 29) * 1 + 
+ СУММЕСЛИМН(F:F; C:C; "M3"; D:D; 30) * 0,5 + ...</pre>
+                <p>Или использовать функцию ЕСЛИ для перевода упаковок в килограммы.</p>
+                <p><strong>Данные по магазинам:</strong><br>
+                M3: 170+180+180×0,5 = 170+180+90 = 440 кг<br>
+                M9: 180+180+170×0,5 = 180+180+85 = 445 кг<br>
+                M11: 170+180+180×0,5 = 170+180+90 = 440 кг<br>
+                M14: 180+170+180×0,5 = 180+170+90 = 440 кг<br>
+                <strong>Всего:</strong> 440+445+440+440 = 1765 кг</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(9)">
+            <i class="fas fa-eye"></i> Показать решение
+        </button>
+
+    </div>
+</div>
+</div>
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">10</div>
+        <div class="prob_nums">
+            Тип 3 № 47000 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты», содержащей информацию о поставках товаров и их продаже. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.10.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Движение товаров» содержит записи о поставках товаров в магазины города в первой декаде июня 2021 г. и о продаже товаров в этот же период. Таблица «Товар» содержит данные о товарах. Таблица «Магазин» содержит адреса магазинов.</p>
+        
+        <p><img src="/ege-informatics/practic/images/t3/10.png" style="margin:10px auto;display:block;max-width:100%"></p>
+
+        <p class="task_note">В ответе запишите только число.</p>
+    </div>
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock10" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <h4><i class="fas fa-calculator"></i> Пошаговое решение:</h4>
+            
+            <div class="solution_step">
+                <h5>Шаг 1. Находим магазины Октябрьского района</h5>
+                <p>Открываем файл, переходим на лист «Магазин». Включаем фильтр по столбцу «Район» и выбираем «Октябрьский». Получаем ID магазинов: M1, M5, M6, M10, M15.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 2. Находим артикулы всех видов кофе</h5>
+                <p>Переходим на лист «Товар». Используем поиск для нахождения товаров, содержащих слово «кофе». Находим артикулы:</p>
+                <ul>
+                    <li>46 — Кофе растворимый (0,2 кг в упаковке)</li>
+                    <li>47 — Кофе в зёрнах (0,5 кг в упаковке)</li>
+                    <li>48 — Кофе молотый (0,2 кг в упаковке)</li>
+                </ul>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 3. Фильтруем движение товаров</h5>
+                <p>Переходим на лист «Движение товаров». Применяем фильтр:</p>
+                <ul>
+                    <li>По столбцу «ID магазина» выбираем M1, M5, M6, M10, M15</li>
+                    <li>По столбцу «Артикул» выбираем 46, 47, 48</li>
+                    <li>По столбцу «Тип операции» выбираем «Поступление»</li>
+                </ul>
+                <p>Получаем таблицу с операциями поступления кофе в магазинах Октябрьского района.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 4. Считаем поступления в килограммах</h5>
+                
+                <h6>Кофе растворимый (артикул 46, 0,2 кг/уп):</h6>
+                <p>M1: 180 упаковок → 180 × 0,2 = 36 кг<br>
+                M5: 180 упаковок → 180 × 0,2 = 36 кг<br>
+                M6: 180 упаковок → 180 × 0,2 = 36 кг<br>
+                M10: 180 упаковок → 180 × 0,2 = 36 кг<br>
+                M15: 170 упаковок → 170 × 0,2 = 34 кг</p>
+                <p><strong>Итого:</strong> 36+36+36+36+34 = 178 кг</p>
+                
+                <h6>Кофе в зёрнах (артикул 47, 0,5 кг/уп):</h6>
+                <p>M1: 180 упаковок → 180 × 0,5 = 90 кг<br>
+                M5: 180 упаковок → 180 × 0,5 = 90 кг<br>
+                M6: 180 упаковок → 180 × 0,5 = 90 кг<br>
+                M10: 170 упаковок → 170 × 0,5 = 85 кг<br>
+                M15: 180 упаковок → 180 × 0,5 = 90 кг</p>
+                <p><strong>Итого:</strong> 90+90+90+85+90 = 445 кг</p>
+                
+                <h6>Кофе молотый (артикул 48, 0,2 кг/уп):</h6>
+                <p>M1: 180 упаковок → 180 × 0,2 = 36 кг<br>
+                M5: 180 упаковок → 180 × 0,2 = 36 кг<br>
+                M6: 170 упаковок → 170 × 0,2 = 34 кг<br>
+                M10: 180 упаковок → 180 × 0,2 = 36 кг<br>
+                M15: 180 упаковок → 180 × 0,2 = 36 кг</p>
+                <p><strong>Итого:</strong> 36+36+34+36+36 = 178 кг</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 5. Суммируем общее количество килограммов</h5>
+                <p>Общее количество = 178 + 445 + 178 = <strong>801 кг</strong></p>
+            </div>
+            
+            <div class="solution_answer">
+                <p><strong>Ответ:</strong> 801</p>
+            </div>
+            
+            <hr>
+            
+            <div class="excel_hint">
+                <h5><i class="fas fa-lightbulb"></i> Подсказка по Excel:</h5>
+                <p>Для быстрого решения можно использовать формулу:</p>
+                <pre class="excel_formula">=СУММЕСЛИМН(F:F; C:C; "M1"; D:D; 46)*0,2 + 
+ СУММЕСЛИМН(F:F; C:C; "M1"; D:D; 47)*0,5 + 
+ СУММЕСЛИМН(F:F; C:C; "M1"; D:D; 48)*0,2 + ...</pre>
+                <p>Или использовать функцию ЕСЛИ для перевода упаковок в килограммы.</p>
+                <p><strong>Данные по магазинам (в кг):</strong><br>
+                M1: 36 + 90 + 36 = 162 кг<br>
+                M5: 36 + 90 + 36 = 162 кг<br>
+                M6: 36 + 90 + 34 = 160 кг<br>
+                M10: 36 + 85 + 36 = 157 кг<br>
+                M15: 34 + 90 + 36 = 160 кг<br>
+                <strong>Всего:</strong> 162+162+160+157+160 = 801 кг</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(10)">
+            <i class="fas fa-eye"></i> Показать решение
+        </button>
+
+    </div>
+</div>
+
+</div>
+
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">11</div>
+        <div class="prob_nums">
+            Тип 3 № 47207 (1 балл)
+        </div>
+    </div>
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты» о поставках товаров в магазины районов города. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.11.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Движение товаров» содержит записи о поставках товаров в магазины в течение первой декады июня 2021 г., а также информацию о проданных товарах. Поле <i>Тип операции</i> содержит значение <i>Поступление</i> или <i>Продажа</i>, а в соответствующее поле <i>Количество упаковок, шт.</i> занесена информация о том, сколько упаковок товара поступило в магазин или было продано в течение дня.</p>
+        
+        <p>Таблица «Товар» содержит информацию об основных характеристиках каждого товара.</p>
+        <p>Таблица «Магазин» содержит информацию о местонахождении магазинов.</p>
+        
+        <p><img src="/ege-informatics/practic/images/t3/11.png" style="margin:10px auto;display:block;max-width:100%"></p>
+
+        <p class="task_note">В ответе запишите только число.</p>
+    </div>
+
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock11" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <h4><i class="fas fa-calculator"></i> Пошаговое решение:</h4>
+            
+            <div class="solution_step">
+                <h5>Шаг 1. Находим магазины Заречного района</h5>
+                <p>Открываем файл, переходим на лист «Магазин». Включаем фильтр по столбцу «Район» и выбираем «Заречный». Получаем ID магазинов: M3, M9, M11, M14.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 2. Находим артикул крахмала картофельного</h5>
+                <p>Переходим на лист «Товар». Используем поиск для нахождения товара «Крахмал картофельный». Артикул товара — 42. Вес одной упаковки: 0,5 кг.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 3. Фильтруем движение товаров</h5>
+                <p>Переходим на лист «Движение товаров». Применяем фильтр:</p>
+                <ul>
+                    <li>По столбцу «ID магазина» выбираем M3, M9, M11, M14</li>
+                    <li>По столбцу «Артикул» выбираем 42</li>
+                    <li>По столбцу «Тип операции» выбираем «Поступление»</li>
+                    <li>По столбцу «Дата» выбираем период с 01.06.2021 по 08.06.2021</li>
+                </ul>
+                <p>Получаем таблицу с операциями поступления крахмала в магазинах Заречного района.</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 4. Считаем поступления в килограммах</h5>
+                
+                <h6>Поступления (03.06.2021):</h6>
+                <p>M3: 180 упаковок × 0,5 кг = 90 кг<br>
+                M9: 180 упаковок × 0,5 кг = 90 кг<br>
+                M11: 170 упаковок × 0,5 кг = 85 кг<br>
+                M14: 180 упаковок × 0,5 кг = 90 кг</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 5. Суммируем общий вес</h5>
+                <p>Общий вес = 90 + 90 + 85 + 90 = <strong>355 кг</strong></p>
+            </div>
+            
+            <div class="solution_answer">
+                <p><strong>Ответ:</strong> 355</p>
+            </div>
+            
+            <hr>
+            
+            <div class="excel_hint">
+                <h5><i class="fas fa-lightbulb"></i> Подсказка по Excel:</h5>
+                <p>Для быстрого решения можно использовать формулу:</p>
+                <pre class="excel_formula">=СУММЕСЛИМН(F:F; C:C; "M3"; D:D; 42)*0,5 + 
+ СУММЕСЛИМН(F:F; C:C; "M9"; D:D; 42)*0,5 + 
+ СУММЕСЛИМН(F:F; C:C; "M11"; D:D; 42)*0,5 + 
+ СУММЕСЛИМН(F:F; C:C; "M14"; D:D; 42)*0,5</pre>
+                <p><strong>Итоговый расчёт:</strong><br>
+                M3: 180 × 0,5 = 90 кг<br>
+                M9: 180 × 0,5 = 90 кг<br>
+                M11: 170 × 0,5 = 85 кг<br>
+                M14: 180 × 0,5 = 90 кг<br>
+                <strong>Всего:</strong> 90 + 90 + 85 + 90 = 355 кг</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(11)">
+            <i class="fas fa-eye"></i> Показать решение
+        </button>
+
+    </div>
+</div>
+</div>
+
+
+<div class="container">
+    <div class="problem_container">
+    <!-- ★ ЗАГОЛОВОК ЗАДАНИЯ ★ -->
+    <div class="prob_header">
+        <div class="prob_num">12</div>
+        <div class="prob_nums">
+            Тип 3 № 48424 (1 балл)
+        </div>
+    </div>
+
+
+    <!-- ★ ТЕКСТ ЗАДАНИЯ ★ -->
+    <div class="problem_text left_margin">
+        <p>В файле приведён фрагмент базы данных «Продукты», содержащей информацию о поставках товаров и их продаже. База данных состоит из трёх таблиц.</p>
+        
+        <center><p><a href="/ege-informatics/practic/files/t3/3.12.ods" target="_blank">Задание 3</a></p></center>
+        
+        <p>Таблица «Торговля» содержит записи о поставках и продажах товаров в магазинах города в июне 2021 г. Таблица «Товар» содержит данные о товарах. Таблица «Магазин» содержит данные о магазинах.</p>
+        
+        <p><img src="/ege-informatics/practic/images/t3/12.png" style="margin:10px auto;display:block;max-width:100%"></p>
+
+        <p class="task_note">В ответе запишите только число.</p>
+    </div>
+
+    <!-- ★ РЕШЕНИЕ (скрыто) ★ -->
+    <div class="solution" id="solutionBlock12" style="display: none;">
+        <p class="left_margin"><b>Решение.</b></p>
+        
+        <div class="solution_text">
+            <h4><i class="fas fa-calculator"></i> Пошаговое решение:</h4>
+            
+            <div class="solution_step">
+                <h5>Шаг 1. Подготовка данных</h5>
+                <p>Открываем файл. На листе «Торговля» отсутствует информация о районе магазинов и отделе товаров. Используем функцию ВПР для добавления этих данных:</p>
+                <ul>
+                    <li>В столбце H: =ВПР(C2;Магазин!A:B;2;0) — добавляем район</li>
+                    <li>В столбце I: =ВПР(D2;Товар!A:F;2;0) — добавляем отдел</li>
+                </ul>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 2. Применяем фильтры</h5>
+                <p>После добавления данных применяем фильтры:</p>
+                <ul>
+                    <li>Район = "Центральный"</li>
+                    <li>Отдел = "Мясная гастрономия"</li>
+                    <li>Тип операции = "Продажа"</li>
+                    <li>Дата с 07.06.2021 по 13.06.2021</li>
+                </ul>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 3. Вычисляем выручку</h5>
+                <p>Для каждой записи вычисляем выручку: Количество × Цена</p>
+                <p>Получаем множество записей (в решении показана таблица с данными).</p>
+            </div>
+            
+            <div class="solution_step">
+                <h5>Шаг 4. Суммируем общую выручку</h5>
+                <p>Используя функцию ПРОМЕЖУТОЧНЫЕ.ИТОГИ или СУММ, суммируем все значения выручки.</p>
+                <p><strong>Общая выручка: 10 605 631 рубль</strong></p>
+            </div>
+            
+            <div class="solution_answer">
+                <p><strong>Ответ:</strong> 10605631</p>
+            </div>
+            
+            <hr>
+            
+            <div class="excel_hint">
+                <h5><i class="fas fa-lightbulb"></i> Подсказка по Excel:</h5>
+                <p>Для решения задания необходимо:</p>
+                <ol>
+                    <li>Создать столбец с районом: <code>=ВПР(C2;Магазин!A:B;2;0)</code></li>
+                    <li>Создать столбец с отделом: <code>=ВПР(D2;Товар!A:F;2;0)</code></li>
+                    <li>Применить фильтры по району, отделу, типу операции и дате</li>
+                    <li>Создать столбец с выручкой: <code>=E2*G2</code></li>
+                    <li>Просуммировать выручку отфильтрованных записей</li>
+                </ol>
+                <p><strong>Важно:</strong> Файл содержит большой объем данных (более 38 000 записей), поэтому рекомендуется использовать фильтры и функции Excel для автоматического подсчёта.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ★ КНОПКИ УПРАВЛЕНИЯ ★ -->
+    <div class="task_controls">
+        <button class="btn_show_solution" onclick="toggleSolution(12)">
+            <i class="fas fa-eye"></i> Показать решение
+        </button>
+
+    </div>
+</div>
+
+</div>
+</body>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btn = event.target;
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</html>

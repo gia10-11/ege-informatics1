@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тип 7: Передача информации. Кодирование звука и изображений</title>
+    <style>
+        /* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.4;
+            color: #000;
+            background-color: #fff;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .problem_container {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+        .prob_header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .prob_num {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #4a6baf;
+            color: white;
+            text-align: center;
+            line-height: 24px;
+            border-radius: 3px;
+            margin-right: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .prob_nums {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .prob_nums a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .prob_nums a:hover {
+            text-decoration: underline;
+        }
+
+        /* ★ ТЕКСТ ЗАДАНИЯ ★ */
+        .problem_text {
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .left_margin {
+            margin-left: 0;
+        }
+
+        /* ★ РЕШЕНИЕ ★ */
+        .solution {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #4a6baf;
+            font-size: 14px;
+            display: none;
+        }
+
+        .solution_text {
+            line-height: 1.6;
+        }
+
+        .solution_text center {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .code_block {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px;
+            border-radius: 3px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+
+        .code_block pre {
+            margin: 0;
+            color: #ecf0f1;
+            white-space: pre-wrap;
+        }
+
+        hr {
+            margin: 15px 0;
+            border: none;
+            border-top: 1px dashed #999;
+        }
+
+        /* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+        .btn_show_solution {
+            padding: 8px 16px;
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .btn_show_solution:hover {
+            background-color: #e67e22;
+        }
+
+        /* ★ ИСТОЧНИК ★ */
+        .source_info {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px dashed #ccc;
+            padding-top: 10px;
+        }
+
+        .source_info span, .source_info a {
+            color: #666;
+        }
+
+        .source_info a:hover {
+            color: #0066cc;
+        }
+
+        /* ★ ОТВЕТ ★ */
+        .answer {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e8f4ff;
+            border-left: 3px solid #4a6baf;
+            font-weight: bold;
+        }
+
+        /* ★ АДАПТИВНОСТЬ ★ */
+        @media (max-width: 768px) {
+            .btn_show_solution {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        .new_header {
+            padding-top: 3px;
+            vertical-align: middle;
+            width: 100%;
+            line-height: 25px;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #006;
+            font-weight: bold;
+        }
+        
+        .flex-img {
+            text-align: center;
+            margin: 10px 0;
+        }
+        
+        .flex-img img {
+            max-width: 100%;
+        }
+        
+        .tex {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="new_header">
+        <b>Тип 7. Передача информации. Кодирование звука и изображений</b>
+    </div>
+
+    <div class="container">
+        <!-- Задача 1 (8097) -->
+        <div class="problem_container" id="problem_8097">
+            <div class="prob_header">
+                <div class="prob_num">1</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 8097</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Музыкальный фрагмент был оцифрован и записан в виде файла без использования сжатия данных. Получившийся файл был передан в город А по каналу связи за 30 секунд. Затем тот же музыкальный фрагмент был оцифрован повторно с разрешением в 2 раза выше и частотой дискретизации в 1,5 раза меньше, чем в первый раз. Сжатие данных не производилось. Полученный файл был передан в город Б; пропускная способность канала связи с городом Б в 4 раза выше, чем канала связи с городом А. Сколько секунд длилась передача файла в город Б? В ответе запишите только целое число, единицу измерения писать не нужно.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('8097')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock8097">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Пусть размер первого получившегося файла x. Тогда размер второго — x·2:1,5 = 4x/3. То есть он будет передаваться в 4/3 раза дольше. Пропускная способность канала в город Б выше в 4 раза, то есть время будет в 4 раза меньше, чем при передаче в город А. Итого получаем время: 30 · (4/3) : 4 = 10.</p>
+                    <p><b>Ответ:</b> 10.</p>
+                </div>
+            </div>
+
+        </div>
+</div>
+    <div class="container">
+
+        <!-- Задача 2 (13355) -->
+        <div class="problem_container" id="problem_13355">
+            <div class="prob_header">
+                <div class="prob_num">2</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 13355</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Музыкальный фрагмент был оцифрован и записан в виде файла без использования сжатия данных. Получившийся файл был передан в город А по каналу связи за 15 секунд. Затем тот же музыкальный фрагмент был оцифрован повторно с разрешением в 2 раза выше и частотой дискретизации в 1,5 раза меньше, чем в первый раз. Сжатие данных не производилось. Полученный файл был передан в город Б; пропускная способность канала связи с городом Б в 2 раза выше, чем канала связи с городом А. Сколько секунд длилась передача файла в город Б? В ответе запишите только целое число, единицу измерения писать не нужно.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('13355')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock13355">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Объём файла прямо пропорционален разрешению файла и его частоте дискретизации. Следовательно, объём файла во втором случае в 2/1,5 = 4/3 раза больше. Длительность передачи обратно пропорциональна пропускной способности канала связи, откуда получаем, что длительность передачи файла во второй раз равна: 15 · (1/2) · (4/3) = 10.</p>
+                    <p><b>Ответ:</b> 10.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+    <div class="container">
+
+        <!-- Задача 3 (55803) -->
+        <div class="problem_container" id="problem_55803">
+            <div class="prob_header">
+                <div class="prob_num">3</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 55803</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Голосовое сообщение, записанное в стерео формате, передаётся со скоростью 64 000 бит/с. Файл был записан с такими параметрами: глубина кодирования — 24 бит на отсчет, частота дискретизации — 16 000 отсчетов в секунду, время записи — 90 с. Сколько секунд будет передаваться голосовое сообщение?</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('55803')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock55803">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Время передачи голосовой записи можно найти, разделив объем передаваемого файла на скорость передачи:</p>
+                    <p style="text-align: center;">(2 (стереозапись) · 24 · 16 000 · 90) / 64 000 = 1080</p>
+                    <p><b>Ответ:</b> 1080.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+    <div class="container">
+
+        <!-- Задача 4 (56507) -->
+        <div class="problem_container" id="problem_56507">
+            <div class="prob_header">
+                <div class="prob_num">4</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 56507</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Интернет-сервис предоставляет возможность скачать музыкальную запись в двух вариантах: A (высокое качество) и B (среднее качество). Оба варианта записаны в формате стерео. Вариант A оцифрован с частотой дискретизации 88 кГц и разрешением 24 бит, вариант B — с частотой дискретизации 44 кГц и разрешением 16 бит. В варианте A использовано сжатие данных без потерь, при этом объём файла уменьшился в 2 раза. В варианте B использовано сжатие с потерями, уменьшающее размер файла в 10 раз. Известно, что размер файла варианта B составляет 10 Мбайт. Определите размер файла для варианта A. В ответе укажите только число — размер файла в Мбайт.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('56507')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock56507">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Заметим, что в варианте A частота дискретизации больше в 2 раза, разрешение больше в 1,5 раза, а сжатие меньше в 5 раз, тогда, получаем, что объем равен 10 · 2 · 1,5 · 5 = 150 Мбайт.</p>
+                    <p><b>Ответ:</b> 150.</p>
+                </div>
+            </div>
+            
+
+        </div>
+</div>
+    <div class="container">
+
+
+        <!-- Задача 5 (57414) -->
+        <div class="problem_container" id="problem_57414">
+            <div class="prob_header">
+                <div class="prob_num">5</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 57414</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Голосовое сообщение продолжительностью 90 с было записано в формате стерео и оцифровано с глубиной кодирования 16 бит и частотой дискретизации 48 000 измерений в секунду. Сжатие данных не использовалось. Файл с оцифрованным голосовым сообщением был передан по каналу связи, пропускная способность которого 3200 бит/с. Сколько секунд длилась передача файла? В ответе запишите целое число, единицу измерения указывать не нужно.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('57414')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock57414">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Время передачи голосовой записи можно найти, разделив объем передаваемого файла на скорость передачи:</p>
+                    <p style="text-align: center;">(2 (стереозапись) · 16 · 48 000 · 90) / 3 200 = 43 200</p>
+                    <p><b>Ответ:</b> 43200.</p>
+                </div>
+            </div>
+            
+
+        </div>
+
+    </div>
+    <div class="container">
+
+        <!-- Задача 6 (61353) -->
+        <div class="problem_container" id="problem_61353">
+            <div class="prob_header">
+                <div class="prob_num">6</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 61353</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Аудиопоток кодируется в режиме стерео (2 канала) с частотой дискретизации 48 кГц и передаётся по каналу с пропускной способностью 45 Кбайт/сек. При этом используются методы сжатия, которые позволяют сократить объём передаваемой информации на 84%. С какой максимальной глубиной кодирования можно вести запись? В ответе укажите только целое число — максимально возможную глубину кодирования в битах.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('61353')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock61353">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Скорость передачи аудиопотока можно найти, разделив объем передаваемого файла на время передачи. Возьмем время передачи за 1 секунду, а глубину кодирования возьмем за x, также учтем, что изначальный объем сократили на 84%:</p>
+                    <p style="text-align: center;">2 · 48000 · x · (1 - 0,84) = 45 · 1024 · 8</p>
+                    <p>Вычисляем выражение и получаем максимальную глубину кодирования — 24 бита.</p>
+                    <p><b>Ответ:</b> 24.</p>
+                </div>
+            </div>
+            
+
+        </div>
+
+        </div>
+    <div class="container">
+
+        <!-- Задача 7 (61387) -->
+        <div class="problem_container" id="problem_61387">
+            <div class="prob_header">
+                <div class="prob_num">7</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 61387</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Аудиопоток кодируется в режиме стерео (2 канала) с частотой дискретизации 32 кГц и передаётся по каналу с пропускной способностью 40 Кбайт/сек. При этом используются методы сжатия, которые позволяют сократить объём передаваемой информации на 68%. С какой максимальной глубиной кодирования можно вести запись? В ответе укажите только целое число — максимально возможную глубину кодирования в битах.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('61387')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock61387">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Скорость передачи аудиопотока можно найти, разделив объем передаваемого файла на время передачи. Возьмем время передачи за 1 секунду, а глубину кодирования возьмем за x, также учтем, что изначальный объем сократили на 68%:</p>
+                    <p style="text-align: center;">2 · 32000 · x · (1 - 0,68) = 40 · 1024 · 8</p>
+                    <p>Вычисляем выражение и получаем максимальную глубину кодирования — 16 бит.</p>
+                    <p><b>Ответ:</b> 16.</p>
+                </div>
+            </div>
+            
+        </div>
+
+        </div>
+    <div class="container">
+
+        <!-- Задача 8 (72592) -->
+        <div class="problem_container" id="problem_72592">
+            <div class="prob_header">
+                <div class="prob_num">8</div>
+                <div class="prob_nums">
+                    <b>Тип 7 № 72592</b> (1 балл)
+                </div>
+            </div>
+            
+            <div class="problem_text left_margin">
+                <p>Камера дорожного наблюдения делает цветные фотографии с разрешением 1536×1024 пикселей, используя палитру из 4096 цветов. Снимки сохраняются в памяти камеры, группируются в пакеты по 150 штук и отправляются в центр обработки по каналу связи с пропускной способностью 288 Кбайт/сек. На сколько процентов необходимо сжать изображения, чтобы передавать один пакет за 4 минут? Заголовки и другую служебную информацию не учитывать. В ответе запишите число — округлённый до целого процент сжатия. Знак процента писать не нужно.</p>
+            </div>
+            
+            <button class="btn_show_solution" onclick="toggleSolution('72592')">Показать решение</button>
+            
+            <div class="solution" id="solutionBlock72592">
+                <div class="solution_text">
+                    <p><b>Решение.</b></p>
+                    <p>Один пиксель кодируется 12 битами, так как 2<sup>12</sup> = 4096. Всего 1536·1024 = 1 572 864 пикселей. Значит, одна фотография занимает: 1 572 864·12 = 18 874 368 бит = 2 359 296 байт = 2304 Кбайт.</p>
+                    <p>Размер одного пакета: 150 · 2304 = 345 600 Кбайт.</p>
+                    <p>Вычислим время передачи пакета: 345 600 / 288 = 1200 сек = 20 мин.</p>
+                    <p>Для того, чтобы пакет передать за 4 минуты, его необходимо сжать в пять раз. Следовательно, переданный пакет будет занимать 20 процентов от первоначального размера. Тогда процент сжатия будет равен 80.</p>
+                    <p><b>Ответ:</b> 80.</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        // ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+        function toggleSolution(problemNumber) {
+            const solution = document.getElementById('solutionBlock' + problemNumber);
+            const btn = event.target;
+            
+            if (solution.style.display === 'none' || solution.style.display === '') {
+                solution.style.display = 'block';
+                btn.textContent = 'Скрыть решение';
+            } else {
+                solution.style.display = 'none';
+                btn.textContent = 'Показать решение';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 15: Побитовая конъюнкция (логические выражения) | 11 задач</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 15. Побитовая конъюнкция (логические выражения)</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 (9804) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 15 № 9804 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим через <i>m &amp; n</i> поразрядную конъюнкцию неотрицательных целых чисел <i>m</i> и <i>n</i>. Для какого наименьшего неотрицательного целого числа <i>А</i> формула</p>
+            <p><b><i>x</i> &amp; 29 ≠ 0 → (<i>x</i> &amp; 17 = 0 → <i>x</i> &amp; <i>А</i> ≠ 0)</b></p>
+            <p>тождественно истинна (т.е. принимает значение 1 при любом неотрицательном целом значении переменной <i>x</i>)?</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Преобразуем выражение: (x &amp; 29 = 0) ∨ (x &amp; 17 ≠ 0) ∨ (x &amp; А ≠ 0).</p>
+                <p>29₁₀ = 11101₂, 17₁₀ = 10001₂. Ложными два левых выражения будут, если в числе x есть единицы в разрядах, которые есть в 29, но нет в 17 (разряды 2 и 3). Тогда должно быть истинным (x &amp; А ≠ 0). Следовательно, A должно содержать единицы в разрядах 2 и 3: 1100₂ = 12₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 12</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 (34509) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 15 № 34509 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим через <i>m &amp; n</i> поразрядную конъюнкцию. Для какого наименьшего неотрицательного целого числа <i>А</i> формула</p>
+            <p><b>((x &amp; 28 = 0) ∧ (x &amp; 45 = 0)) → ((x &amp; 17 = 0) → (x &amp; А = 0))</b></p>
+            <p>тождественно истинна?</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Преобразуем к виду: Z<sub>(28 or 45)</sub> → Z<sub>(17 or A)</sub>. 28or45 = 111101₂ = 61₁₀. Наименьшее A, дающее в дизъюнкции с 17 все биты 61: A = 44₁₀ (101100₂).</p>
+                <div class="answer_text"><b>Ответ:</b> 44</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 (34513) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 15 № 34513 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим через <i>m &amp; n</i> поразрядную конъюнкцию. Для какого наименьшего неотрицательного целого числа <i>А</i> формула</p>
+            <p><b>x &amp; 33 = 0 → (x &amp; 45 ≠ 0 → x &amp; А ≠ 0)</b></p>
+            <p>тождественно истинна?</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Преобразуем к виду: Z<sub>33</sub>Z<sub>A</sub> → Z<sub>45</sub>. 33₁₀ = 100001₂, 45₁₀ = 101101₂. A должно содержать единицы во 2 и 3 разрядах: 001100₂ = 12₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 12</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 (34517) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 15 № 34517 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим через <i>m &amp; n</i> поразрядную конъюнкцию. Для какого наибольшего целого числа <i>А</i> формула</p>
+            <p><b>х &amp; А ≠ 0 → (x &amp; 10 = 0 → х &amp; 3 ≠ 0)</b></p>
+            <p>тождественно истинна?</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Преобразуем к виду: Z<sub>10</sub>Z<sub>3</sub> → Z<sub>A</sub>. 10or3 = 1011₂ = 11₁₀. Наибольшее A = 11.</p>
+                <div class="answer_text"><b>Ответ:</b> 11</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 (34521) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 15 № 34521 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим через <i>m &amp; n</i> поразрядную конъюнкцию. Для какого наибольшего целого числа <i>А</i> формула</p>
+            <p><b>x &amp; 51 = 0 ∨ (x &amp; 41 = 0 → x &amp; А = 0)</b></p>
+            <p>тождественно истинна?</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Преобразуем к виду: Z<sub>41</sub> → Z<sub>51</sub> ∨ (Z<sub>41</sub> → Z<sub>A</sub>). Нужно, чтобы Z<sub>41</sub> → Z<sub>A</sub> было тождественно истинно. 41₁₀ = 101001₂. Наибольшее A = 101001₂ = 41₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 41</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 (55811) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 15 № 55811 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим через <i>m &amp; n</i> поразрядную конъюнкцию. Для какого наименьшего неотрицательного целого числа <i>А</i> формула</p>
+            <p><b>x &amp; 39 = 0 ∨ (x &amp; 11 = 0 → x &amp; А ≠ 0)</b></p>
+            <p>тождественно истинна?</p>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>39₁₀ = 100111₂, 11₁₀ = 1011₂. Анализ разрядов показывает, что наименьшее A, при котором выражение истинно для всех x, равно 36.</p>
+                <div class="answer_text"><b>Ответ:</b> 36</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 (63031) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 15 № 63031 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим через <i>m &amp; n</i> поразрядную конъюнкцию. Для какого наименьшего неотрицательного целого числа <i>А</i> формула</p>
+            <p><b>((x &amp; 57 > 0) ∨ (x &amp; 99 > 0)) → (x &amp; A > 0)</b></p>
+            <p>тождественно истинна?</p>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>57₁₀ = 111001₂, 99₁₀ = 1100011₂. Дизъюнкция этих чисел даёт 1111011₂ = 123₁₀. Наименьшее A = 123.</p>
+                <div class="answer_text"><b>Ответ:</b> 123</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 (64900) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 15 № 64900 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим через <i>m &amp; n</i> поразрядную конъюнкцию. Для какого наименьшего неотрицательного целого числа <i>А</i> формула</p>
+            <p><b>x &amp; 20777 ≠ 0 → (x &amp; 12332 = 0 → x &amp; A ≠ 0)</b></p>
+            <p>тождественно истинна?</p>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебором (программно) находим наименьшее A = 16641.</p>
+                <div class="answer_text"><b>Ответ:</b> 16641</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 (75252) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 15 № 75252 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим через <i>m &amp; n</i> поразрядную конъюнкцию. Для какого наименьшего неотрицательного целого числа <i>А</i> формула</p>
+            <p><b>(x &amp; 5160 > 0 ∨ x &amp; 3650 > 0) → (x &amp; 9545 = 0 → x &amp; A > 0)</b></p>
+            <p>тождественно истинна?</p>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебором находим наименьшее A = 6690.</p>
+                <div class="answer_text"><b>Ответ:</b> 6690</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 (75279) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 15 № 75279 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим через <i>m &amp; n</i> поразрядную конъюнкцию. Для какого наименьшего неотрицательного целого числа <i>А</i> формула</p>
+            <p><b>(x &amp; 6280 > 0 ∨ x &amp; 3394 > 0) → (x &amp; 10828 = 0 → x &amp; A > 0)</b></p>
+            <p>тождественно истинна?</p>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебором находим наименьшее A = 5506.</p>
+                <div class="answer_text"><b>Ответ:</b> 5506</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 (79728) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 15 № 79728 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим через <i>m &amp; n</i> поразрядную конъюнкцию. Для какого наименьшего неотрицательного целого числа <i>А</i> формула</p>
+            <p><b>((x &amp; 52 ≠ 0) ∧ (x &amp; 48 = 0)) → ¬(x &amp; A = 0)</b></p>
+            <p>тождественно истинна?</p>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>52₁₀ = 110100₂, 48₁₀ = 110000₂. Условие (x &amp; 52 ≠ 0) ∧ (x &amp; 48 = 0) означает, что в x есть единица только в разряде 2. Тогда A должно содержать единицу в разряде 2: 000100₂ = 4.</p>
+                <div class="answer_text"><b>Ответ:</b> 4</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

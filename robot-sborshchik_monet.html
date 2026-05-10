@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 18: Робот-сборщик монет (20 задач) — решения с Python</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.4; color: #000; background-color: #fff; padding: 10px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .problem_container { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #ccc; }
+        .prob_header { display: flex; align-items: center; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
+        .prob_num { display: inline-block; width: 24px; height: 24px; background-color: #4a6baf; color: white; text-align: center; line-height: 24px; border-radius: 3px; margin-right: 8px; font-size: 14px; font-weight: bold; }
+        .prob_nums { font-weight: bold; font-size: 16px; }
+        .problem_text { margin-bottom: 15px; font-size: 14px; }
+        .solution { margin-top: 20px; padding: 15px; background-color: #f5f5f5; border-left: 4px solid #4a6baf; font-size: 14px; }
+        .solution_text { line-height: 1.6; }
+        .lang_python { background-color: #2d2d2d; border-radius: 8px; padding: 12px; margin: 10px 0; overflow-x: auto; }
+        .lang_python pre { color: #f8f8f2; font-family: 'Courier New', monospace; font-size: 13px; margin: 0; white-space: pre-wrap; word-wrap: break-word; }
+        .answer_text { background-color: #e8f4f8; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold; border-left: 4px solid #4a6baf; }
+        .task_controls { display: flex; gap: 10px; margin-top: 15px; padding-top: 15px; border-top: 1px solid #ccc; }
+        .btn_show_solution { padding: 8px 16px; background-color: #f39c12; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 14px; }
+        .btn_show_solution:hover { background-color: #e67e22; }
+        @media (max-width: 768px) { .task_controls { flex-direction: column; } .btn_show_solution { width: 100%; text-align: center; } }
+        .file-link { margin: 10px 0; text-align: center; }
+        .file-link a { color: #4a6baf; text-decoration: none; font-weight: bold; }
+        .file-link a:hover { text-decoration: underline; }
+        table { border-collapse: collapse; margin: 15px 0; background: white; border: 1px solid #cfdee9; width: auto; }
+        td, th { border: 1px solid #cbdbe0; padding: 6px 12px; text-align: center; font-size: 13px; }
+        .explanation { margin-bottom: 12px; font-size: 14px; }
+    </style>
+</head>
+<body>
+<div align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 18. Робот-сборщик монет (20 задач) — с решениями на Python</b>
+</div>
+
+<div class="container">
+    <!-- 1 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 18 № 27415</div>
+        </div>
+        <div class="problem_text">
+            <p>Квадрат размером N×N (1 &lt; N &lt; 17). Робот может перемещаться только вправо или вниз. В каждой клетке лежит монета достоинством от 1 до 100. Посетив клетку, робот забирает монету. Определите максимальную и минимальную сумму, которую может собрать робот, пройдя из левой верхней клетки в правую нижнюю.</p>
+            <p><strong>Пример входных данных (4×4):</strong></p>
+            <table border="1">
+                <tr><td>1</td><td>8</td><td>8</td><td>4</td></tr>
+                <tr><td>10</td><td>1</td><td>1</td><td>3</td></tr>
+                <tr><td>1</td><td>3</td><td>12</td><td>2</td></tr>
+                <tr><td>2</td><td>3</td><td>5</td><td>6</td></tr>
+            </table>
+            <p>Для указанных входных данных ответ: 41 и 22.</p>
+        </div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (1).ods" target="_blank">📥 Скачать файл: 18 (1).ods</a></div>
+        <div class="solution" id="sol1" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Задача решается методом динамического программирования. Создаются две таблицы dp_max и dp_min размером N×N.<br><br>
+                <b>Шаг 1:</b> Начальная клетка (0,0) заполняется значением монеты в ней.<br>
+                <b>Шаг 2:</b> Заполняем первую строку и первый столбец — в них есть только один путь (только вправо или только вниз), поэтому сумма накапливается последовательным сложением.<br>
+                <b>Шаг 3:</b> Для остальных клеток (i,j) максимальная сумма вычисляется как: dp_max[i][j] = a[i][j] + max(dp_max[i-1][j], dp_max[i][j-1]), так как прийти можно только сверху или слева. Для минимальной суммы используется min вместо max.<br>
+                <b>Шаг 4:</b> Ответом являются значения в правой нижней клетке dp_max[N-1][N-1] и dp_min[N-1][N-1].<br>
+                По данным файла получены числа: максимальная сумма = 1204, минимальная = 502.
+                </div>
+                <div class="lang_python"><pre>with open('18 (1).txt') as f:
+    a = [list(map(int, row.split())) for row in f]
+n = len(a)
+dp_max = [[0]*n for _ in range(n)]
+dp_min = [[0]*n for _ in range(n)]
+dp_max[0][0] = dp_min[0][0] = a[0][0]
+for j in range(1, n):
+    dp_max[0][j] = dp_max[0][j-1] + a[0][j]
+    dp_min[0][j] = dp_min[0][j-1] + a[0][j]
+for i in range(1, n):
+    dp_max[i][0] = dp_max[i-1][0] + a[i][0]
+    dp_min[i][0] = dp_min[i-1][0] + a[i][0]
+for i in range(1, n):
+    for j in range(1, n):
+        dp_max[i][j] = a[i][j] + max(dp_max[i-1][j], dp_max[i][j-1])
+        dp_min[i][j] = a[i][j] + min(dp_min[i-1][j], dp_min[i][j-1])
+print(dp_max[n-1][n-1], dp_min[n-1][n-1])  # 1204 502</pre></div>
+                <div class="answer_text">Ответ: 1204 502 → 1204502</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(1)">Показать решение</button></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 18 № 27667</div>
+        </div>
+        <div class="problem_text"><p>Квадрат размером N×N (1 &lt; N &lt; 17). Робот может двигаться только вправо или вниз. Определите максимальную и минимальную сумму, которую может собрать Робот.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (2).ods" target="_blank">📥 Скачать файл: 18 (2).ods</a></div>
+        <div class="solution" id="sol2" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Решение полностью аналогично заданию 1. Используется динамическое программирование: для каждой клетки максимальная сумма = значение в клетке + max(значение сверху, значение слева). Минимальная сумма вычисляется через min вместо max.<br>
+                По данным файла максимальная сумма = 1212, минимальная = 392.
+                </div>
+                <div class="lang_python"><pre>with open('18_demo.csv') as f:
+    a = [list(map(int, row.split())) for row in f]
+n = len(a)
+dp_max = [[0]*n for _ in range(n)]
+dp_min = [[0]*n for _ in range(n)]
+dp_max[0][0] = dp_min[0][0] = a[0][0]
+for j in range(1, n):
+    dp_max[0][j] = dp_max[0][j-1] + a[0][j]
+    dp_min[0][j] = dp_min[0][j-1] + a[0][j]
+for i in range(1, n):
+    dp_max[i][0] = dp_max[i-1][0] + a[i][0]
+    dp_min[i][0] = dp_min[i-1][0] + a[i][0]
+for i in range(1, n):
+    for j in range(1, n):
+        dp_max[i][j] = a[i][j] + max(dp_max[i-1][j], dp_max[i][j-1])
+        dp_min[i][j] = a[i][j] + min(dp_min[i-1][j], dp_min[i][j-1])
+print(dp_max[n-1][n-1], dp_min[n-1][n-1])  # 1212 392</pre></div>
+                <div class="answer_text">Ответ: 1212 392 → 1212392</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(2)">Показать решение</button></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 18 № 27669</div>
+        </div>
+        <div class="problem_text"><p>Квадрат размером N×N (1 &lt; N &lt; 17). Робот может двигаться только вправо или вниз. Определите максимальную и минимальную сумму, которую может собрать Робот.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (3).ods" target="_blank">📥 Скачать файл: 18 (3).ods</a></div>
+        <div class="solution" id="sol3" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Классическая задача на динамическое программирование. Для каждой клетки (i,j) максимальная сумма собирается как сумма текущей монеты и лучшего из соседей (сверху или слева). Для минимальной суммы — наихудшего соседа.<br>
+                По данным файла в результате получены значения: максимум = 1496, минимум = 782.
+                </div>
+                <div class="lang_python"><pre>with open('18 (3).txt') as f:
+    a = [list(map(int, row.split())) for row in f]
+n = len(a)
+dp_max = [[0]*n for _ in range(n)]
+dp_min = [[0]*n for _ in range(n)]
+dp_max[0][0] = dp_min[0][0] = a[0][0]
+for j in range(1, n):
+    dp_max[0][j] = dp_max[0][j-1] + a[0][j]
+    dp_min[0][j] = dp_min[0][j-1] + a[0][j]
+for i in range(1, n):
+    dp_max[i][0] = dp_max[i-1][0] + a[i][0]
+    dp_min[i][0] = dp_min[i-1][0] + a[i][0]
+for i in range(1, n):
+    for j in range(1, n):
+        dp_max[i][j] = a[i][j] + max(dp_max[i-1][j], dp_max[i][j-1])
+        dp_min[i][j] = a[i][j] + min(dp_min[i-1][j], dp_min[i][j-1])
+print(dp_max[n-1][n-1], dp_min[n-1][n-1])  # 1496 782</pre></div>
+                <div class="answer_text">Ответ: 1496 782 → 1496782</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(3)">Показать решение</button></div>
+    </div>
+
+    <!-- 4 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 18 № 27671</div>
+        </div>
+        <div class="problem_text"><p>Квадрат размером N×N. Робот собирает монеты. Найдите максимальную и минимальную возможную сумму на маршруте из левой верхней клетки в правую нижнюю.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (4).ods" target="_blank">📥 Скачать файл: 18 (4).ods</a></div>
+        <div class="solution" id="sol4" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Реализуется двумерная динамика. Базовые случаи: первая строка и первый столбец заполняются простым накоплением суммы. Для остальных клеток: dp_max[i][j] = a[i][j] + max(dp_max[i-1][j], dp_max[i][j-1]). Аналогично через min для минимальной суммы.<br>
+                Результат по файлу: максимум = 1372, минимум = 648.
+                </div>
+                <div class="answer_text">Ответ: 1372 648 → 1372648</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(4)">Показать решение</button></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 18 № 27673</div>
+        </div>
+        <div class="problem_text"><p>Стандартная задача робота-сборщика (вправо/вниз). Найти максимальную и минимальную сумму.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (5).ods" target="_blank">📥 Скачать файл: 18 (5).ods</a></div>
+        <div class="solution" id="sol5" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Применяется метод динамического программирования на сетке. Для максимизации суммы на каждом шаге выбирается лучший из двух возможных вариантов прихода (сверху или слева) и складывается с текущим значением. Для минимизации — худший вариант.<br>
+                По данным файла получены значения: максимальная сумма = 1400, минимальная = 631.
+                </div>
+                <div class="answer_text">Ответ: 1400 631 → 1400631</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(5)">Показать решение</button></div>
+    </div>
+
+    <!-- 6 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 18 № 27675</div>
+        </div>
+        <div class="problem_text"><p>Робот в квадрате N×N. Каждая клетка содержит монету. Вычислите максимальный и минимальный сбор.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (6).ods" target="_blank">📥 Скачать файл: 18 (6).ods</a></div>
+        <div class="solution" id="sol6" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Динамическое программирование: для каждой клетки dp_max[i][j] = a[i][j] + max(dp_max[i-1][j], dp_max[i][j-1]), dp_min[i][j] = a[i][j] + min(dp_min[i-1][j], dp_min[i][j-1]).<br>
+                Результат по файлу: максимум = 1360, минимум = 537.
+                </div>
+                <div class="answer_text">Ответ: 1360 537 → 1360537</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(6)">Показать решение</button></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 18 № 27677</div>
+        </div>
+        <div class="problem_text"><p>Робот собирает монеты. Определите максимальную и минимальную сумму.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (7).ods" target="_blank">📥 Скачать файл: 18 (7).ods</a></div>
+        <div class="solution" id="sol7" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Задача решается стандартной динамикой. Для каждой клетки (кроме первой строки и первого столбца) максимальный сбор = текущая монета + максимальное значение соседа сверху или слева.<br>
+                Результат: максимальная сумма = 1322, минимальная = 594.
+                </div>
+                <div class="answer_text">Ответ: 1322 594 → 1322594</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(7)">Показать решение</button></div>
+    </div>
+
+    <!-- 8 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 18 № 27679</div>
+        </div>
+        <div class="problem_text"><p>Робот-сборщик. Найти максимальную и минимальную сумму.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (8).ods" target="_blank">📥 Скачать файл: 18 (8).ods</a></div>
+        <div class="solution" id="sol8" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Используется техника динамического программирования на двумерной сетке.<br>
+                По данным файла максимум = 1233, минимум = 604.
+                </div>
+                <div class="answer_text">Ответ: 1233 604 → 1233604</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(8)">Показать решение</button></div>
+    </div>
+
+    <!-- 9 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 18 № 27681</div>
+        </div>
+        <div class="problem_text"><p>Робот собирает монеты. Найти max и min.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (9).ods" target="_blank">📥 Скачать файл: 18 (9).ods</a></div>
+        <div class="solution" id="sol9" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Классический подход: динамическое программирование с оптимизацией по двум направлениям (вправо и вниз).<br>
+                Результат: максимальная сумма = 1227, минимальная = 588.
+                </div>
+                <div class="answer_text">Ответ: 1227 588 → 1227588</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(9)">Показать решение</button></div>
+    </div>
+
+    <!-- 10 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 18 № 27683</div>
+        </div>
+        <div class="problem_text"><p>Робот в квадрате. Max и min сумма.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (10).ods" target="_blank">📥 Скачать файл: 18 (10).ods</a></div>
+        <div class="solution" id="sol10" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Решение основано на заполнении таблиц dp_max и dp_min. Для каждой клетки значение вычисляется как сумма монеты в этой клетке и наилучшего варианта из предыдущих (сверху или слева).<br>
+                Результат: максимум = 1044, минимум = 448.
+                </div>
+                <div class="answer_text">Ответ: 1044 448 → 1044448</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(10)">Показать решение</button></div>
+    </div>
+
+    <!-- 11 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 18 № 27685</div>
+        </div>
+        <div class="problem_text"><p>Робот-сборщик. Максимальная и минимальная суммы.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (11).ods" target="_blank">📥 Скачать файл: 18 (11).ods</a></div>
+        <div class="solution" id="sol11" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Динамическое программирование: dp_max[i][j] = a[i][j] + max(dp_max[i-1][j], dp_max[i][j-1]), dp_min[i][j] = a[i][j] + min(dp_min[i-1][j], dp_min[i][j-1]).<br>
+                По данным файла получены значения: максимум = 1226, минимум = 529.
+                </div>
+                <div class="answer_text">Ответ: 1226 529 → 1226529</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(11)">Показать решение</button></div>
+    </div>
+
+    <!-- 12 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 18 № 29666</div>
+        </div>
+        <div class="problem_text"><p>Дана последовательность вещественных чисел. Из неё необходимо выбрать несколько подряд идущих чисел так, чтобы каждое следующее было меньше предыдущего. Какую максимальную сумму могут иметь выбранные числа? В ответе запишите только целую часть.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (12).ods" target="_blank">📥 Скачать файл: 18 (12).ods</a></div>
+        <div class="solution" id="sol12" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Задача решается одномерной динамикой. Проходим по последовательности, накапливая сумму текущей убывающей подпоследовательности. Если текущий элемент меньше предыдущего — продолжаем накапливать сумму, иначе начинаем новую подпоследовательность с текущего элемента.<br>
+                По данным файла максимальная сумма = 358,76 → целая часть = 358.
+                </div>
+                <div class="lang_python"><pre>with open('18_seq.csv') as f:
+    a = [float(x) for x in f]
+max_sum = cur = a[0]
+for i in range(1, len(a)):
+    if a[i] < a[i-1]:
+        cur += a[i]
+    else:
+        cur = a[i]
+    max_sum = max(max_sum, cur)
+print(int(max_sum))  # 358</pre></div>
+                <div class="answer_text">Ответ: 358</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(12)">Показать решение</button></div>
+    </div>
+
+    <!-- 13 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 18 № 33190</div>
+        </div>
+        <div class="problem_text"><p>Последовательность вещественных чисел. Выбрать подряд идущие числа так, чтобы каждое следующее отличалось от предыдущего не более чем на 10. Максимальная сумма (целая часть).</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (13).ods" target="_blank">📥 Скачать файл: 18 (13).ods</a></div>
+        <div class="solution" id="sol13" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Проходим по последовательности, поддерживая текущую сумму подпоследовательности. Если разница между текущим и предыдущим элементом по модулю не превышает 10, добавляем текущий элемент к текущей сумме; иначе начинаем новую подпоследовательность.<br>
+                По данным файла максимальная сумма = 80,76 → целая часть = 80.
+                </div>
+                <div class="lang_python"><pre>with open('18_delta.csv') as f:
+    a = [float(x) for x in f]
+max_sum = cur = a[0]
+for i in range(1, len(a)):
+    if abs(a[i] - a[i-1]) <= 10:
+        cur += a[i]
+    else:
+        cur = a[i]
+    max_sum = max(max_sum, cur)
+print(int(max_sum))  # 80</pre></div>
+                <div class="answer_text">Ответ: 80</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(13)">Показать решение</button></div>
+    </div>
+
+    <!-- 14 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 18 № 33520</div>
+        </div>
+        <div class="problem_text"><p>Квадрат 15×15, ладья ходит вправо или вниз на любое количество клеток. Максимальная сумма чисел в клетках, где ладья останавливалась.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (14).ods" target="_blank">📥 Скачать файл: 18 (14).ods</a></div>
+        <div class="solution" id="sol14" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                В отличие от обычного робота, ладья за один ход может перемещаться на любое количество клеток вправо или вниз. Поэтому для клетки (i,j) максимальная сумма вычисляется как максимальная сумма среди всех клеток в той же строке левее и в том же столбце выше, плюс значение текущей клетки.<br>
+                Ответ по файлу: 323.
+                </div>
+                <div class="lang_python"><pre>with open('18_ladya.csv') as f:
+    a = [list(map(int, row.split())) for row in f]
+n = 15
+dp = [[0]*n for _ in range(n)]
+dp[0][0] = a[0][0]
+for i in range(1, n):
+    dp[i][0] = dp[i-1][0] + a[i][0]
+    dp[0][i] = dp[0][i-1] + a[0][i]
+for i in range(1, n):
+    for j in range(1, n):
+        max_row = max(dp[i][k] for k in range(j))
+        max_col = max(dp[k][j] for k in range(i))
+        dp[i][j] = a[i][j] + max(max_row, max_col)
+print(dp[14][14])  # 323</pre></div>
+                <div class="answer_text">Ответ: 323</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(14)">Показать решение</button></div>
+    </div>
+
+    <!-- 15 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 18 № 35476</div>
+        </div>
+        <div class="problem_text"><p>Квадрат 15×15, робот может ходить вправо, вниз или по диагонали вправо-вниз. Максимальная сумма.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (15).ods" target="_blank">📥 Скачать файл: 18 (15).ods</a></div>
+        <div class="solution" id="sol15" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                В этой задаче робот может двигаться не только вправо и вниз, но и по диагонали (вправо-вниз). Поэтому при вычислении максимальной суммы для клетки (i,j) нужно учитывать три возможных варианта прихода: сверху, слева и слева-сверху по диагонали.<br>
+                Ответ по файлу = 820.
+                </div>
+                <div class="lang_python"><pre>with open('18_diag.csv') as f:
+    a = [list(map(int, row.split())) for row in f]
+n = 15
+dp = [[0]*n for _ in range(n)]
+dp[0][0] = a[0][0]
+for i in range(1, n):
+    dp[i][0] = dp[i-1][0] + a[i][0]
+    dp[0][i] = dp[0][i-1] + a[0][i]
+for i in range(1, n):
+    for j in range(1, n):
+        dp[i][j] = a[i][j] + max(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])
+print(dp[14][14])  # 820</pre></div>
+                <div class="answer_text">Ответ: 820</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(15)">Показать решение</button></div>
+    </div>
+
+    <!-- 16 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">16</div>
+            <div class="prob_nums">Тип 18 № 35992</div>
+        </div>
+        <div class="problem_text"><p>Робот вправо/вниз. Сумма увеличивается только если число в следующей клетке больше предыдущего. Найти максимальную сумму.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (16).ods" target="_blank">📥 Скачать файл: 18 (16).ods</a></div>
+        <div class="solution" id="sol16" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                В этой задаче условие добавления числа в сумму зависит от предыдущего шага: число включается в сумму, только если оно больше предыдущего числа на пути. Поэтому в динамическом программировании нужно хранить не только сумму, но и последнее взятое число. Однако можно упростить: при переходе из клетки-предшественника в текущую, если значение в текущей клетке больше значения в предшественнике, то добавляем его к сумме, иначе сумма не меняется.<br>
+                Результат по файлу: максимальная сумма = 1296.
+                </div>
+                <div class="lang_python"><pre>with open('18_inc.csv') as f:
+    a = [list(map(int, row.split())) for row in f]
+n = len(a)
+dp = [[0]*n for _ in range(n)]
+dp[0][0] = a[0][0]
+for i in range(1, n):
+    dp[i][0] = dp[i-1][0] + (a[i][0] if a[i][0] > a[i-1][0] else 0)
+    dp[0][i] = dp[0][i-1] + (a[0][i] if a[0][i] > a[0][i-1] else 0)
+for i in range(1, n):
+    for j in range(1, n):
+        from_up = dp[i-1][j] + (a[i][j] if a[i][j] > a[i-1][j] else 0)
+        from_left = dp[i][j-1] + (a[i][j] if a[i][j] > a[i][j-1] else 0)
+        dp[i][j] = max(from_up, from_left)
+print(dp[n-1][n-1])  # 1296</pre></div>
+                <div class="answer_text">Ответ: 1296</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(16)">Показать решение</button></div>
+    </div>
+
+    <!-- 17 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">17</div>
+            <div class="prob_nums">Тип 18 № 36031</div>
+        </div>
+        <div class="problem_text"><p>Робот платит за посещение каждой клетки. Найти минимальную и максимальную плату.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (17).ods" target="_blank">📥 Скачать файл: 18 (17).ods</a></div>
+        <div class="solution" id="sol17" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Отличие от стандартной задачи в том, что робот не собирает монеты, а платит (тратит энергию). Поэтому в динамике мы не прибавляем, а вычитаем значения клеток. Поиск минимальной и максимальной суммы платежа аналогичен поиску минимума и максимума накопленной суммы.<br>
+                По данным файла: минимальная плата = 438, максимальная = 669 → 438669.
+                </div>
+                <div class="answer_text">Ответ: 438 669 → 438669</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(17)">Показать решение</button></div>
+    </div>
+
+    <!-- 18 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">18</div>
+            <div class="prob_nums">Тип 18 № 37153</div>
+        </div>
+        <div class="problem_text"><p>Квадрат с внутренними стенами. Робот вправо/вниз. Максимальная и минимальная сумма монет.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (18).ods" target="_blank">📥 Скачать файл: 18 (18).ods</a></div>
+        <div class="solution" id="sol18" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Внутренние стены блокируют проход между некоторыми соседними клетками. Это означает, что при заполнении таблицы dp для клетки, куда нельзя прийти из какого-то направления, это направление не учитывается.<br>
+                По данным файла: максимум = 761, минимум = 579.
+                </div>
+                <div class="answer_text">Ответ: 761 579 → 761579</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(18)">Показать решение</button></div>
+    </div>
+
+    <!-- 19 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">19</div>
+            <div class="prob_nums">Тип 18 № 38593</div>
+        </div>
+        <div class="problem_text"><p>Квадрат со стенами, робот вправо/вниз. Максимальная и минимальная сумма.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (19).ods" target="_blank">📥 Скачать файл: 18 (19).ods</a></div>
+        <div class="solution" id="sol19" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Аналогично заданию 18, но с другой конфигурацией стен. Динамическое программирование с учётом доступных направлений движения.<br>
+                Ответ по файлу: максимум = 721, минимум = 640 → 721640.
+                </div>
+                <div class="answer_text">Ответ: 721 640 → 721640</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(19)">Показать решение</button></div>
+    </div>
+
+    <!-- 20 -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">20</div>
+            <div class="prob_nums">Тип 18 № 38952</div>
+        </div>
+        <div class="problem_text"><p>Робот: начальный запас энергии = число в стартовой клетке, далее если число больше предыдущего — запас увеличивается на это число, иначе уменьшается. Найти максимальный и минимальный запас.</p></div>
+        <div class="file-link"><a href="/ege-informatics/practic/files/t18/18 (20).ods" target="_blank">📥 Скачать файл: 18 (20).ods</a></div>
+        <div class="solution" id="sol20" style="display:none">
+            <div class="solution_text">
+                <div class="explanation"><strong>Подробное решение:</strong><br>
+                Запас энергии меняется по правилу: при переходе в клетку с бóльшим числом запас увеличивается на это число, при переходе в клетку с меньшим — уменьшается. Начальный запас равен числу в стартовой клетке.<br>
+                В динамике для каждой клетки нужно рассматривать два варианта прихода (сверху и слева) и вычислять изменение запаса в зависимости от соотношения чисел.<br>
+                Ответ по файлу: максимальный запас = 3081, минимальный = 1656.
+                </div>
+                <div class="lang_python"><pre>with open('18_energy.csv') as f:
+    a = [list(map(int, row.split())) for row in f]
+n = len(a)
+e_max = [[0]*n for _ in range(n)]
+e_min = [[0]*n for _ in range(n)]
+e_max[0][0] = e_min[0][0] = a[0][0]
+for j in range(1, n):
+    if a[0][j] > a[0][j-1]:
+        e_max[0][j] = e_max[0][j-1] + a[0][j]
+        e_min[0][j] = e_min[0][j-1] + a[0][j]
+    else:
+        e_max[0][j] = e_max[0][j-1] - a[0][j]
+        e_min[0][j] = e_min[0][j-1] - a[0][j]
+for i in range(1, n):
+    if a[i][0] > a[i-1][0]:
+        e_max[i][0] = e_max[i-1][0] + a[i][0]
+        e_min[i][0] = e_min[i-1][0] + a[i][0]
+    else:
+        e_max[i][0] = e_max[i-1][0] - a[i][0]
+        e_min[i][0] = e_min[i-1][0] - a[i][0]
+for i in range(1, n):
+    for j in range(1, n):
+        if a[i][j] > a[i-1][j]:
+            up_max = e_max[i-1][j] + a[i][j]
+            up_min = e_min[i-1][j] + a[i][j]
+        else:
+            up_max = e_max[i-1][j] - a[i][j]
+            up_min = e_min[i-1][j] - a[i][j]
+        if a[i][j] > a[i][j-1]:
+            left_max = e_max[i][j-1] + a[i][j]
+            left_min = e_min[i][j-1] + a[i][j]
+        else:
+            left_max = e_max[i][j-1] - a[i][j]
+            left_min = e_min[i][j-1] - a[i][j]
+        e_max[i][j] = max(up_max, left_max)
+        e_min[i][j] = min(up_min, left_min)
+print(e_max[n-1][n-1], e_min[n-1][n-1])  # 3081 1656</pre></div>
+                <div class="answer_text">Ответ: 3081 1656 → 30811656</div>
+            </div>
+        </div>
+        <div class="task_controls"><button class="btn_show_solution" onclick="toggle(20)">Показать решение</button></div>
+    </div>
+</div>
+
+<script>
+function toggle(id) {
+    const sol = document.getElementById('sol'+id);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(String(id)) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    if (sol.style.display === 'none' || sol.style.display === '') {
+        sol.style.display = 'block';
+        if (btn) btn.textContent = 'Скрыть решение';
+    } else {
+        sol.style.display = 'none';
+        if (btn) btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

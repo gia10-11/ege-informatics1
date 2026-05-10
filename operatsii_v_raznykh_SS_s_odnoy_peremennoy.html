@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 14: Системы счисления (одна переменная) | 5 задач</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 14. Системы счисления (операции в разных СС с одной переменной)</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 (48394) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 14 № 48394 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 15 и 13:</p>
+            <p><b>4Cx4<sub>15</sub> + x62A<sub>13</sub></b></p>
+            <p>В записи чисел переменной <i>x</i> обозначена неизвестная цифра из алфавита десятичной системы счисления. Определите наименьшее значение <i>x</i>, при котором значение данного арифметического выражения кратно 121. Для найденного значения <i>x</i> вычислите частное от деления значения арифметического выражения на 121 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x от 0 до 9. Выражение: 4Cx4<sub>15</sub> + x62A<sub>13</sub>.</p>
+                <p>Буква C в 15-й системе означает 12, A в 13-й системе означает 10.</p>
+                <p>При x=0: 4·15⁴ + 12·15³ + 0·15² + 4·15¹ + 4? Нет, нужно точно: число 4Cx4<sub>15</sub> = 4·15³ + 12·15² + x·15¹ + 4.</p>
+                <p>Перебором находим наименьшее x, при котором сумма делится на 121. Частное = 234.</p>
+                <div class="answer_text"><b>Ответ:</b> 234</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 (48395) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 14 № 48395 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 18 и 12:</p>
+            <p><b>28x2<sub>18</sub> + 93x5<sub>12</sub></b></p>
+            <p>В записи чисел переменной <i>x</i> обозначена неизвестная цифра из алфавита десятичной системы счисления. Определите наименьшее значение <i>x</i>, при котором значение данного арифметического выражения кратно 133. Для найденного значения <i>x</i> вычислите частное от деления значения арифметического выражения на 133 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x от 0 до 9. Наименьшее x, при котором сумма кратна 133, даёт частное 229.</p>
+                <div class="answer_text"><b>Ответ:</b> 229</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 (48396) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 14 № 48396 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 19 и 16:</p>
+            <p><b>2x84<sub>19</sub> + 2B3x<sub>16</sub></b></p>
+            <p>В записи чисел переменной <i>x</i> обозначены допустимые в данных системах счисления неизвестные цифры. Определите наименьшее значение <i>x</i>, при котором значение данного арифметического выражения кратно 88. Для найденного значения <i>x</i> вычислите частное от деления значения арифметического выражения на 88 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x (цифры от 0 до 9, а затем буквы A-F). Буква B в 16-й системе означает 11.</p>
+                <p>Наименьшее x, при котором сумма кратна 88, даёт частное 345.</p>
+                <div class="answer_text"><b>Ответ:</b> 345</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 (48397) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 14 № 48397 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 13 и 17:</p>
+            <p><b>8x71<sub>13</sub> + 3xDF<sub>17</sub></b></p>
+            <p>В записи чисел переменной <i>x</i> обозначена неизвестная цифра из алфавита десятичной системы счисления. Определите наименьшее значение <i>x</i>, при котором значение данного арифметического выражения кратно 197. Для найденного значения <i>x</i> вычислите частное от деления значения арифметического выражения на 197 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x от 0 до 9. Буквы D и F в 17-й системе: D=13, F=15.</p>
+                <p>Наименьшее x, при котором сумма кратна 197, даёт частное 175.</p>
+                <div class="answer_text"><b>Ответ:</b> 175</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 (48398) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 14 № 48398 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 17 и 15:</p>
+            <p><b>xB09<sub>17</sub> + x8E8<sub>15</sub></b></p>
+            <p>В записи чисел переменной <i>x</i> обозначена неизвестная цифра из алфавита десятичной системы счисления. Определите наименьшее значение <i>x</i>, при котором значение данного арифметического выражения кратно 155. Для найденного значения <i>x</i> вычислите частное от деления значения арифметического выражения на 155 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x от 0 до 9. Буквы B и E: B=11, E=14.</p>
+                <p>Наименьшее x, при котором сумма кратна 155, даёт частное 194.</p>
+                <div class="answer_text"><b>Ответ:</b> 194</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кодирование и декодирование информации</title>
+</head>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+.problem_actions {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.action_btn {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 3px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ ТАБЛИЦА ИСТИННОСТИ ★ */
+.table_container {
+    margin: 20px 0;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+}
+
+.truth_table, .example_table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+.truth_table th, .example_table th {
+    background-color: #f0f0f0;
+    border: 1px solid #999;
+    padding: 8px 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.truth_table td, .example_table td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+.truth_table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* ★ ИНСТРУКЦИЯ ★ */
+.instruction_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+/* ★ ПРИМЕР ★ */
+.example_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #ffc107;
+    font-size: 14px;
+}
+
+.example_table {
+    margin: 10px auto;
+}
+
+.example_table th,
+.example_table td {
+    padding: 5px 10px;
+}
+
+/* ★ БЛОК ОТВЕТА ★ */
+.answer_block {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 3px;
+}
+
+.answer_block h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.answer_form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.answer_input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    font-family: monospace;
+}
+
+.answer_input:focus {
+    border-color: #4a6baf;
+    outline: none;
+}
+
+.btn_check {
+    padding: 8px 20px;
+    background-color: #4a6baf;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_check:hover {
+    background-color: #3a5a9f;
+}
+
+.result_message {
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.result_message.correct {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.result_message.incorrect {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_tables {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.solution_table {
+    border-collapse: collapse;
+}
+
+.solution_table th,
+.solution_table td {
+    border: 1px solid #999;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.code_block {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 12px;
+    border-radius: 3px;
+    font-family: monospace;
+    overflow-x: auto;
+    margin: 10px 0;
+    font-size: 13px;
+}
+
+.code_block pre {
+    margin: 0;
+    color: #ecf0f1;
+    white-space: pre-wrap;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+.btn_secondary {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #95a5a6;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.btn_secondary:hover {
+    background-color: #7f8c8d;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.source_info span {
+    color: #666;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .answer_form {
+        flex-direction: column;
+    }
+    
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_check,
+    .btn_show_solution,
+    .btn_secondary {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .solution_tables {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+<body>
+<div class="new_header" 
+align="center" 
+style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<p><b>Задания 5.Посимвольное двоичное преобразование.</b></p></div>
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 5 № 8094 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу:</p>
+            <p>а) складываются все цифры двоичной записи, и остаток от деления суммы на 2 дописывается в конец числа (справа). Например, запись 11100 преобразуется в запись 111001;</p>
+            <p>б) над этой записью производятся те же действия — справа дописывается остаток от деления суммы цифр на 2.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью искомого числа R.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число R, которое превышает 43 и может являться результатом работы алгоритма. В ответе это число запишите в десятичной системе.</p>
+        </div>
+
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если в числе было нечётное количество единиц, то в конец допишется 10. Если количество единиц чётное, то допишется 00.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Рассмотрим числа, большие 43: 44(101100) — нет, 45(101101) — нет, 46(101110) — да, количество единиц (кроме последних двух) нечётное, в последних двух разрядах 10.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 46</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 5 № 10468 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу:</p>
+            <p>а) складываются все цифры двоичной записи числа N, и остаток от деления суммы на 2 дописывается в конец числа (справа). Например, запись 11100 преобразуется в запись 111001;</p>
+            <p>б) над этой записью производятся те же действия — справа дописывается остаток от деления суммы цифр на 2.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью результатирующего числа R.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите такое наименьшее число N, для которого результат работы алгоритма больше числа 77. В ответе это число запишите в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если сумма разрядов была чётная, то в конец запишется 00, что эквивалентно N×4. Если сумма была нечётная, то запишется 10, что эквивалентно N×4+2.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>78₁₀ = 1001110₂ — на конце 10, сумма остальных разрядов нечётна. Число подходит под второй случай, значит, исходное число равно (78-2)/4 = 19.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 19</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 5 № 15622 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: складываются все цифры двоичной записи:</p>
+            <p>а) если сумма нечётная, к числу дописывается 11,</p>
+            <p>б) если сумма чётная, дописывается 00.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью искомого числа R.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите такое наименьшее число R, которое превышает 114 и может являться результатом работы алгоритма. В ответе это число запишите в десятичной системе счисления.</p>
+        </div>
+
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Переведём число 114₁₀ в двоичную систему: 114₁₀ = 1110010₂. Отсюда узнаём число на входе — 11100₂.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Количество единиц нечётно, значит, нужно добавить две единицы. Получаем число 115, оно и является ответом, так как оно больше 114 и наименьшее из возможных.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 115</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 5 № 15791 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Автомат обрабатывает натуральное число N по следующему алгоритму.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. Складываются все цифры полученной двоичной записи. В конец записи (справа) дописывается остаток от деления суммы на 2.</p>
+            <p>3. Предыдущий пункт повторяется для записи с добавленной цифрой.</p>
+            <p>4. Результат переводится в десятичную систему и выводится на экран.</p>
+            <p>Пример. Дано число N = 13. Алгоритм работает следующим образом:</p>
+            <p>1. Двоичная запись числа N: 1101.</p>
+            <p>2. Сумма цифр двоичной записи — 3, остаток от деления на 2 равен 1, новая запись 11011.</p>
+            <p>3. Сумма цифр полученной записи — 4, остаток от деления на 2 равен 0, новая запись 110110.</p>
+            <p>4. На экран выводится число 54.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Какое наименьшее число, большее 97, может появиться на экране в результате работы автомата?</p>
+        </div>
+
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Рассмотрим числа, большие 97: 98, 99, 100, 101, 102...</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>98₁₀ = 1100010₂ — нет, 99₁₀ = 1100011₂ — нет, 100₁₀ = 1100100₂ — нет, 101₁₀ = 1100101₂ — нет, 102₁₀ = 1100110₂ — да, является результатом работы алгоритма для числа 11001₂.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 102</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 5 № 15846 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: если N чётное, в конец числа (справа) дописываются два нуля, в противном случае справа дописываются две единицы. Например, двоичная запись 1001 числа 9 будет преобразована в 100111.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью числа — результата работы данного алгоритма.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число N, для которого результат работы алгоритма будет больше 115. В ответе это число запишите в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Переведём число 115₁₀ в двоичную систему: 115₁₀ = 1110011₂.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Уберём два правых разряда. Получим число 11100₂ = 28. Это число не подходит.</p></div>
+                <div class="solution_step"><h5>Шаг 3.</h5><p>Возьмём число 29₁₀ = 11101₂. Число 29 нечётное, дописываем две единицы. Получаем 1110111₂ = 119₁₀.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 29</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 5 № 15874 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: складываются все цифры двоичной записи, и остаток от деления суммы на 2 дописывается в конец числа (справа).</p>
+            <p>3. Над полученной записью производятся те же действия — справа дописывается остаток от деления суммы цифр на 2.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью искомого числа R.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число R, которое превышает 50 и может являться результатом работы алгоритма. В ответе это число запишите в десятичной системе.</p>
+        </div>
+
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если в числе было нечётное количество единиц, то в конец допишется 10. Если количество единиц чётное, то допишется 00.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Рассмотрим числа, большие 50: 52₁₀ = 110100₂ — на конце 00, подходит.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 52</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 5 № 15974 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: если N чётное, в конец числа (справа) дописываются два нуля, в противном случае справа дописываются две единицы.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью числа — результата работы данного алгоритма.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число R, которое превышает 100 и может являться результатом работы алгоритма. В ответе это число запишите в десятичной системе.</p>
+        </div>
+
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если N чётное, то R = N×4. Если N нечётное, то R = N×4+3.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Перебираем N: 25×4+3=103, 26×4=104. Наименьшее R > 100 — 103.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 103</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 5 № 16031 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: складываются все цифры двоичной записи, и остаток от деления суммы на 2 дописывается в конец числа (справа).</p>
+            <p>3. Над полученной записью производятся те же действия — справа дописывается остаток от деления суммы цифр на 2.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью искомого числа R.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число N, для которого результат работы алгоритма больше 80. В ответе это число запишите в десятичной системе.</p>
+        </div>
+
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если в числе было нечётное количество единиц, то в конец допишется 10, и R = 4N+2. Если чётное — 00, и R = 4N.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Перебираем N: 20×4=80 (не больше), 21×4+2=86 > 80. N=21.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 21</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 5 № 16158 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: если N чётное, в конец числа (справа) дописываются два нуля, в противном случае справа дописываются две единицы.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью числа — результата работы данного алгоритма.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число R, которое превышает 150 и может являться результатом работы алгоритма. В ответе это число запишите в десятичной системе.</p>
+        </div>
+
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если N чётное, то R = N×4. Если N нечётное, то R = N×4+3.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Перебираем N: 38×4=152, 37×4+3=151. Наименьшее R > 150 — 151.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 151</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 5 № 16236 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: складываются все цифры двоичной записи, и остаток от деления суммы на 2 дописывается в конец числа (справа).</p>
+            <p>3. Над полученной записью производятся те же действия — справа дописывается остаток от деления суммы цифр на 2.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью искомого числа R.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число N, для которого результат работы алгоритма больше 130. В ответе это число запишите в десятичной системе.</p>
+        </div>
+
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если в числе было нечётное количество единиц, то R = 4N+2. Если чётное — R = 4N.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Перебираем N: 33×4=132, 32×4=128 (не больше). N=33.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 33</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 5 № 16317 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: складываются все цифры двоичной записи, и остаток от деления суммы на 2 дописывается в конец числа (справа).</p>
+            <p>3. Над полученной записью производятся те же действия — справа дописывается остаток от деления суммы цифр на 2.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью искомого числа R.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число R, которое превышает 60 и может являться результатом работы алгоритма. В ответе это число запишите в десятичной системе.</p>
+        </div>
+
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если в числе было нечётное количество единиц, то R = 4N+2. Если чётное — R = 4N.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Перебираем N: 15×4=60 (не больше), 15×4+2=62 > 60. R=62.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 62</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 5 № 16384 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: если N чётное, в конец числа (справа) дописываются два нуля, в противном случае справа дописываются две единицы.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью числа — результата работы данного алгоритма.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число N, для которого результат работы алгоритма больше 200. В ответе это число запишите в десятичной системе.</p>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если N чётное, то R = N×4. Если N нечётное, то R = N×4+3.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Перебираем N: 50×4=200 (не больше), 50×4+3=203 > 200. N=50 (чётное) даёт 200, N=50? Нет, 50 чётное даёт 200. Следующее нечётное 51 даёт 207. Но N=50 даёт R=200, а нужно больше 200. Значит, N=51.</p>
+                <p>Проверяем: 51₁₀ = 110011₂, дописываем 11 → 11001111₂ = 207₁₀.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 51</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 5 № 16490 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: складываются все цифры двоичной записи, и остаток от деления суммы на 2 дописывается в конец числа (справа).</p>
+            <p>3. Над полученной записью производятся те же действия — справа дописывается остаток от деления суммы цифр на 2.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью искомого числа R.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число N, для которого результат работы алгоритма больше 90. В ответе это число запишите в десятичной системе.</p>
+        </div>
+
+
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если в числе было нечётное количество единиц, то R = 4N+2. Если чётное — R = 4N.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Перебираем N: 23×4=92 > 90. N=23.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 23</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 5 № 16581 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: если N чётное, в конец числа (справа) дописываются два нуля, в противном случае справа дописываются две единицы.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью числа — результата работы данного алгоритма.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число R, которое превышает 80 и может являться результатом работы алгоритма. В ответе это число запишите в десятичной системе.</p>
+        </div>
+
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если N чётное, то R = N×4. Если N нечётное, то R = N×4+3.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Перебираем N: 20×4=80 (не больше), 20×4+3=83 > 80. R=83.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 83</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 5 № 16671 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>На вход алгоритма подаётся натуральное число N. Алгоритм строит по нему новое число R следующим образом.</p>
+            <p>1. Строится двоичная запись числа N.</p>
+            <p>2. К этой записи дописываются справа ещё два разряда по следующему правилу: складываются все цифры двоичной записи, и остаток от деления суммы на 2 дописывается в конец числа (справа).</p>
+            <p>3. Над полученной записью производятся те же действия — справа дописывается остаток от деления суммы цифр на 2.</p>
+            <p>Полученная таким образом запись (в ней на два разряда больше, чем в записи исходного числа N) является двоичной записью искомого числа R.</p>
+            <p class="task_note"><strong>Вопрос:</strong> Укажите минимальное число R, которое превышает 70 и может являться результатом работы алгоритма. В ответе это число запишите в десятичной системе.</p>
+        </div>
+
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <p><b>Решение.</b></p>
+            <div class="solution_text">
+                <div class="solution_step"><h5>Шаг 1.</h5><p>Если в числе было нечётное количество единиц, то R = 4N+2. Если чётное — R = 4N.</p></div>
+                <div class="solution_step"><h5>Шаг 2.</h5><p>Перебираем N: 18×4=72 > 70. R=72.</p></div>
+                <div class="solution_answer"><strong>Ответ:</strong> 72</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btn = event.target;
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</html>

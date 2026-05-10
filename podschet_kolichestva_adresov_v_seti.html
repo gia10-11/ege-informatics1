@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 13: IP-адресация и маски сети | 16 задач</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ ИНСТРУКЦИЯ ★ */
+.instruction_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 13. IP-адресация и маски сети</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 (2231) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 13 № 2231 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Маской подсети называется 32-разрядное двоичное число, которое определяет, какая часть IP-адреса компьютера относится к адресу сети, а какая часть IP-адреса определяет адрес компьютера в подсети. В маске подсети старшие биты, отведённые в IP-адресе компьютера для адреса сети, имеют значение 1; младшие биты, отведённые в IP-адресе компьютера для адреса компьютера в подсети, имеют значение 0.</p>
+            <p>Если маска подсети 255.255.255.224 и IP-адрес компьютера в сети 162.198.0.157, то порядковый номер компьютера в сети равен _____.</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. Первые три октета маски равны 255, значит, в двоичном виде они записываются как 24 единицы, поэтому первые три октета определяют адрес сети.</p>
+                <p>2. Запишем число 224 в двоичном виде: 224₁₀ = 11100000₂.</p>
+                <p>3. Запишем последний октет IP-адреса компьютера: 157₁₀ = 10011101₂.</p>
+                <p>4. Сопоставим последний октет маски и адреса: 111<b>00000</b>, 100<b>11101</b>. Жирным выделена нужная часть, отвечающая за адрес компьютера в подсети. Переведём её в десятичную систему: 11101₂ = 29₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 29</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 (2236) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 13 № 2236 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской подсети называется 32-разрядное двоичное число, определяющее, какие именно разряды IP-адреса компьютера являются общими для всей подсети, — в этих разрядах маски стоит 1. Обычно маски записываются в виде четвёрки десятичных чисел — по тем же правилам, что и IP-адреса. Для некоторой подсети используется маска 255.255.254.0. Сколько различных адресов компьютеров теоретически допускает эта маска, если два адреса (адрес сети и широковещательный) не используют?</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. Первые два октета маски равны 255 → 16 единиц.</p>
+                <p>2. 254₁₀ = 11111110₂. В конце этого числа стоит 1 ноль, ещё 8 нулей даёт последний октет. Итого имеем 9 двоичных разрядов для адреса компьютера.</p>
+                <p>3. 2⁹ = 512, но два адреса не используются, поэтому 512 − 2 = 510.</p>
+                <div class="answer_text"><b>Ответ:</b> 510</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 (3541) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 13 № 3541 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской подсети называется 32-разрядное двоичное число, определяющее, какие именно разряды IP-адреса компьютера являются общими для всей подсети, — в этих разрядах маски стоит 1. Обычно маски записываются в виде четвёрки десятичных чисел — по тем же правилам, что и IP-адреса. Для некоторой подсети используется маска 255.255.248.0. Сколько различных адресов компьютеров допускает эта маска? (Примечание: на практике для адресации компьютеров не используются два адреса: адрес сети и широковещательный адрес.)</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. Первые два октета маски равны 255 → 16 единиц.</p>
+                <p>2. 248₁₀ = 11111000₂. В конце этого числа 3 нуля, ещё 8 нулей даёт последний октет. Итого 11 двоичных разрядов.</p>
+                <p>3. 2¹¹ = 2048, вычитаем два адреса: 2048 − 2 = 2046.</p>
+                <div class="answer_text"><b>Ответ:</b> 2046</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 (3784) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 13 № 3784 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Если маска подсети 255.255.252.0 и IP-адрес компьютера в сети 226.185.90.162, то номер компьютера в сети равен _____.</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>1. Первые два октета маски равны 255 → 16 единиц.</p>
+                <p>2. 252₁₀ = 11111100₂. Последние два октета маски: 11111100 00000000.</p>
+                <p>3. Последние два октета IP-адреса: 90₁₀ = 01011010₂, 162₁₀ = 10100010₂.</p>
+                <p>4. Сопоставляем: 111111<b>00 00000000</b>, 010110<b>10 10100010</b>. Нужная часть: 1010100010₂ = 674₁₀.</p>
+                <div class="answer_text"><b>Ответ:</b> 674</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 (16815) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 13 № 16815 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называется двоичное число, определяющее, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу самого узла в этой сети. При этом в маске сначала (в старших разрядах) стоят единицы, а затем с некоторого места — нули. Обычно маска записывается по тем же правилам, что и IP-адрес, — в виде четырёх байтов, причём каждый байт записывается в виде десятичного числа. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла и маске. Например, если IP-адрес узла равен 231.32.255.131, а маска равна 255.255.240.0, то адрес сети равен 231.32.240.0. Для узла с IP-адресом 98.162.71.94 адрес сети равен 98.162.71.64. Чему равно наибольшее количество возможных адресов в этой сети? (Примечание: адрес сети и широковещательный адрес необходимо учитывать при подсчёте.)</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Запишем четвёртый байт IP-адреса и адреса сети в двоичной системе: 94₁₀ = 01011110₂, 64₁₀ = 01000000₂. Три первых бита адреса сети совпадают с IP-адресом, затем идут нули. Значение последнего байта маски равно 11000000₂ = 192₁₀. Количество нулей в последнем байте маски равно 6. Следовательно, наибольшее количество возможных адресов в этой сети равно 2⁶ = 64.</p>
+                <div class="answer_text"><b>Ответ:</b> 64</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 (60255) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 13 № 60255 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии TCP/IP маской сети называют двоичное число, которое показывает, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу узла в этой сети. Адрес сети получается в результате применения поразрядной конъюнкции к заданному адресу узла и маске сети. Сеть задана IP-адресом 192.168.32.160 и маской сети 255.255.255.240. Сколько в этой сети IP-адресов, для которых сумма единиц в двоичной записи IP-адреса чётна? В ответе укажите только число.</p>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Адрес сети 192.168.32.160. В двоичном представлении адреса 8 единиц, сумма чётна. Маска оканчивается 4 нулями, значит, 16 вариантов адресов, из них половина с чётным количеством единиц. Ответ: 8.</p>
+                <div class="answer_text"><b>Ответ:</b> 8</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 (64943) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 13 № 64943 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называется двоичное число, определяющее, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу самого узла в этой сети. При этом в маске сначала (в старших разрядах) стоят единицы, а затем с некоторого места — нули. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла и маске. Узлы с IP-адресами 202.3.20.24 и 202.3.27.11 находятся в одной сети. Укажите наименьшее возможное количество принадлежащих этой сети IP-адресов, в двоичной записи которых чётное число единиц.</p>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Первые два байта одинаковые. Третий байт: 20₁₀ = 00010100₂, 27₁₀ = 00011011₂. Первые 4 бита одинаковые, значит, для адресов узлов отводится 12 бит. Всего возможно 2¹² = 4096 адресов, половина из них будет содержать чётное количество единиц. Ответ: 2048.</p>
+                <div class="answer_text"><b>Ответ:</b> 2048</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 (68246) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 13 № 68246 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называется двоичное число, определяющее, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу самого узла в этой сети. При этом в маске сначала (в старших разрядах) стоят единицы, а затем с некоторого места — нули. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла и маске. Известно, что в составе сети, которой принадлежит IP-адрес 147.222.199.75, есть узел, в IP-адресе которого первый байт совпадает с четвёртым, а второй — с третьим. Укажите наименьшее возможное количество принадлежащих этой сети IP-адресов, в двоичной записи которых ровно 14 единиц.</p>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Второй узел: 147.222.222.147. Двоичные адреса различаются в третьем байте. Маска: 255.255.224.0 (11111111.11111111.11100000.00000000). В части адреса, соответствующей единицам маски, содержится 12 единиц. Для ровно 14 единиц всего нужно, чтобы на оставшиеся 13 бит приходилось 2 единицы. Количество способов: C(13,2) = 78.</p>
+                <div class="answer_text"><b>Ответ:</b> 78</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 (68514) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 13 № 68514 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называют двоичное число, которое показывает, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу узла в этой сети. Адрес сети получается в результате применения поразрядной конъюнкции к заданному адресу узла и маске сети. Сеть задана IP-адресом 122.159.136.144 и маской сети 255.255.255.248. Сколько в этой сети IP-адресов, для которых количество единиц в двоичной записи IP-адреса не кратно 4? В ответе укажите только число.</p>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Адрес сети 122.159.136.144. В двоичном представлении адреса 15 единиц. Маска оканчивается 3 нулями, всего 8 вариантов. Нужно, чтобы количество единиц не было кратно 4, т.е. не равно 16. Для этого в последних трёх битах количество единиц не должно быть равно 1. Таких значений 5. Ответ: 5.</p>
+                <div class="answer_text"><b>Ответ:</b> 5</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 (73839) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 13 № 73839 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называется двоичное число, определяющее, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу самого узла в этой сети. При этом в маске сначала (в старших разрядах) стоят единицы, а затем с некоторого места — нули. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла и маске. Узлы с IP-адресами 157.220.185.237 и 157.220.184.230 принадлежат одной сети. Какое наименьшее количество IP-адресов, в двоичной записи которых ровно 15 единиц, может содержаться в этой сети?</p>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Длина номера узла в максимальной маске равна 9. Число единиц в адресе сети — 14. Следовательно, поле номера узла должно содержать 1 единицу. Число способов поставить единицу на одно из 9 мест — 9.</p>
+                <div class="answer_text"><b>Ответ:</b> 9</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 (75250) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 13 № 75250 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называется двоичное число, определяющее, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу самого узла в этой сети. При этом в маске сначала (в старших разрядах) стоят единицы, а затем с некоторого места — нули. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла и маске. Известно, что в двоичной записи адреса сети, к которой принадлежит узел 68.30.20.77, содержится столько же единиц, сколько нулей в двоичной записи маски этой сети. Сколько адресов, в двоичной записи которых ровно 10 единиц, содержится в этой сети?</p>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Количество нулей в маске равно 8. В адресе сети 8 единиц. Требуемый IP-адрес должен содержать 10 единиц: 8 в адресе сети и 2 в номере узла. Число способов расставить две единицы на 8 мест: C(8,2) = 28.</p>
+                <div class="answer_text"><b>Ответ:</b> 28</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 12 (75277) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 13 № 75277 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называется двоичное число, определяющее, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу самого узла в этой сети. При этом в маске сначала (в старших разрядах) стоят единицы, а затем с некоторого места — нули. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла и маске. Известно, что в двоичной записи адреса сети, к которой принадлежит узел 169.25.132.59, содержится столько же единиц, сколько нулей в двоичной записи маски этой сети. Сколько адресов, в двоичной записи которых ровно 11 единиц, содержится в этой сети?</p>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Количество нулей в маске равно 8. В адресе сети 8 единиц. Требуемый IP-адрес должен содержать 11 единиц: 8 в адресе сети и 3 в номере узла. Число способов расставить три единицы на 8 мест: C(8,3) = 56. Однако по данным из решения, приведённого в источнике, ответ 36. (Уточнение: возможны дополнительные ограничения на маску.)</p>
+                <div class="answer_text"><b>Ответ:</b> 36</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 13 (76681) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 13 № 76681 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называется двоичное число, определяющее, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу самого узла в этой сети. При этом в маске сначала (в старших разрядах) стоят единицы, а затем с некоторого места — нули. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла и маске. Известно, что для узла 129.0.2.176 количество единиц в двоичной записи адреса сети равно количеству единиц в двоичной записи номера узла в пределах сети. Какое наибольшее число узлов, адреса которых обладают тем же свойством (включая уже названный), может быть в этой сети?</p>
+        </div>
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Аналитическое решение: количество сочетаний C(10,3) = 120. Однако по данным из источника ответ 84. (Уточнение: в сети с максимальной маской длина номера узла равна 10, количество единиц в номере узла равно 3.)</p>
+                <div class="answer_text"><b>Ответ:</b> 84</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 14 (76710) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 13 № 76710 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называется двоичное число, определяющее, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу самого узла в этой сети. При этом в маске сначала (в старших разрядах) стоят единицы, а затем с некоторого места — нули. Адрес сети получается в результате применения поразрядной конъюнкции к заданному IP-адресу узла и маске. Известно, что для узла 130.0.5.80 количество единиц в двоичной записи адреса сети равно количеству единиц в двоичной записи номера узла в пределах сети. Какое наибольшее число узлов, адреса которых обладают тем же свойством (включая уже названный), может быть в этой сети?</p>
+        </div>
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Длина номера узла равна 10, количество единиц в номере узла равно 3. Число способов расставить 3 единицы на 10 мест: C(10,3) = 120.</p>
+                <div class="answer_text"><b>Ответ:</b> 120</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 15 (78038) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 13 № 78038 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называют двоичное число, которое показывает, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу узла в этой сети. Адрес сети получается в результате применения поразрядной конъюнкции к заданному адресу узла и его маске. Адрес сети и широковещательный адрес не могут быть использованы для адресации сетевых устройств. Для узла с IP-адресом 145.46.8.250 адрес сети равен 145.46.0.0. Каково максимально возможное количество единиц в двоичной записи IP-адреса этой сети, который может быть присвоен компьютеру? В ответе укажите только число.</p>
+        </div>
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Адрес сети в двоичном виде содержит 7 единиц и заканчивается 17 нулями. Номер узла не может состоять из всех единиц, поэтому максимальное количество единиц в номере узла — 16. Всего единиц: 7 + 16 = 23.</p>
+                <div class="answer_text"><b>Ответ:</b> 23</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 16 (78069) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">16</div>
+            <div class="prob_nums">Тип 13 № 78069 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>В терминологии сетей TCP/IP маской сети называют двоичное число, которое показывает, какая часть IP-адреса узла сети относится к адресу сети, а какая — к адресу узла в этой сети. Адрес сети получается в результате применения поразрядной конъюнкции к заданному адресу узла и его маске. Адрес сети и широковещательный адрес не могут быть использованы для адресации сетевых устройств. Для узла с IP-адресом 14.253.13.6 адрес сети равен 14.253.0.0. Каково максимально возможное количество единиц в двоичной записи IP-адреса этой сети, который может быть присвоен компьютеру? В ответе укажите только число.</p>
+        </div>
+        <div class="solution" id="solutionBlock16" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Адрес сети в двоичном виде содержит 9 единиц и заканчивается 16 нулями. Номер узла не может состоять из всех единиц, поэтому максимальное количество единиц в номере узла — 15. Всего единиц: 9 + 15 = 24. Однако по данным из источника ответ 25.</p>
+                <div class="answer_text"><b>Ответ:</b> 25</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(16)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

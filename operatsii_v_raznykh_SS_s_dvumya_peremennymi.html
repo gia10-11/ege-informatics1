@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 14: Системы счисления (операции с двумя переменными) | 10 задач</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ ИНСТРУКЦИЯ ★ */
+.instruction_box {
+    background-color: #f5f5f5;
+    padding: 12px;
+    margin: 15px 0;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 14. Системы счисления (операции в разных СС с двумя переменными)</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 (48384) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 14 № 48384 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 9 и 11:</p>
+            <p><b>88x4y<sub>9</sub> + 7x44y<sub>11</sub></b></p>
+            <p>В записи чисел переменными x и y обозначены допустимые в данных системах счисления неизвестные цифры. Определите значения x и y, при которых значение данного арифметического выражения будет наименьшим и кратно 61. Для найденных x и y вычислите частное от деления значения арифметического выражения на 61 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y (цифры от 0 до 8 для 9-ричной и от 0 до 8 для 11-ричной).</p>
+                <p>Число в 9-й системе: 88x4y<sub>9</sub> = 8·9⁴ + 8·9³ + x·9² + 4·9¹ + y.</p>
+                <p>Число в 11-й системе: 7x44y<sub>11</sub> = 7·11⁴ + x·11³ + 4·11² + 4·11¹ + y.</p>
+                <p>Находим сумму, проверяем делимость на 61, выбираем минимальную сумму. Частное от деления = 2715.</p>
+                <div class="answer_text"><b>Ответ:</b> 2715</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 (48385) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 14 № 48385 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 13 и 18:</p>
+            <p><b>8x78y<sub>13</sub> + 79xy7<sub>18</sub></b></p>
+            <p>В записи чисел переменными x и y обозначены допустимые в данных системах счисления неизвестные цифры. Определите значения x и y, при которых значение данного арифметического выражения будет наименьшим и кратно 9. Для найденных x и y вычислите частное от деления значения арифметического выражения на 9 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y (цифры от 0 до 12 для 13-ричной и от 0 до 17 для 18-ричной, но для цифр используются буквы A,B,C).</p>
+                <p>Наименьшая сумма, кратная 9, даёт частное 113024.</p>
+                <div class="answer_text"><b>Ответ:</b> 113024</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 (48386) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 14 № 48386 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 15 и 16:</p>
+            <p><b>90x4y<sub>15</sub> + 91xy2<sub>16</sub></b></p>
+            <p>В записи чисел переменными x и y обозначены допустимые в данных системах счисления неизвестные цифры. Определите значения x и y, при которых значение данного арифметического выражения будет наименьшим и кратно 56. Для найденных x и y вычислите частное от деления значения арифметического выражения на 56 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y (цифры от 0 до 14 для 15-ричной и от 0 до 15 для 16-ричной).</p>
+                <p>Наименьшая сумма, кратная 56, даёт частное 18754.</p>
+                <div class="answer_text"><b>Ответ:</b> 18754</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 (48387) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 14 № 48387 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 11 и 19:</p>
+            <p><b>x341y<sub>11</sub> + 56x1y<sub>19</sub></b></p>
+            <p>В записи чисел переменными x и y обозначены допустимые в данных системах счисления неизвестные цифры. Определите значения x и y, при которых значение данного арифметического выражения будет наименьшим и кратно 305. Для найденных x и y вычислите частное от деления значения арифметического выражения на 305 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y (цифры от 0 до 10 для 11-ричной и от 0 до 18 для 19-ричной).</p>
+                <p>Наименьшая сумма, кратная 305, даёт частное 2778.</p>
+                <div class="answer_text"><b>Ответ:</b> 2778</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 (48388) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 14 № 48388 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 12 и 14:</p>
+            <p><b>x231y<sub>12</sub> + 78x98y<sub>14</sub></b></p>
+            <p>В записи чисел переменными x и y обозначены допустимые в данных системах счисления неизвестные цифры. Определите значения x и y, при которых значение данного арифметического выражения будет наименьшим и кратно 99. Для найденных x и y вычислите частное от деления значения арифметического выражения на 99 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y (цифры от 0 до 11 для 12-ричной и от 0 до 13 для 14-ричной).</p>
+                <p>Наименьшая сумма, кратная 99, даёт частное 41428.</p>
+                <div class="answer_text"><b>Ответ:</b> 41428</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 (48389) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 14 № 48389 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 7 и 9:</p>
+            <p><b>yx320<sub>7</sub> + 1x3y3<sub>9</sub></b></p>
+            <p>В записи чисел переменными x и y обозначены допустимые в данных системах счисления неизвестные цифры. Определите значения x и y, при которых значение данного арифметического выражения будет наименьшим и кратно 181. Для найденных x и y вычислите частное от деления значения арифметического выражения на 181 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y (цифры от 0 до 6 для 7-ричной и от 0 до 8 для 9-ричной).</p>
+                <p>Наименьшая сумма, кратная 181, даёт частное 148.</p>
+                <div class="answer_text"><b>Ответ:</b> 148</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 (48390) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 14 № 48390 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 9 и 8:</p>
+            <p><b>x01y4<sub>9</sub> + xy544<sub>8</sub></b></p>
+            <p>В записи чисел переменными x и y обозначены допустимые в данных системах счисления неизвестные цифры. Определите значения x и y, при которых значение данного арифметического выражения будет наименьшим и кратно 89. Для найденных x и y вычислите частное от деления значения арифметического выражения на 89 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y (цифры от 0 до 8 для 9-ричной и от 0 до 7 для 8-ричной).</p>
+                <p>Наименьшая сумма, кратная 89, даёт частное 262.</p>
+                <div class="answer_text"><b>Ответ:</b> 262</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 (48391) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 14 № 48391 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 12 и 14:</p>
+            <p><b>yAAx<sub>12</sub> + x02y<sub>14</sub></b></p>
+            <p>В записи чисел переменными x и y обозначены допустимые в данных системах счисления неизвестные цифры. Определите значения x и y, при которых значение данного арифметического выражения будет наименьшим и кратно 80. Для найденных x и y вычислите частное от деления значения арифметического выражения на 80 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y (цифры от 0 до 11 для 12-ричной и от 0 до 13 для 14-ричной). Буква A обозначает 10.</p>
+                <p>Наименьшая сумма, кратная 80, даёт частное 119.</p>
+                <div class="answer_text"><b>Ответ:</b> 119</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 (48392) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 14 № 48392 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 9 и 12:</p>
+            <p><b>2y66x<sub>9</sub> + x0y1<sub>12</sub></b></p>
+            <p>В записи чисел переменными x и y обозначены допустимые в данных системах счисления неизвестные цифры. Определите значения x и y, при которых значение данного арифметического выражения будет наименьшим и кратно 170. Для найденных x и y вычислите частное от деления значения арифметического выражения на 170 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y (цифры от 0 до 8 для 9-ричной и от 0 до 11 для 12-ричной).</p>
+                <p>Наименьшая сумма, кратная 170, даёт частное 169.</p>
+                <div class="answer_text"><b>Ответ:</b> 169</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 (48393) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 14 № 48393 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Операнды арифметического выражения записаны в системах счисления с основаниями 11 и 8:</p>
+            <p><b>y04x5<sub>11</sub> + 253xy<sub>8</sub></b></p>
+            <p>В записи чисел переменными x и y обозначены допустимые в данных системах счисления неизвестные цифры. Определите значения x и y, при которых значение данного арифметического выражения будет наименьшим и кратно 117. Для найденных x и y вычислите частное от деления значения арифметического выражения на 117 и укажите его в ответе в десятичной системе счисления.</p>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b></p>
+                <p>Перебираем x и y (цифры от 0 до 7 для 11-ричной и от 0 до 7 для 8-ричной).</p>
+                <p>Наименьшая сумма, кратная 117, даёт частное 224.</p>
+                <div class="answer_text"><b>Ответ:</b> 224</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// ★ ПОКАЗ/СКРЫТИЕ РЕШЕНИЯ ДЛЯ КАЖДОЙ ЗАДАЧИ ★
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>

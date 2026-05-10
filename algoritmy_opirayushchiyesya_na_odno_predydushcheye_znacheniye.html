@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Задание 16: Рекурсивные алгоритмы (22 задачи)</title>
+<style>
+/* ★ ОСНОВНЫЕ СТИЛИ В СТИЛЕ ИСХОДНОГО ФАЙЛА ★ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    color: #000;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.problem_container {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ★ ЗАГОЛОВОК ЗАДАНИЯ ★ */
+.prob_header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.prob_num {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #4a6baf;
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.prob_nums {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.prob_nums a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.prob_nums a:hover {
+    text-decoration: underline;
+}
+
+/* ★ ТЕКСТ ЗАДАНИЯ ★ */
+.problem_text {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.left_margin {
+    margin-left: 0;
+}
+
+/* ★ РЕШЕНИЕ ★ */
+.solution {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-left: 4px solid #4a6baf;
+    font-size: 14px;
+}
+
+.solution_text {
+    line-height: 1.6;
+}
+
+.solution_text p {
+    margin: 10px 0;
+}
+
+.solution_text b {
+    color: #4a6baf;
+}
+
+.wrap_scroll_table {
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    border: 1px solid #999;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f0f0;
+}
+
+hr {
+    margin: 15px 0;
+    border: none;
+    border-top: 1px dashed #999;
+}
+
+/* ★ КНОПКИ УПРАВЛЕНИЯ ★ */
+.task_controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.btn_show_solution {
+    padding: 8px 16px;
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn_show_solution:hover {
+    background-color: #e67e22;
+}
+
+/* ★ ИСТОЧНИК ★ */
+.source_info {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+.answer_text {
+    background-color: #e8f4f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border-left: 4px solid #4a6baf;
+}
+
+/* ★ АДАПТИВНОСТЬ ★ */
+@media (max-width: 768px) {
+    .task_controls {
+        flex-direction: column;
+    }
+    
+    .btn_show_solution {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+<div class="new_header" align="center" style="padding-top:3px;vertical-align:middle;width:100%;line-height:25px;text-align:left; margin-bottom:2px;font-size:18px; color:#006">
+<b>Задание 16. Рекурсивные алгоритмы (22 задачи)</b>
+</div>
+
+<div class="container">
+    <!-- ЗАДАНИЕ 1 (4558) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">1</div>
+            <div class="prob_nums">Тип 16 № 4558 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1) = 1; F(n) = F(n–1) · n при n > 1.</p>
+            <p>Чему равно значение функции F(5)?</p>
+        </div>
+        <div class="solution" id="solutionBlock1" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(2)=1·2=2, F(3)=2·3=6, F(4)=6·4=24, F(5)=24·5=120.</p>
+                <div class="answer_text"><b>Ответ:</b> 120</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> n
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">5</span><span class="sh_symbol">))</span></pre></div>
+                <div class="source_info">Источник: Демоверсия ЕГЭ—2013</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(1)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 2 (4642) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">2</div>
+            <div class="prob_nums">Тип 16 № 4642 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1) = 3; F(n) = F(n – 1) · (n – 1) при n > 1.</p>
+            <p>Чему равно значение функции F(6)?</p>
+        </div>
+        <div class="solution" id="solutionBlock2" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(2)=3·1=3, F(3)=3·2=6, F(4)=6·3=18, F(5)=18·4=72, F(6)=72·5=360.</p>
+                <div class="answer_text"><b>Ответ:</b> 360</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">3</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> <span class="sh_symbol">(</span>n <span class="sh_symbol">-</span> <span class="sh_number">1</span><span class="sh_symbol">)</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">6</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(2)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 3 (4643) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">3</div>
+            <div class="prob_nums">Тип 16 № 4643 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1) = 1; F(n) = 5·F(n – 1) + 3·n при n > 1.</p>
+            <p>Чему равно значение функции F(4)?</p>
+        </div>
+        <div class="solution" id="solutionBlock3" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(2)=5·1+6=11, F(3)=5·11+9=64, F(4)=5·64+12=332.</p>
+                <div class="answer_text"><b>Ответ:</b> 332</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">5</span><span class="sh_symbol">*</span><span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">+</span> <span class="sh_number">3</span><span class="sh_symbol">*</span>n
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">4</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(3)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 4 (4644) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">4</div>
+            <div class="prob_nums">Тип 16 № 4644 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1) = 1; F(n) = F(n–1)·F(n–1) − F(n–1)·n + 2·n при n > 1.</p>
+            <p>Чему равно значение функции F(4)?</p>
+        </div>
+        <div class="solution" id="solutionBlock4" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(2)=1·1−1·2+4=3, F(3)=9−3·3+6=6, F(4)=36−6·4+8=20.</p>
+                <div class="answer_text"><b>Ответ:</b> 20</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">-</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> n <span class="sh_symbol">+</span> <span class="sh_number">2</span> <span class="sh_symbol">*</span> n
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">4</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(4)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 5 (4656) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">5</div>
+            <div class="prob_nums">Тип 16 № 4656 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n) и G(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1) = 0; F(n) = F(n–1) + n при n>1; G(1) = 1; G(n) = G(n–1)·n при n>1.</p>
+            <p>Чему равно значение функции F(5)+G(5)?</p>
+        </div>
+        <div class="solution" id="solutionBlock5" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(2)=2, F(3)=5, F(4)=9, F(5)=14; G(2)=2, G(3)=6, G(4)=24, G(5)=120; сумма=134.</p>
+                <div class="answer_text"><b>Ответ:</b> 134</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">0</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">+</span> n
+<span class="sh_keyword">def</span> <span class="sh_function">G</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">G</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> n
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">5</span><span class="sh_symbol">)</span> <span class="sh_symbol">+</span> <span class="sh_function">G</span><span class="sh_symbol">(</span><span class="sh_number">5</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(5)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 6 (4849) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">6</div>
+            <div class="prob_nums">Тип 16 № 4849 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1)=1; F(2)=1; F(n)=F(n–2)·n при n>2.</p>
+            <p>Чему равно значение функции F(7)?</p>
+        </div>
+        <div class="solution" id="solutionBlock6" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(3)=1·3=3, F(4)=1·4=4, F(5)=3·5=15, F(6)=4·6=24, F(7)=15·7=105.</p>
+                <div class="answer_text"><b>Ответ:</b> 105</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span> <span class="sh_keyword">or</span> n <span class="sh_symbol">==</span> <span class="sh_number">2</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">2</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-2</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> n
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">7</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(6)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 7 (4937) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">7</div>
+            <div class="prob_nums">Тип 16 № 4937 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1)=1; F(2)=1; F(n)=F(n–2)·(n–1) при n>2.</p>
+            <p>Чему равно значение функции F(7)?</p>
+        </div>
+        <div class="solution" id="solutionBlock7" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(3)=1·2=2, F(4)=1·3=3, F(5)=2·4=8, F(6)=3·5=15, F(7)=8·6=48.</p>
+                <div class="answer_text"><b>Ответ:</b> 48</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span> <span class="sh_keyword">or</span> n <span class="sh_symbol">==</span> <span class="sh_number">2</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">2</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-2</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> <span class="sh_symbol">(</span>n <span class="sh_symbol">-</span> <span class="sh_number">1</span><span class="sh_symbol">)</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">7</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(7)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 8 (5278) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">8</div>
+            <div class="prob_nums">Тип 16 № 5278 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1)=1; F(n)=2·F(n–1)+1 при n>1.</p>
+            <p>Чему равно значение функции F(5)?</p>
+        </div>
+        <div class="solution" id="solutionBlock8" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(2)=3, F(3)=7, F(4)=15, F(5)=31.</p>
+                <div class="answer_text"><b>Ответ:</b> 31</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">2</span><span class="sh_symbol">*</span><span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">+</span> <span class="sh_number">1</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">5</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(8)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 9 (6189) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">9</div>
+            <div class="prob_nums">Тип 16 № 6189 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1)=1; F(2)=1; F(n)=F(n–2)·n при n>2.</p>
+            <p>Чему равно значение функции F(7)?</p>
+        </div>
+        <div class="solution" id="solutionBlock9" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(3)=3, F(4)=4, F(5)=15, F(6)=24, F(7)=105.</p>
+                <div class="answer_text"><b>Ответ:</b> 105</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span> <span class="sh_keyword">or</span> n <span class="sh_symbol">==</span> <span class="sh_number">2</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">2</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-2</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> n
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">7</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(9)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 10 (6893) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">10</div>
+            <div class="prob_nums">Тип 16 № 6893 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1)=1; F(2)=2; F(3)=3; F(n)=F(n–3)·n при n>3.</p>
+            <p>Чему равно значение функции F(10)?</p>
+        </div>
+        <div class="solution" id="solutionBlock10" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(4)=4, F(5)=10, F(6)=18, F(7)=28, F(8)=80, F(9)=162, F(10)=280.</p>
+                <div class="answer_text"><b>Ответ:</b> 280</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">2</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">2</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">3</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">3</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">3</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-3</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> n
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">10</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(10)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 11 (6958) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">11</div>
+            <div class="prob_nums">Тип 16 № 6958 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1)=1; F(n)=F(n–1)+n при n>1.</p>
+            <p>Чему равно значение функции F(30)?</p>
+        </div>
+        <div class="solution" id="solutionBlock11" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(30) = 1+2+...+30 = 30·31/2 = 465.</p>
+                <div class="answer_text"><b>Ответ:</b> 465</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">+</span> n
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">30</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(11)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 12 (7203) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">12</div>
+            <div class="prob_nums">Тип 16 № 7203 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1)=2; F(n)=F(n–1)·n при n≥2.</p>
+            <p>Чему равно значение функции F(5)?</p>
+        </div>
+        <div class="solution" id="solutionBlock12" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(2)=4, F(3)=12, F(4)=48, F(5)=240.</p>
+                <div class="answer_text"><b>Ответ:</b> 240</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">2</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;=</span> <span class="sh_number">2</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> n
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">5</span><span class="sh_symbol">))</span></pre></div>
+                <div class="source_info">Источник: ЕГЭ 05.05.2014</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(12)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 13 (7270) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">13</div>
+            <div class="prob_nums">Тип 16 № 7270 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1)=1; F(n)=F(n–1)·(n+2) при n>1.</p>
+            <p>Чему равно значение функции F(5)?</p>
+        </div>
+        <div class="solution" id="solutionBlock13" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(2)=1·4=4, F(3)=4·5=20, F(4)=20·6=120, F(5)=120·7=840.</p>
+                <div class="answer_text"><b>Ответ:</b> 840</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> <span class="sh_symbol">(</span>n <span class="sh_symbol">+</span> <span class="sh_number">2</span><span class="sh_symbol">)</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">5</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(13)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 14 (7273) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">14</div>
+            <div class="prob_nums">Тип 16 № 7273 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1)=1; F(n)=F(n–1)·(2n+1) при n>1.</p>
+            <p>Чему равно значение функции F(4)?</p>
+        </div>
+        <div class="solution" id="solutionBlock14" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(2)=1·5=5, F(3)=5·7=35, F(4)=35·9=315.</p>
+                <div class="answer_text"><b>Ответ:</b> 315</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;=</span> <span class="sh_number">2</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">*</span> <span class="sh_symbol">(</span><span class="sh_number">2</span><span class="sh_symbol">*</span>n <span class="sh_symbol">+</span> <span class="sh_number">1</span><span class="sh_symbol">)</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">4</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(14)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 15 (7308) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">15</div>
+            <div class="prob_nums">Тип 16 № 7308 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — натуральное число, задан следующими соотношениями:</p>
+            <p>F(1)=1; F(n)=F(n–1)+2<sup>n-1</sup> при n>1.</p>
+            <p>Чему равно значение функции F(10)?</p>
+        </div>
+        <div class="solution" id="solutionBlock15" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(2)=3, F(3)=7, F(4)=15, F(5)=31, F(6)=63, F(7)=127, F(8)=255, F(9)=511, F(10)=1023.</p>
+                <div class="answer_text"><b>Ответ:</b> 1023</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&gt;</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_number">-1</span><span class="sh_symbol">)</span> <span class="sh_symbol">+</span> <span class="sh_number">2</span> <span class="sh_symbol">**</span> <span class="sh_symbol">(</span>n <span class="sh_symbol">-</span> <span class="sh_number">1</span><span class="sh_symbol">)</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">10</span><span class="sh_symbol">))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(15)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 16 (48437) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">16</div>
+            <div class="prob_nums">Тип 16 № 48437 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n), где n — целое неотрицательное число, задан следующими соотношениями:</p>
+            <p>F(0)=0; F(n)=F(n–1)+n.</p>
+            <p>Укажите количество чисел n из интервала 237567892 ≤ n ≤ 1134567004, для которых F(n) не делится на 3.</p>
+        </div>
+        <div class="solution" id="solutionBlock16" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(n)=n(n+1)/2. Остаток от деления на 3 равен 0 только если n mod 3 = 0 или 2. Не делится, если n mod 3 = 1. Количество чисел с остатком 1: 298 999 705.</p>
+                <div class="answer_text"><b>Ответ:</b> 298999705</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1">a<span class="sh_symbol">,</span>b <span class="sh_symbol">=</span> <span class="sh_number">237567892</span><span class="sh_symbol">,</span> <span class="sh_number">1134567004</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">len</span><span class="sh_symbol">(</span><span class="sh_function">range</span><span class="sh_symbol">((</span>a<span class="sh_number">+1</span><span class="sh_symbol">)//</span><span class="sh_number">3</span><span class="sh_symbol">*</span><span class="sh_number">3</span> <span class="sh_keyword">if</span> a<span class="sh_symbol">%</span><span class="sh_number">3</span> <span class="sh_symbol">!=</span> <span class="sh_number">1</span> <span class="sh_keyword">else</span> a<span class="sh_symbol">,</span> b<span class="sh_number">+1</span><span class="sh_symbol">,</span> <span class="sh_number">3</span><span class="sh_symbol">)))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(16)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 17 (51985) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">17</div>
+            <div class="prob_nums">Тип 16 № 51985 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Обозначим частное от деления a на b как a div b, а остаток — a mod b. Алгоритм вычисления F(n): F(0)=0; F(n)=F(n div 10)+(n mod 10).</p>
+            <p>Укажите количество чисел n из интервала 237567892 ≤ n ≤ 1134567009, для которых F(n) > F(n+1).</p>
+        </div>
+        <div class="solution" id="solutionBlock17" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(n) — сумма цифр. Условие выполняется только для чисел, оканчивающихся на 9. Количество таких чисел в интервале: 89 699 912.</p>
+                <div class="answer_text"><b>Ответ:</b> 89699912</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1">a<span class="sh_symbol">,</span>b <span class="sh_symbol">=</span> <span class="sh_number">237567892</span><span class="sh_symbol">,</span> <span class="sh_number">1134567009</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_function">len</span><span class="sh_symbol">(</span><span class="sh_function">range</span><span class="sh_symbol">(</span>a<span class="sh_number">+9</span><span class="sh_symbol">-</span>a<span class="sh_symbol">%</span><span class="sh_number">10</span><span class="sh_symbol">,</span> b<span class="sh_number">+1</span><span class="sh_symbol">,</span> <span class="sh_number">10</span><span class="sh_symbol">)))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(17)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 18 (68517) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">18</div>
+            <div class="prob_nums">Тип 16 № 68517 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n): F(1)=1; F(n)=n·F(n–1) при n>1.</p>
+            <p>Чему равно значение выражения (F(2024)−F(2023))/F(2022)?</p>
+        </div>
+        <div class="solution" id="solutionBlock18" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> F(2024)=2024·2023·F(2022), F(2023)=2023·F(2022). Разность = 2023·F(2022)·2023, деление на F(2022) даёт 2023² = 4 092 529.</p>
+                <div class="answer_text"><b>Ответ:</b> 4092529</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1"><span class="sh_keyword">def</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n<span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">==</span> <span class="sh_number">1</span><span class="sh_symbol">:</span>
+        <span class="sh_keyword">return</span> <span class="sh_number">1</span>
+    <span class="sh_keyword">return</span> n <span class="sh_symbol">*</span> <span class="sh_function">F</span><span class="sh_symbol">(</span>n <span class="sh_symbol">-</span> <span class="sh_number">1</span><span class="sh_symbol">)</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">((</span><span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">2024</span><span class="sh_symbol">)</span> <span class="sh_symbol">-</span> <span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">2023</span><span class="sh_symbol">))</span> <span class="sh_symbol">//</span> <span class="sh_function">F</span><span class="sh_symbol">(</span><span class="sh_number">2022</span><span class="sh_symbol">))</span></pre></div>
+                <div class="source_info">Источник: ЕГЭ 09.04.2024</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(18)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 19 (76231) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">19</div>
+            <div class="prob_nums">Тип 16 № 76231 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n): F(1)=1; при n>1: если n чётное: F(n)=2n·F(n−1)+F(n−3); если n нечётное: F(n)=F(n−2)·3.</p>
+            <p>Чему равно значение выражения F(2026)/F(2021)?</p>
+        </div>
+        <div class="solution" id="solutionBlock19" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> После преобразований получаем 36 471.</p>
+                <div class="answer_text"><b>Ответ:</b> 36471</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1">f <span class="sh_symbol">=</span> <span class="sh_symbol">{}</span>
+f<span class="sh_symbol">[</span><span class="sh_number">1</span><span class="sh_symbol">]</span> <span class="sh_symbol">=</span> <span class="sh_number">1</span>
+<span class="sh_keyword">for</span> n <span class="sh_keyword">in</span> <span class="sh_function">range</span><span class="sh_symbol">(</span><span class="sh_number">2</span><span class="sh_symbol">,</span> <span class="sh_number">2030</span><span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">%</span> <span class="sh_number">2</span> <span class="sh_symbol">==</span> <span class="sh_number">0</span><span class="sh_symbol">:</span>
+        f<span class="sh_symbol">[</span>n<span class="sh_symbol">]</span> <span class="sh_symbol">=</span> <span class="sh_number">2</span> <span class="sh_symbol">*</span> n <span class="sh_symbol">*</span> f<span class="sh_symbol">[</span>n<span class="sh_number">-1</span><span class="sh_symbol">]</span> <span class="sh_symbol">+</span> f<span class="sh_symbol">[</span>n<span class="sh_number">-3</span><span class="sh_symbol">]</span>
+    <span class="sh_keyword">else</span><span class="sh_symbol">:</span>
+        f<span class="sh_symbol">[</span>n<span class="sh_symbol">]</span> <span class="sh_symbol">=</span> f<span class="sh_symbol">[</span>n<span class="sh_number">-2</span><span class="sh_symbol">]</span> <span class="sh_symbol">*</span> <span class="sh_number">3</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span>f<span class="sh_symbol">[</span><span class="sh_number">2026</span><span class="sh_symbol">]</span> <span class="sh_symbol">//</span> f<span class="sh_symbol">[</span><span class="sh_number">2021</span><span class="sh_symbol">])</span></pre></div>
+                <div class="source_info">Источник: Пробный ЕГЭ СПб 20.02.2025, вариант 2</div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(19)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 20 (78041) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">20</div>
+            <div class="prob_nums">Тип 16 № 78041 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n): F(n)=1000 при n≤5; F(n)=n+3+F(n−2) при n>5.</p>
+            <p>Чему равно значение выражения 3·F(53079)−(F(53077)+F(53075)+F(53073))?</p>
+        </div>
+        <div class="solution" id="solutionBlock20" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> Вычисление по рекуррентной формуле даёт 318 484.</p>
+                <div class="answer_text"><b>Ответ:</b> 318484</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1">F <span class="sh_symbol">=</span> <span class="sh_symbol">{}</span>
+<span class="sh_keyword">for</span> n <span class="sh_keyword">in</span> <span class="sh_function">range</span><span class="sh_symbol">(</span><span class="sh_number">1</span><span class="sh_symbol">,</span> <span class="sh_number">53080</span><span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&lt;=</span> <span class="sh_number">5</span><span class="sh_symbol">:</span>
+        F<span class="sh_symbol">[</span>n<span class="sh_symbol">]</span> <span class="sh_symbol">=</span> <span class="sh_number">1000</span>
+    <span class="sh_keyword">else</span><span class="sh_symbol">:</span>
+        F<span class="sh_symbol">[</span>n<span class="sh_symbol">]</span> <span class="sh_symbol">=</span> n <span class="sh_symbol">+</span> <span class="sh_number">3</span> <span class="sh_symbol">+</span> F<span class="sh_symbol">[</span>n<span class="sh_number">-2</span><span class="sh_symbol">]</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">(</span><span class="sh_number">3</span> <span class="sh_symbol">*</span> F<span class="sh_symbol">[</span><span class="sh_number">53079</span><span class="sh_symbol">]</span> <span class="sh_symbol">-</span> <span class="sh_symbol">(</span>F<span class="sh_symbol">[</span><span class="sh_number">53077</span><span class="sh_symbol">]</span> <span class="sh_symbol">+</span> F<span class="sh_symbol">[</span><span class="sh_number">53075</span><span class="sh_symbol">]</span> <span class="sh_symbol">+</span> F<span class="sh_symbol">[</span><span class="sh_number">53073</span><span class="sh_symbol">]))</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(20)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 21 (83146) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">21</div>
+            <div class="prob_nums">Тип 16 № 83146 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n): F(n)=n при n≤10; F(n)=n−12+F(n−21) при n>10.</p>
+            <p>Чему равно значение выражения (F(224356)−F(224272))/F(59)?</p>
+        </div>
+        <div class="solution" id="solutionBlock21" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> Вычисление даёт 12 125.</p>
+                <div class="answer_text"><b>Ответ:</b> 12125</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1">F <span class="sh_symbol">=</span> <span class="sh_symbol">{}</span>
+<span class="sh_keyword">for</span> n <span class="sh_keyword">in</span> <span class="sh_function">range</span><span class="sh_symbol">(</span><span class="sh_number">0</span><span class="sh_symbol">,</span> <span class="sh_number">224400</span><span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&lt;=</span> <span class="sh_number">10</span><span class="sh_symbol">:</span>
+        F<span class="sh_symbol">[</span>n<span class="sh_symbol">]</span> <span class="sh_symbol">=</span> n
+    <span class="sh_keyword">else</span><span class="sh_symbol">:</span>
+        F<span class="sh_symbol">[</span>n<span class="sh_symbol">]</span> <span class="sh_symbol">=</span> n <span class="sh_symbol">-</span> <span class="sh_number">12</span> <span class="sh_symbol">+</span> F<span class="sh_symbol">[</span>n <span class="sh_symbol">-</span> <span class="sh_number">21</span><span class="sh_symbol">]</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">((</span>F<span class="sh_symbol">[</span><span class="sh_number">224356</span><span class="sh_symbol">]</span> <span class="sh_symbol">-</span> F<span class="sh_symbol">[</span><span class="sh_number">224272</span><span class="sh_symbol">])</span> <span class="sh_symbol">//</span> F<span class="sh_symbol">[</span><span class="sh_number">59</span><span class="sh_symbol">])</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(21)">Показать решение</button>
+        </div>
+    </div>
+
+    <!-- ЗАДАНИЕ 22 (83174) -->
+    <div class="problem_container">
+        <div class="prob_header">
+            <div class="prob_num">22</div>
+            <div class="prob_nums">Тип 16 № 83174 (1 балл)</div>
+        </div>
+        <div class="problem_text left_margin">
+            <p>Алгоритм вычисления значения функции F(n): F(n)=n при n≤10; F(n)=n−7+F(n−21) при n>10.</p>
+            <p>Чему равно значение выражения (F(185734)−F(185650))/F(40)?</p>
+        </div>
+        <div class="solution" id="solutionBlock22" style="display: none;">
+            <div class="solution_text">
+                <p><b>Решение:</b> Вычисление даёт 17 274.</p>
+                <div class="answer_text"><b>Ответ:</b> 17274</div>
+                <div class="lang_python"><div class="alert_copy_text_done" style="display:none">Код скопирован!</div><div class="copy_icon_inf" onclick="copyToClipboard.call(this, this.nextSibling.textContent.replaceAll(' ', ' ').replaceAll('&nbsp;', ' '))"></div><pre data-formatted="1" class="sh_python sh_sourceCode" data-highlighted="1">F <span class="sh_symbol">=</span> <span class="sh_symbol">{}</span>
+<span class="sh_keyword">for</span> n <span class="sh_keyword">in</span> <span class="sh_function">range</span><span class="sh_symbol">(</span><span class="sh_number">0</span><span class="sh_symbol">,</span> <span class="sh_number">185800</span><span class="sh_symbol">):</span>
+    <span class="sh_keyword">if</span> n <span class="sh_symbol">&lt;=</span> <span class="sh_number">10</span><span class="sh_symbol">:</span>
+        F<span class="sh_symbol">[</span>n<span class="sh_symbol">]</span> <span class="sh_symbol">=</span> n
+    <span class="sh_keyword">else</span><span class="sh_symbol">:</span>
+        F<span class="sh_symbol">[</span>n<span class="sh_symbol">]</span> <span class="sh_symbol">=</span> n <span class="sh_symbol">-</span> <span class="sh_number">7</span> <span class="sh_symbol">+</span> F<span class="sh_symbol">[</span>n <span class="sh_symbol">-</span> <span class="sh_number">21</span><span class="sh_symbol">]</span>
+<span class="sh_keyword">print</span><span class="sh_symbol">((</span>F<span class="sh_symbol">[</span><span class="sh_number">185734</span><span class="sh_symbol">]</span> <span class="sh_symbol">-</span> F<span class="sh_symbol">[</span><span class="sh_number">185650</span><span class="sh_symbol">])</span> <span class="sh_symbol">//</span> F<span class="sh_symbol">[</span><span class="sh_number">40</span><span class="sh_symbol">])</span></pre></div>
+            </div>
+        </div>
+        <div class="task_controls">
+            <button class="btn_show_solution" onclick="toggleSolution(22)">Показать решение</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleSolution(problemNumber) {
+    const solution = document.getElementById('solutionBlock' + problemNumber);
+    const btns = document.querySelectorAll('.btn_show_solution');
+    let btn = null;
+    for (let i = 0; i < btns.length; i++) {
+        if (btns[i].getAttribute('onclick').indexOf(problemNumber) !== -1) {
+            btn = btns[i];
+            break;
+        }
+    }
+    if (solution.style.display === 'none' || solution.style.display === '') {
+        solution.style.display = 'block';
+        btn.textContent = 'Скрыть решение';
+    } else {
+        solution.style.display = 'none';
+        btn.textContent = 'Показать решение';
+    }
+}
+</script>
+</body>
+</html>
